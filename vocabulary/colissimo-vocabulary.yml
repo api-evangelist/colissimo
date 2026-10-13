@@ -1,0 +1,393 @@
+generated: '2026-10-13'
+method: derived
+generator: derive-vocabulary.py
+source: openapi/colissimo-sls-openapi.yml
+vocabulary:
+  name: Colissimo Domain Vocabulary
+  description: 'Terms declared by Colissimo''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-13'
+  terms:
+  - term: Address
+    definition: SUB
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/Address
+  - term: Addressee
+    definition: SUB
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/Addressee
+  - term: Article
+    definition: SUB The block can be repeated up to 100 times.Le bloc article peut être répété jusqu’à 100 fois.
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/Article
+  - term: Category
+    definition: SUB Mandatory for products subject to a CN23 form. Block containing the tag related to the nature of the shipment.Bloc contenant
+      la balise liée à la nature de l’envoi. Obligatoire pour les produits soumis à la CN23.
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/Category
+  - term: CheckGenerateLabelRequest
+    definition: 'Object declared by the contract with fields: contractNumber, password, letter, outputFormat, fields, customizationFields.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/CheckGenerateLabelRequest
+  - term: Contents
+    definition: This block represents the type of shipment and list of articles to declare.Mandatory if articles are eligible for the CN23 form.Ce
+      bloc représente la nature de l’envoi et liste des articles à déclarer. Obligatoire si les envois sont éligibles à la CN23.
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/Contents
+  - term: CustomizationField
+    definition: 'Object declared by the contract with fields: type, x, y, taille, value.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/CustomizationField
+  - term: CustomizationFields
+    definition: SUB Ce bloc peut être utilisé pour personnaliser la partie inféririeure de l'étiquette
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/CustomizationFields
+  - term: CustomizationTemplate
+    definition: 'Object declared by the contract with fields: customizableReferenceKey, customizableReferenceValue.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/CustomizationTemplate
+  - term: CustomsDeclarations
+    definition: SUB These parameters are mandatory only for destinations requiring a CN23 customs declaration.Ces paramètres ne sont obligatoires
+      que pour les destinations nécessitant une déclaration douanière de type CN23.
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/CustomsDeclarations
+  - term: Field
+    definition: 'Object declared by the contract with fields: key, value.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/Field
+  - term: Fields
+    definition: SUB Ce bloc peut être utilisé pour renseigner l’identifiant -Gestion des utilisateurs -Colissimo Pass ID - GST - EORI
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/Fields
+  - term: Letter
+    definition: 'SUB This block contains tags and blocks related to the shipment (options, parcel, sender, addressee, customs).List sub-bocks
+      (described below): Service: type of product and prices, Parcel: insurances and options, Sender: sender,Addressee: addressee, CustomsDeclarations:
+      customs.Ce bloc contient des balises et blocs liés à l’expédition (options, colis, expéditeur, destinataire, douanes).Liste des s'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/Letter
+  - term: Original
+    definition: Mandatory for 7R and 5R return products. Block containing Original data set(s).Up to 5 Original data sets are approved. Packages
+      are identified all together with the 5 Original sets Bloc contenant le (ou les) set(s) de données Original. Obligatoire pour les produits
+      retours inter (7R) hors UE et 5R (OM). Au plus 5 sets de données Original sont agréés. Les colis sont identifiés selon l’ensemble
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/Original
+  - term: OutputFormat
+    definition: SUB This block contains the sub-tags linked to the format of the data sent by the Web ServiceCe bloc contient les balises liées
+      au format des éditions renvoyées par le Web Service.
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/OutputFormat
+  - term: ParcelRequestV2
+    definition: SUB
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/ParcelRequestV2
+  - term: Sender
+    definition: SUB
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/Sender
+  - term: Service
+    definition: SUB
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/Service
+  - term: GenerateLabelRequest
+    definition: 'Object declared by the contract with fields: contractNumber, password, outputFormat, letter, fields, customizationFields.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/GenerateLabelRequest
+  - term: EntityTag
+    definition: 'Object declared by the contract with fields: value, weak.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/EntityTag
+  - term: Link
+    definition: 'Object declared by the contract with fields: type, uriBuilder, rel, rels, title, params, uri.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/Link
+  - term: MediaType
+    definition: 'Object declared by the contract with fields: type, subtype, parameters, wildcardType, wildcardSubtype.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/MediaType
+  - term: MultivaluedMapStringObject
+    definition: 'Object declared by the contract with fields: empty.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/MultivaluedMapStringObject
+  - term: MultivaluedMapStringString
+    definition: 'Object declared by the contract with fields: empty.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/MultivaluedMapStringString
+  - term: NewCookie
+    definition: 'Object declared by the contract with fields: name, value, version, path, domain, comment, maxAge, expiry, secure, httpOnly, sameSite.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/NewCookie
+  - term: Response
+    definition: 'Object declared by the contract with fields: length, location, language, date, lastModified, stringHeaders, closed, metadata,
+      status, mediaType, cookies, allowedMethods. (5 more)'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/Response
+  - term: StatusType
+    definition: 'Object declared by the contract with fields: family, reasonPhrase, statusCode.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/StatusType
+  - term: GetLabelGpRequest
+    definition: 'Object declared by the contract with fields: contractNumber, password, pickupCodeParcelNum, format, regateCode, formatCn23.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/GetLabelGpRequest
+  - term: GenerateCN23Request
+    definition: 'Object declared by the contract with fields: contractNumber, password, letter, fields.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/GenerateCN23Request
+  - term: GetListMailBoxPickingDatesRetourRequest
+    definition: 'Object declared by the contract with fields: contractNumber, password, sender.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/GetListMailBoxPickingDatesRetourRequest
+  - term: GetListMailBoxPickingDatesSender
+    definition: SUB Block containing sender's addressBloc contenant les coordonnées du déposant en retour.
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/GetListMailBoxPickingDatesSender
+  - term: GetLabelInternalRequest
+    definition: 'Object declared by the contract with fields: contractNumber, password, parcelNumber, outputPrintingType.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/GetLabelInternalRequest
+  - term: CheckInfoPlanPickupResponse
+    definition: 'Object declared by the contract with fields: messages, isValid.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/CheckInfoPlanPickupResponse
+  - term: Message
+    definition: 'Object declared by the contract with fields: id, type, messageContent.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/Message
+  - term: CheckInfoPlanPickupInternalRequest
+    definition: 'Object declared by the contract with fields: parcelNumber, mailBoxPickingDate, sender.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/CheckInfoPlanPickupInternalRequest
+  - term: PlanPickupSender
+    definition: SUB Block containing sender's addressBloc contenant les coordonnées du déposant en retour.
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/PlanPickupSender
+  - term: ListMailBoxPickingDatesRetourOnlineResponse
+    definition: 'Object declared by the contract with fields: messages, mailBoxPickingDateMaxHour, mailBoxPickingDates, validityTime.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/ListMailBoxPickingDatesRetourOnlineResponse
+  - term: PlanPickupResponse
+    definition: 'Object declared by the contract with fields: messages.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/PlanPickupResponse
+  - term: PlanPickupRequest
+    definition: 'Object declared by the contract with fields: contractNumber, password, parcelNumber, mailBoxPickingDate, sender.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/PlanPickupRequest
+  - term: ActivationDataFlavor
+    definition: 'Object declared by the contract with fields: mimeType, humanPresentableName.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/ActivationDataFlavor
+  - term: AddressPCH
+    definition: 'Object declared by the contract with fields: line0, line1, line2, line3, zipCode, city, countryCode.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/AddressPCH
+  - term: AddressPickupLocation
+    definition: 'Object declared by the contract with fields: line1, line2, line3, line4, zipCode, city, countryCode, countryLabel.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/AddressPickupLocation
+  - term: BelgiumLabel
+    definition: 'Object declared by the contract with fields: codeVAS, identification, codeBarre, returnAddress.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/BelgiumLabel
+  - term: CodeVAS
+    definition: 'Object declared by the contract with fields: mention, deliveryMode, reserve, signature.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/CodeVAS
+  - term: CommandInfo
+    definition: 'Object declared by the contract with fields: commandClass, commandName.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/CommandInfo
+  - term: CommandMap
+    definition: 'Object declared by the contract with fields: mimeTypes.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/CommandMap
+  - term: DataHandler
+    definition: 'Object declared by the contract with fields: dataSource, name, inputStream, content, commandMap, transferDataFlavors, preferredCommands,
+      allCommands, contentType, outputStream.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/DataHandler
+  - term: DataSource
+    definition: 'Object declared by the contract with fields: name, inputStream, contentType, outputStream.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/DataSource
+  - term: ElementVisual
+    definition: 'Object declared by the contract with fields: name, shortcut, position.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/ElementVisual
+  - term: GenerateLabelV2Response
+    definition: 'Object declared by the contract with fields: messages, labelXmlV2Reponse, labelV2Response.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/GenerateLabelV2Response
+  - term: LabelV2Response
+    definition: 'Object declared by the contract with fields: parcelNumber, parcelNumberPartner, pdfUrl, fields.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/LabelV2Response
+  - term: MessageRest
+    definition: 'Object declared by the contract with fields: id, type, messageContent, replacementValues.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/MessageRest
+  - term: PickupLocation
+    definition: 'Object declared by the contract with fields: pointId, name, address, groupRouting, serviceLabel, sortDistribution, routingZipCode,
+      netWork, idPartenaire, routingFileVersion.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/PickupLocation
+  - term: ReplacementValue
+    definition: 'Object declared by the contract with fields: field, value, key, translatable.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/ReplacementValue
+  - term: ReturnAddressBelgium
+    definition: 'Object declared by the contract with fields: mention, line1, line2.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/ReturnAddressBelgium
+  - term: Routing
+    definition: 'Object declared by the contract with fields: destinationCountry, serviceText, depotDest, serviceMark, sortOrigin, groupingPriorityLabel,
+      sortDest, barcodeId, routingVersion, destinationCountryText, partnerType, barcodePostcode. (17 more)'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/Routing
+  - term: Site
+    definition: 'Object declared by the contract with fields: code, name, address, rdepot.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/Site
+  - term: SwissLabel
+    definition: 'Object declared by the contract with fields: injectionSite, signatureOption, codeSwissPost, swissParcelNumber.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/SwissLabel
+  - term: XmlV2Response
+    definition: 'Object declared by the contract with fields: parcelNumber, parcelNumberPartner, contractNumber, sitePCH, pickupLocation, sender,
+      addressee, routing, zoneRouting, belgiumLabel, barCodePCH, numberPCH. (8 more)'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/XmlV2Response
+  - term: ZoneCABRoutage
+    definition: 'Object declared by the contract with fields: barCodeRouting, parcelNumberRouting.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/ZoneCABRoutage
+  - term: ZoneInfosRoutage
+    definition: 'Object declared by the contract with fields: trackingNumberRouting, controlKeyTrackingNumber, getrDepot, identificationDestination1,
+      identificationDestination2, serviceMark, typeServiceLivraison, sortOrigin, sortDest, routingVersion, datePrinting, hourPrinting. (2 more)'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/ZoneInfosRoutage
+  - term: ZoneRouting
+    definition: 'Object declared by the contract with fields: zoneCABRoutage, zoneInfosRoutage.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/ZoneRouting
+  - term: GenerateBordereauByParcelsNumbersRequest
+    definition: 'Object declared by the contract with fields: contractNumber, password, generateBordereauParcelNumberList, fields.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/GenerateBordereauByParcelsNumbersRequest
+  - term: generateBordereauParcelNumberList
+    definition: List of parcel numbersListe de numéros de colis
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/generateBordereauParcelNumberList
+  - term: GetLabelRequest
+    definition: 'Object declared by the contract with fields: parcelNumber, outputPrintingType.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/GetLabelRequest
+  - term: GetListMailBoxPickingDatesResponse
+    definition: 'Object declared by the contract with fields: messages, mailBoxPickingDateMaxHour, mailBoxPickingDates, validityTime.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/GetListMailBoxPickingDatesResponse
+  - term: GetProductInterResponse
+    definition: 'Object declared by the contract with fields: messages, product, partnerType, returnTypeChoice.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/GetProductInterResponse
+  - term: GetProductInterRequest
+    definition: 'Object declared by the contract with fields: contractNumber, password, productCode, insurance, nonMachinable, returnReceipt,
+      countryCode, zipCode, city.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/GetProductInterRequest
+  - term: GenerateLabelRequestV3
+    definition: 'Object declared by the contract with fields: contractNumber, password, outputFormat, letter, fields, customizationFields.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/GenerateLabelRequestV3
+  - term: GenerateLabelRequestV31
+    definition: 'Object declared by the contract with fields: contractNumber, password, outputFormat, letter, fields, customizationFields.'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/GenerateLabelRequestV31
+  - term: LetterRequestV31
+    definition: 'SUB This block contains tags and blocks related to the shipment (options, parcel, sender, addressee, customs).List sub-bocks
+      (described below): Service: type of product and prices, Parcel: insurances and options, Sender: sender,Addressee: addressee, CustomsDeclarations:
+      customs.Ce bloc contient des balises et blocs liés à l’expédition (options, colis, expéditeur, destinataire, douanes).Liste des s'
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/LetterRequestV31
+  - term: ParcelRequestV31
+    definition: SUB
+    tags:
+    - Object
+    source: openapi/colissimo-sls-openapi.yml#/components/schemas/ParcelRequestV31
+  - term: 'SlsServiceWS : documentation'
+    definition: 'Resource group in the contract; its operation POST /checkGenerateLabel: Data control without label generationContrôle des données
+      sans génération d''étiquette'
+    tags:
+    - Resource Group
+    source: openapi/colissimo-sls-openapi.yml

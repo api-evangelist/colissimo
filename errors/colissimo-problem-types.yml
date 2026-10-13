@@ -1,0 +1,46 @@
+generated: '2026-10-13'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/colissimo-sls-openapi.yml
+format: custom
+envelope:
+  media_type: application/json;charset=UTF-8
+  schema: CheckInfoPlanPickupResponse
+coverage:
+  operations: 12
+  statuses_declared: 5
+problems:
+- status: 400
+  title: Bad Request
+  description: <lang><en>Functional error</en><fr>Erreur fonctionnel</fr></lang>
+  operations: 4
+  media_types: []
+  schema: null
+- status: 403
+  title: Forbidden
+  description: <lang><en>Token KO or Unauthorized access. (sid non-existent or customer account inactive or customer
+    terminated)</en><fr>Token KO ou Acc&eg
+  operations: 4
+  media_types: []
+  schema: null
+- status: 422
+  title: Unprocessable Content
+  description: <lang><en>The JSON input to the service is badly formatted</en><fr>Le JSON en entrée du service est
+    mal formatté</fr></lang>
+  operations: 4
+  media_types: []
+  schema: null
+- status: 500
+  title: Internal Server Error
+  description: <lang><en>Technical error or server error</en><fr>Erreur Technique ou erreur serveur</fr></lang>
+  operations: 4
+  media_types: []
+  schema: null
+- status: default
+  title: null
+  description: default response
+  operations: 3
+  media_types:
+  - application/json;charset=UTF-8
+  schema: CheckInfoPlanPickupResponse

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/colissimo/main/json-schema/colissimo-get-product-inter-request-schema.json",
+  "title": "GetProductInterRequest",
+  "x-generated": "2026-10-13",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/colissimo-sls-openapi.yml#/components/schemas/GetProductInterRequest",
+  "required": [
+    "productCode"
+  ],
+  "type": "object",
+  "properties": {
+    "contractNumber": {
+      "type": "string",
+      "description": "<i>AN</i> <br/>  <lang><en>Deprecated. Use apikey instead as explained in \"Acess to the Web Service SLS/API Authentication\".</en><fr>Obsolète. Utiliser l'apikey à la place comme expliqué dans \"Accès au Web Service SLS/Authentification API\".</fr></lang>"
+    },
+    "password": {
+      "type": "string",
+      "description": "<i>AN</i> <br/>  <lang><en>Deprecated. Use apikey instead as explained in \"Acess to the Web Service SLS/API Authentication\".</en><fr>Obsolète. Utiliser l'apikey à la place comme expliqué dans \"Accès au Web Service SLS/Authentification API\".</fr></lang>"
+    },
+    "productCode": {
+      "type": "string",
+      "description": "<i>A</i> <br/>  <lang><en></en><fr></fr></lang>"
+    },
+    "insurance": {
+      "type": "boolean",
+      "description": "<i>B</i> <br/>  <lang><en>Assured Value. <br/><br/> By default, enter \"false\" (or \"0\").</en><fr>Valeur Assur&eacute;e.<br/><br/> Par défaut passer à \"false\" (ou \"0\"). </fr></lang>"
+    },
+    "nonMachinable": {
+      "type": "boolean",
+      "description": "<i>B</i> <br/>  <lang><en>Parcel format. <br/><br/> By default, enter \"false\" (or \"0\"). <br/><br/>   Enter \"true\" (or \"1\") to indicate that the parcel format is nonstandard (non-machinable). </en><fr>Format du colis. <br/><br/> Par défaut, passer à \"false\" (ou \"0\"). <br/><br/>Passer à \"true\" (ou \"1\") pour indiquer que le format du colis est non standard (non mécanisable). </fr></lang>"
+    },
+    "returnReceipt": {
+      "type": "boolean",
+      "description": "<i>B</i> <br/>  <lang><en>Advice of receipt.<br/><br/> By default, enter \"false\" (or \"0\"). </en><fr>Avis de réception. <br/><br/> Par défaut, passer à \"false\" (ou \"0\"). </fr></lang>"
+    },
+    "countryCode": {
+      "type": "string",
+      "description": "<i>A2</i> <br/>  <lang><en>ISO code of the country of destination.<br/><br/>Example: \"DE\" for Germany.</en><fr>Code ISO du pays de destination <br/><br/> Exemple : « DE » pour Allemagne. </fr></lang>"
+    },
+    "zipCode": {
+      "type": "string",
+      "description": "<i>AN</i> <br/>  <lang><en>Addressee postcode.</en><fr>Code postal de destination.</fr></lang>"
+    },
+    "city": {
+      "type": "string",
+      "description": "<i>AN35</i> <br/>  <lang><en>Not used (La Poste internal use only)</en><fr>Non utilisé (usage interne à la poste seulement)</fr></lang>"
+    }
+  }
+}

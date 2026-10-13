@@ -1,0 +1,13 @@
+generated: '2026-10-13'
+method: generated
+generator: finish-artifacts.py (index from skill frontmatter)
+source: skills/*.md frontmatter; every operationId checked against openapi/
+skills:
+- file: skills/generate-colissimo-shipping-label.md
+  name: generate-colissimo-shipping-label
+  api: colissimo:colissimo-sls-api
+  operations:
+  - generateToken_1
+  - checkGenerateLabel_1
+  - generateLabel_1
+  - generateCN23_1

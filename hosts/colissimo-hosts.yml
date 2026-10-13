@@ -1,0 +1,94 @@
+generated: '2026-10-13'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 7
+  own: 4
+  other_domain: 3
+  platform: 0
+  roles:
+  - api
+  - docs
+  - other
+  - portal
+  - security
+  - status
+  - website
+hosts:
+- host: api.colissimo.fr
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: colissimo.fr
+  role: api
+  relation: own
+- host: status.colissimo.fr
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
+  types:
+  - StatusPage
+  serves: []
+  registrable_domain: colissimo.fr
+  role: status
+  relation: own
+- host: vdp.laposte.fr
+  found_by:
+  - pointer
+  types:
+  - Security
+  serves: []
+  registrable_domain: laposte.fr
+  role: security
+  relation: other-domain
+- host: ws.colissimo.fr
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: colissimo.fr
+  role: other
+  relation: own
+- host: www.applications.colissimo.entreprise.laposte.fr
+  found_by:
+  - pointer
+  - apis[]
+  types:
+  - Documentation
+  serves:
+  - docs
+  registrable_domain: laposte.fr
+  role: docs
+  relation: other-domain
+- host: www.colissimo.entreprise.laposte.fr
+  found_by:
+  - pointer
+  types:
+  - DeveloperPortal
+  - Support
+  - TermsOfService
+  serves: []
+  registrable_domain: laposte.fr
+  role: portal
+  relation: other-domain
+- host: www.colissimo.fr
+  found_by:
+  - pointer
+  - probed
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - Website
+  serves:
+  - cdn
+  vendor: akamai
+  registrable_domain: colissimo.fr
+  role: website
+  relation: own

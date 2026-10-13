@@ -1,0 +1,410 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://v2.pointretrait.geopost.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="PointRetraitServiceWSService" targetNamespace="http://v2.pointretrait.geopost.com/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="pointretrait.geopost.com" targetNamespace="v2.pointretrait.geopost.com" version="1.0">
+
+  <xs:import namespace="pointretrait.geopost.com"/>
+
+  <xs:complexType name="PointRetrait">
+    <xs:complexContent>
+      <xs:extension base="ns1:PointRetrait">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codePays" type="xs:string"/>
+          <xs:element minOccurs="0" name="langue" type="xs:string"/>
+          <xs:element minOccurs="0" name="libellePays" type="xs:string"/>
+          <xs:element name="loanOfHandlingTool" type="xs:boolean"/>
+          <xs:element name="parking" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="reseau" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="DropOffPoint">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="accessibleForReducedMobility" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="addressLine1" type="xs:string"/>
+      <xs:element minOccurs="0" name="addressLine2" type="xs:string"/>
+      <xs:element minOccurs="0" name="addressLine3" type="xs:string"/>
+      <xs:element minOccurs="0" name="city" type="xs:string"/>
+      <xs:element minOccurs="0" name="countryCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="countryLabel" type="xs:string"/>
+      <xs:element minOccurs="0" name="displayLanguage" type="xs:string"/>
+      <xs:element name="distanceInMeters" type="xs:int"/>
+      <xs:element minOccurs="0" name="distributionNetwork" type="xs:string"/>
+      <xs:element minOccurs="0" name="geoLatitude" type="xs:string"/>
+      <xs:element minOccurs="0" name="geoLongitude" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="holidaysList" nillable="true" type="ns1:Conges"/>
+      <xs:element minOccurs="0" name="loanOfHandlingTool" type="xs:boolean"/>
+      <xs:element name="maxWeight" type="xs:int"/>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="openingHoursFriday" type="xs:string"/>
+      <xs:element minOccurs="0" name="openingHoursMonday" type="xs:string"/>
+      <xs:element minOccurs="0" name="openingHoursSaturday" type="xs:string"/>
+      <xs:element minOccurs="0" name="openingHoursSunday" type="xs:string"/>
+      <xs:element minOccurs="0" name="openingHoursThursday" type="xs:string"/>
+      <xs:element minOccurs="0" name="openingHoursTuesday" type="xs:string"/>
+      <xs:element minOccurs="0" name="openingHoursWednesday" type="xs:string"/>
+      <xs:element minOccurs="0" name="parking" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="partialClosure" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="pointId" type="xs:string"/>
+      <xs:element minOccurs="0" name="pointType" type="xs:string"/>
+      <xs:element minOccurs="0" name="schedulePeriodEnd" type="xs:string"/>
+      <xs:element minOccurs="0" name="schedulePeriodStart" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="serviceDepotType" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="totalClosure" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="zipCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="pointretrait.geopost.com" targetNamespace="pointretrait.geopost.com" version="1.0">
+
+  <xs:complexType name="PointRetrait">
+    <xs:sequence>
+      <xs:element name="accesPersonneMobiliteReduite" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="adresse1" type="xs:string"/>
+      <xs:element minOccurs="0" name="adresse2" type="xs:string"/>
+      <xs:element minOccurs="0" name="adresse3" type="xs:string"/>
+      <xs:element minOccurs="0" name="codePostal" type="xs:string"/>
+      <xs:element name="congesPartiel" type="xs:boolean"/>
+      <xs:element name="congesTotal" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="coordGeolocalisationLatitude" type="xs:string"/>
+      <xs:element minOccurs="0" name="coordGeolocalisationLongitude" type="xs:string"/>
+      <xs:element name="distanceEnMetre" type="xs:int"/>
+      <xs:element minOccurs="0" name="horairesOuvertureDimanche" type="xs:string"/>
+      <xs:element minOccurs="0" name="horairesOuvertureJeudi" type="xs:string"/>
+      <xs:element minOccurs="0" name="horairesOuvertureLundi" type="xs:string"/>
+      <xs:element minOccurs="0" name="horairesOuvertureMardi" type="xs:string"/>
+      <xs:element minOccurs="0" name="horairesOuvertureMercredi" type="xs:string"/>
+      <xs:element minOccurs="0" name="horairesOuvertureSamedi" type="xs:string"/>
+      <xs:element minOccurs="0" name="horairesOuvertureVendredi" type="xs:string"/>
+      <xs:element minOccurs="0" name="identifiant" type="xs:string"/>
+      <xs:element minOccurs="0" name="indiceDeLocalisation" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="listeConges" nillable="true" type="tns:Conges"/>
+      <xs:element minOccurs="0" name="localite" type="xs:string"/>
+      <xs:element minOccurs="0" name="nom" type="xs:string"/>
+      <xs:element minOccurs="0" name="periodeActiviteHoraireDeb" type="xs:string"/>
+      <xs:element minOccurs="0" name="periodeActiviteHoraireFin" type="xs:string"/>
+      <xs:element name="poidsMaxi" type="xs:int"/>
+      <xs:element minOccurs="0" name="typeDePoint" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Conges">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="calendarDeDebut" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="calendarDeFin" type="xs:dateTime"/>
+      <xs:element name="numero" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://v2.pointretrait.geopost.com/" xmlns:ns1="v2.pointretrait.geopost.com" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://v2.pointretrait.geopost.com/">
+  <xs:import namespace="v2.pointretrait.geopost.com"/>
+  <xs:import namespace="pointretrait.geopost.com"/>
+  <xs:element name="findDropOffPoint" type="tns:findDropOffPoint"/>
+  <xs:element name="findDropOffPointResponse" type="tns:findDropOffPointResponse"/>
+  <xs:element name="findPointRetraitAcheminementByID" type="tns:findPointRetraitAcheminementByID"/>
+  <xs:element name="findPointRetraitAcheminementByIDResponse" type="tns:findPointRetraitAcheminementByIDResponse"/>
+  <xs:element name="findRDVPointRetraitAcheminement" type="tns:findRDVPointRetraitAcheminement"/>
+  <xs:element name="findRDVPointRetraitAcheminementByLongitudeLatitude" type="tns:findRDVPointRetraitAcheminementByLongitudeLatitude"/>
+  <xs:element name="findRDVPointRetraitAcheminementByLongitudeLatitudeResponse" type="tns:findRDVPointRetraitAcheminementByLongitudeLatitudeResponse"/>
+  <xs:element name="findRDVPointRetraitAcheminementByToken" type="tns:findRDVPointRetraitAcheminementByToken"/>
+  <xs:element name="findRDVPointRetraitAcheminementByTokenResponse" type="tns:findRDVPointRetraitAcheminementByTokenResponse"/>
+  <xs:element name="findRDVPointRetraitAcheminementResponse" type="tns:findRDVPointRetraitAcheminementResponse"/>
+  <xs:complexType name="findRDVPointRetraitAcheminement">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="accountNumber" type="xs:string"/>
+      <xs:element minOccurs="0" name="password" type="xs:string"/>
+      <xs:element default="" minOccurs="0" name="apikey" nillable="true" type="xs:string"/>
+      <xs:element default="" minOccurs="0" name="codTiersPourPartenaire" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="address" type="xs:string"/>
+      <xs:element minOccurs="0" name="zipCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="city" type="xs:string"/>
+      <xs:element minOccurs="0" name="countryCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="weight" type="xs:string"/>
+      <xs:element minOccurs="0" name="shippingDate" type="xs:string"/>
+      <xs:element minOccurs="0" name="filterRelay" type="xs:string"/>
+      <xs:element minOccurs="0" name="requestId" type="xs:string"/>
+      <xs:element minOccurs="0" name="lang" type="xs:string"/>
+      <xs:element minOccurs="0" name="optionInter" type="xs:string"/>
+      <xs:element default="" minOccurs="0" name="origin" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findRDVPointRetraitAcheminementResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:rdvPointRetraitAcheminementResult"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="rdvPointRetraitAcheminementResult">
+    <xs:complexContent>
+      <xs:extension base="tns:pointRetraitAcheminementResult">
+        <xs:sequence>
+          <xs:element name="rdv" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="pointRetraitAcheminementResult">
+    <xs:sequence>
+      <xs:element name="errorCode" type="xs:int"/>
+      <xs:element minOccurs="0" name="errorMessage" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="listePointRetraitAcheminement" nillable="true" type="tns:pointRetraitAcheminement"/>
+      <xs:element name="qualiteReponse" type="xs:int"/>
+      <xs:element minOccurs="0" name="wsRequestId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="pointRetraitAcheminement">
+    <xs:complexContent>
+      <xs:extension base="ns1:PointRetrait">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="distributionSort" type="xs:string"/>
+          <xs:element minOccurs="0" name="lotAcheminement" type="xs:string"/>
+          <xs:element minOccurs="0" name="versionPlanTri" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="findRDVPointRetraitAcheminementByToken">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="token" type="xs:string"/>
+      <xs:element minOccurs="0" name="address" type="xs:string"/>
+      <xs:element minOccurs="0" name="zipCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="city" type="xs:string"/>
+      <xs:element minOccurs="0" name="countryCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="weight" type="xs:string"/>
+      <xs:element minOccurs="0" name="shippingDate" type="xs:string"/>
+      <xs:element minOccurs="0" name="filterRelay" type="xs:string"/>
+      <xs:element minOccurs="0" name="requestId" type="xs:string"/>
+      <xs:element minOccurs="0" name="lang" type="xs:string"/>
+      <xs:element minOccurs="0" name="optionInter" type="xs:string"/>
+      <xs:element default="" minOccurs="0" name="origin" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findRDVPointRetraitAcheminementByTokenResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:rdvPointRetraitAcheminementResult"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findRDVPointRetraitAcheminementByLongitudeLatitude">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="accountNumber" type="xs:string"/>
+      <xs:element minOccurs="0" name="password" type="xs:string"/>
+      <xs:element default="" minOccurs="0" name="apikey" nillable="true" type="xs:string"/>
+      <xs:element default="" minOccurs="0" name="clientCode" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="longitude" type="xs:string"/>
+      <xs:element minOccurs="0" name="latitude" type="xs:string"/>
+      <xs:element minOccurs="0" name="weight" type="xs:string"/>
+      <xs:element minOccurs="0" name="shippingDate" type="xs:string"/>
+      <xs:element minOccurs="0" name="filterRelay" type="xs:string"/>
+      <xs:element minOccurs="0" name="requestId" type="xs:string"/>
+      <xs:element minOccurs="0" name="lang" type="xs:string"/>
+      <xs:element minOccurs="0" name="optionInter" type="xs:string"/>
+      <xs:element default="" minOccurs="0" name="origin" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findRDVPointRetraitAcheminementByLongitudeLatitudeResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:rdvPointRetraitAcheminementResult"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findDropOffPoint">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apikey" type="xs:string"/>
+      <xs:element default="" minOccurs="0" name="clientCode" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="address" type="xs:string"/>
+      <xs:element minOccurs="0" name="zipCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="city" type="xs:string"/>
+      <xs:element minOccurs="0" name="countryCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="weight" type="xs:string"/>
+      <xs:element minOccurs="0" name="returnDate" type="xs:string"/>
+      <xs:element minOccurs="0" name="typeDropOffPoint" type="xs:string"/>
+      <xs:element minOccurs="0" name="requestId" type="xs:string"/>
+      <xs:element default="" minOccurs="0" name="origin" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findDropOffPointResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:dropOffPointResult"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dropOffPointResult">
+    <xs:sequence>
+      <xs:element name="errorCode" type="xs:int"/>
+      <xs:element minOccurs="0" name="errorMessage" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="listDropOffPoint" nillable="true" type="ns1:DropOffPoint"/>
+      <xs:element name="qualityReponse" type="xs:int"/>
+      <xs:element minOccurs="0" name="wsRequestId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findPointRetraitAcheminementByID">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="accountNumber" type="xs:string"/>
+      <xs:element minOccurs="0" name="password" type="xs:string"/>
+      <xs:element default="" minOccurs="0" name="apikey" nillable="true" type="xs:string"/>
+      <xs:element default="" minOccurs="0" name="codTiersPourPartenaire" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+      <xs:element minOccurs="0" name="date" type="xs:string"/>
+      <xs:element minOccurs="0" name="weight" type="xs:string"/>
+      <xs:element minOccurs="0" name="filterRelay" type="xs:string"/>
+      <xs:element minOccurs="0" name="reseau" type="xs:string"/>
+      <xs:element minOccurs="0" name="langue" type="xs:string"/>
+      <xs:element default="" minOccurs="0" name="origin" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findPointRetraitAcheminementByIDResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:pointRetraitAcheminementByIDResult"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="pointRetraitAcheminementByIDResult">
+    <xs:sequence>
+      <xs:element name="errorCode" type="xs:int"/>
+      <xs:element minOccurs="0" name="errorMessage" type="xs:string"/>
+      <xs:element minOccurs="0" name="pointRetraitAcheminement" type="tns:pointRetraitAcheminement"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Exception" type="tns:Exception"/>
+  <xs:complexType name="Exception">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="findRDVPointRetraitAcheminementByToken">
+    <wsdl:part element="tns:findRDVPointRetraitAcheminementByToken" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findPointRetraitAcheminementByIDResponse">
+    <wsdl:part element="tns:findPointRetraitAcheminementByIDResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findRDVPointRetraitAcheminementResponse">
+    <wsdl:part element="tns:findRDVPointRetraitAcheminementResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findDropOffPoint">
+    <wsdl:part element="tns:findDropOffPoint" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findRDVPointRetraitAcheminement">
+    <wsdl:part element="tns:findRDVPointRetraitAcheminement" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findRDVPointRetraitAcheminementByLongitudeLatitude">
+    <wsdl:part element="tns:findRDVPointRetraitAcheminementByLongitudeLatitude" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findRDVPointRetraitAcheminementByLongitudeLatitudeResponse">
+    <wsdl:part element="tns:findRDVPointRetraitAcheminementByLongitudeLatitudeResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findDropOffPointResponse">
+    <wsdl:part element="tns:findDropOffPointResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findRDVPointRetraitAcheminementByTokenResponse">
+    <wsdl:part element="tns:findRDVPointRetraitAcheminementByTokenResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findPointRetraitAcheminementByID">
+    <wsdl:part element="tns:findPointRetraitAcheminementByID" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PointRetraitServiceWS">
+<wsdl:documentation>SO Colissimo (mon Service mes Options) WEB Service Point Retrait [Version 2]</wsdl:documentation>
+    <wsdl:operation name="findRDVPointRetraitAcheminement">
+      <wsdl:input message="tns:findRDVPointRetraitAcheminement" name="findRDVPointRetraitAcheminement">
+    </wsdl:input>
+      <wsdl:output message="tns:findRDVPointRetraitAcheminementResponse" name="findRDVPointRetraitAcheminementResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findRDVPointRetraitAcheminementByToken">
+      <wsdl:input message="tns:findRDVPointRetraitAcheminementByToken" name="findRDVPointRetraitAcheminementByToken">
+    </wsdl:input>
+      <wsdl:output message="tns:findRDVPointRetraitAcheminementByTokenResponse" name="findRDVPointRetraitAcheminementByTokenResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="findRDVPointRetraitAcheminementByLongitudeLatitude">
+      <wsdl:input message="tns:findRDVPointRetraitAcheminementByLongitudeLatitude" name="findRDVPointRetraitAcheminementByLongitudeLatitude">
+    </wsdl:input>
+      <wsdl:output message="tns:findRDVPointRetraitAcheminementByLongitudeLatitudeResponse" name="findRDVPointRetraitAcheminementByLongitudeLatitudeResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findDropOffPoint">
+      <wsdl:input message="tns:findDropOffPoint" name="findDropOffPoint">
+    </wsdl:input>
+      <wsdl:output message="tns:findDropOffPointResponse" name="findDropOffPointResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findPointRetraitAcheminementByID">
+      <wsdl:input message="tns:findPointRetraitAcheminementByID" name="findPointRetraitAcheminementByID">
+    </wsdl:input>
+      <wsdl:output message="tns:findPointRetraitAcheminementByIDResponse" name="findPointRetraitAcheminementByIDResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PointRetraitServiceWSServiceSoapBinding" type="tns:PointRetraitServiceWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="findRDVPointRetraitAcheminement">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="findRDVPointRetraitAcheminement">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="findRDVPointRetraitAcheminementResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findRDVPointRetraitAcheminementByToken">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="findRDVPointRetraitAcheminementByToken">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="findRDVPointRetraitAcheminementByTokenResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="findRDVPointRetraitAcheminementByLongitudeLatitude">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="findRDVPointRetraitAcheminementByLongitudeLatitude">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="findRDVPointRetraitAcheminementByLongitudeLatitudeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findDropOffPoint">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="findDropOffPoint">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="findDropOffPointResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findPointRetraitAcheminementByID">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="findPointRetraitAcheminementByID">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="findPointRetraitAcheminementByIDResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PointRetraitServiceWSService">
+    <wsdl:port binding="tns:PointRetraitServiceWSServiceSoapBinding" name="PointRetraitServiceWSPort">
+      <soap:address location="https://ws.colissimo.fr/pointretrait-ws-cxf/PointRetraitServiceWS/2.0"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

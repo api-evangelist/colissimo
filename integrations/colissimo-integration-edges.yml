@@ -1,0 +1,16 @@
+generated: '2026-10-13'
+method: none
+source:
+- https://zapier.com/apps/colissimo/integrations
+- https://n8n.io/integrations/colissimo/
+- https://composio.dev/toolkits/colissimo
+- https://monid.ai/tools/colissimo
+checked:
+- https://composio.dev/toolkits/colissimo
+- https://monid.ai/tools/colissimo
+- https://n8n.io/integrations/colissimo/
+- https://zapier.com/apps/colissimo/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []

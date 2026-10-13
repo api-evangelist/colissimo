@@ -1,0 +1,1145 @@
+{
+  "@context": {
+    "@vocab": "https://colissimo.fr/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "colissimo": "https://colissimo.fr/schema#",
+    "Address": "colissimo:Address",
+    "companyName": {
+      "@id": "colissimo:companyName",
+      "@type": "xsd:string"
+    },
+    "lastName": {
+      "@id": "colissimo:lastName",
+      "@type": "xsd:string"
+    },
+    "firstName": {
+      "@id": "colissimo:firstName",
+      "@type": "xsd:string"
+    },
+    "line0": {
+      "@id": "colissimo:line0",
+      "@type": "xsd:string"
+    },
+    "line1": {
+      "@id": "colissimo:line1",
+      "@type": "xsd:string"
+    },
+    "line2": {
+      "@id": "colissimo:line2",
+      "@type": "xsd:string"
+    },
+    "line3": {
+      "@id": "colissimo:line3",
+      "@type": "xsd:string"
+    },
+    "countryCode": {
+      "@id": "colissimo:countryCode",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "colissimo:city",
+      "@type": "xsd:string"
+    },
+    "zipCode": {
+      "@id": "colissimo:zipCode",
+      "@type": "xsd:string"
+    },
+    "phoneNumber": {
+      "@id": "colissimo:phoneNumber",
+      "@type": "xsd:string"
+    },
+    "mobileNumber": {
+      "@id": "colissimo:mobileNumber",
+      "@type": "xsd:string"
+    },
+    "doorCode1": {
+      "@id": "colissimo:doorCode1",
+      "@type": "xsd:string"
+    },
+    "doorCode2": {
+      "@id": "colissimo:doorCode2",
+      "@type": "xsd:string"
+    },
+    "intercom": {
+      "@id": "colissimo:intercom",
+      "@type": "xsd:string"
+    },
+    "email": {
+      "@id": "colissimo:email",
+      "@type": "xsd:string"
+    },
+    "language": {
+      "@id": "colissimo:language",
+      "@type": "xsd:string"
+    },
+    "stateOrProvinceCode": {
+      "@id": "colissimo:stateOrProvinceCode",
+      "@type": "xsd:string"
+    },
+    "Addressee": "colissimo:Addressee",
+    "addresseeParcelRef": {
+      "@id": "colissimo:addresseeParcelRef",
+      "@type": "xsd:string"
+    },
+    "codeBarForReference": {
+      "@id": "colissimo:codeBarForReference",
+      "@type": "xsd:boolean"
+    },
+    "serviceInfo": {
+      "@id": "colissimo:serviceInfo",
+      "@type": "xsd:string"
+    },
+    "promotionCode": {
+      "@id": "colissimo:promotionCode",
+      "@type": "xsd:string"
+    },
+    "address": {
+      "@id": "colissimo:address",
+      "@type": "@id"
+    },
+    "Article": "colissimo:Article",
+    "description": {
+      "@id": "colissimo:description",
+      "@type": "xsd:string"
+    },
+    "quantity": {
+      "@id": "colissimo:quantity",
+      "@type": "xsd:integer"
+    },
+    "weight": {
+      "@id": "colissimo:weight",
+      "@type": "xsd:decimal"
+    },
+    "value": {
+      "@id": "colissimo:value",
+      "@type": "xsd:decimal"
+    },
+    "hsCode": {
+      "@id": "colissimo:hsCode",
+      "@type": "xsd:string"
+    },
+    "originCountry": {
+      "@id": "colissimo:originCountry",
+      "@type": "xsd:string"
+    },
+    "originCountryLabel": {
+      "@id": "colissimo:originCountryLabel",
+      "@type": "xsd:string"
+    },
+    "currency": {
+      "@id": "colissimo:currency",
+      "@type": "xsd:string"
+    },
+    "artref": {
+      "@id": "colissimo:artref",
+      "@type": "xsd:string"
+    },
+    "originalIdent": {
+      "@id": "colissimo:originalIdent",
+      "@type": "xsd:string"
+    },
+    "vatAmount": {
+      "@id": "colissimo:vatAmount",
+      "@type": "xsd:decimal"
+    },
+    "customsFees": {
+      "@id": "colissimo:customsFees",
+      "@type": "xsd:decimal"
+    },
+    "Category": "colissimo:Category",
+    "CheckGenerateLabelRequest": "colissimo:CheckGenerateLabelRequest",
+    "contractNumber": {
+      "@id": "colissimo:contractNumber",
+      "@type": "xsd:string"
+    },
+    "password": {
+      "@id": "colissimo:password",
+      "@type": "xsd:string"
+    },
+    "letter": {
+      "@id": "colissimo:letter",
+      "@type": "@id"
+    },
+    "outputFormat": {
+      "@id": "colissimo:outputFormat",
+      "@type": "@id"
+    },
+    "fields": {
+      "@id": "colissimo:fields",
+      "@type": "@id"
+    },
+    "customizationFields": {
+      "@id": "colissimo:customizationFields",
+      "@type": "@id"
+    },
+    "Contents": "colissimo:Contents",
+    "article": {
+      "@id": "colissimo:article",
+      "@container": "@list"
+    },
+    "category": {
+      "@id": "colissimo:category",
+      "@type": "@id"
+    },
+    "original": {
+      "@id": "colissimo:original",
+      "@container": "@list"
+    },
+    "explanations": {
+      "@id": "colissimo:explanations",
+      "@type": "xsd:string"
+    },
+    "CustomizationField": "colissimo:CustomizationField",
+    "type": {
+      "@id": "colissimo:type",
+      "@type": "xsd:string"
+    },
+    "x": {
+      "@id": "colissimo:x",
+      "@type": "xsd:integer"
+    },
+    "y": {
+      "@id": "colissimo:y",
+      "@type": "xsd:integer"
+    },
+    "taille": {
+      "@id": "colissimo:taille",
+      "@type": "xsd:string"
+    },
+    "CustomizationFields": "colissimo:CustomizationFields",
+    "reference": {
+      "@id": "colissimo:reference",
+      "@container": "@list"
+    },
+    "customizationField": {
+      "@id": "colissimo:customizationField",
+      "@container": "@list"
+    },
+    "CustomizationTemplate": "colissimo:CustomizationTemplate",
+    "customizableReferenceKey": {
+      "@id": "colissimo:customizableReferenceKey",
+      "@type": "xsd:integer"
+    },
+    "customizableReferenceValue": {
+      "@id": "colissimo:customizableReferenceValue",
+      "@type": "xsd:string"
+    },
+    "CustomsDeclarations": "colissimo:CustomsDeclarations",
+    "includeCustomsDeclarations": {
+      "@id": "colissimo:includeCustomsDeclarations",
+      "@type": "xsd:boolean"
+    },
+    "numberOfCopies": {
+      "@id": "colissimo:numberOfCopies",
+      "@type": "xsd:integer"
+    },
+    "contents": {
+      "@id": "colissimo:contents",
+      "@type": "@id"
+    },
+    "importersReference": {
+      "@id": "colissimo:importersReference",
+      "@type": "xsd:string"
+    },
+    "importersContact": {
+      "@id": "colissimo:importersContact",
+      "@type": "xsd:string"
+    },
+    "officeOrigin": {
+      "@id": "colissimo:officeOrigin",
+      "@type": "xsd:string"
+    },
+    "comments": {
+      "@id": "colissimo:comments",
+      "@type": "xsd:string"
+    },
+    "invoiceNumber": {
+      "@id": "colissimo:invoiceNumber",
+      "@type": "xsd:string"
+    },
+    "licenceNumber": {
+      "@id": "colissimo:licenceNumber",
+      "@type": "xsd:string"
+    },
+    "certificatNumber": {
+      "@id": "colissimo:certificatNumber",
+      "@type": "xsd:string"
+    },
+    "importerAddress": {
+      "@id": "colissimo:importerAddress",
+      "@type": "@id"
+    },
+    "Field": "colissimo:Field",
+    "key": {
+      "@id": "colissimo:key",
+      "@type": "xsd:string"
+    },
+    "Fields": "colissimo:Fields",
+    "field": {
+      "@id": "colissimo:field",
+      "@container": "@list"
+    },
+    "customField": {
+      "@id": "colissimo:customField",
+      "@container": "@list"
+    },
+    "Letter": "colissimo:Letter",
+    "service": {
+      "@id": "colissimo:service",
+      "@type": "@id"
+    },
+    "parcel": {
+      "@id": "colissimo:parcel",
+      "@type": "@id"
+    },
+    "customsDeclarations": {
+      "@id": "colissimo:customsDeclarations",
+      "@type": "@id"
+    },
+    "sender": {
+      "@id": "colissimo:sender",
+      "@type": "@id"
+    },
+    "addressee": {
+      "@id": "colissimo:addressee",
+      "@type": "@id"
+    },
+    "codSenderAddress": {
+      "@id": "colissimo:codSenderAddress",
+      "@type": "@id"
+    },
+    "Original": "colissimo:Original",
+    "originalInvoiceNumber": {
+      "@id": "colissimo:originalInvoiceNumber",
+      "@type": "xsd:string"
+    },
+    "originalInvoiceDate": {
+      "@id": "colissimo:originalInvoiceDate",
+      "@type": "xsd:dateTime"
+    },
+    "originalParcelNumber": {
+      "@id": "colissimo:originalParcelNumber",
+      "@type": "xsd:string"
+    },
+    "OutputFormat": "colissimo:OutputFormat",
+    "outputPrintingType": {
+      "@id": "colissimo:outputPrintingType",
+      "@type": "xsd:string"
+    },
+    "dematerialized": {
+      "@id": "colissimo:dematerialized",
+      "@type": "xsd:boolean"
+    },
+    "returnType": {
+      "@id": "colissimo:returnType",
+      "@type": "xsd:string"
+    },
+    "printCODDocument": {
+      "@id": "colissimo:printCODDocument",
+      "@type": "xsd:boolean"
+    },
+    "ParcelRequestV2": "colissimo:ParcelRequestV2",
+    "parcelNumber": {
+      "@id": "colissimo:parcelNumber",
+      "@type": "xsd:string"
+    },
+    "insuranceAmount": {
+      "@id": "colissimo:insuranceAmount",
+      "@type": "xsd:integer"
+    },
+    "insuranceValue": {
+      "@id": "colissimo:insuranceValue",
+      "@type": "xsd:integer"
+    },
+    "recommendationLevel": {
+      "@id": "colissimo:recommendationLevel",
+      "@type": "xsd:string"
+    },
+    "nonMachinable": {
+      "@id": "colissimo:nonMachinable",
+      "@type": "xsd:boolean"
+    },
+    "returnReceipt": {
+      "@id": "colissimo:returnReceipt",
+      "@type": "xsd:boolean"
+    },
+    "instructions": {
+      "@id": "colissimo:instructions",
+      "@type": "xsd:string"
+    },
+    "pickupLocationId": {
+      "@id": "colissimo:pickupLocationId",
+      "@type": "xsd:string"
+    },
+    "ftd": {
+      "@id": "colissimo:ftd",
+      "@type": "xsd:boolean"
+    },
+    "ddp": {
+      "@id": "colissimo:ddp",
+      "@type": "xsd:boolean"
+    },
+    "disabledDeliveryBlockingCode": {
+      "@id": "colissimo:disabledDeliveryBlockingCode",
+      "@type": "xsd:string"
+    },
+    "cod": {
+      "@id": "colissimo:cod",
+      "@type": "xsd:boolean"
+    },
+    "codamount": {
+      "@id": "colissimo:codamount",
+      "@type": "xsd:integer"
+    },
+    "codcurrency": {
+      "@id": "colissimo:codcurrency",
+      "@type": "xsd:string"
+    },
+    "Sender": "colissimo:Sender",
+    "senderParcelRef": {
+      "@id": "colissimo:senderParcelRef",
+      "@type": "xsd:string"
+    },
+    "Service": "colissimo:Service",
+    "productCode": {
+      "@id": "colissimo:productCode",
+      "@type": "xsd:string"
+    },
+    "depositDate": {
+      "@id": "colissimo:depositDate",
+      "@type": "xsd:dateTime"
+    },
+    "mailBoxPicking": {
+      "@id": "colissimo:mailBoxPicking",
+      "@type": "xsd:boolean"
+    },
+    "mailBoxPickingDate": {
+      "@id": "colissimo:mailBoxPickingDate",
+      "@type": "xsd:dateTime"
+    },
+    "vatCode": {
+      "@id": "colissimo:vatCode",
+      "@type": "xsd:integer"
+    },
+    "vatPercentage": {
+      "@id": "colissimo:vatPercentage",
+      "@type": "xsd:integer"
+    },
+    "transportationAmount": {
+      "@id": "colissimo:transportationAmount",
+      "@type": "xsd:integer"
+    },
+    "totalAmount": {
+      "@id": "colissimo:totalAmount",
+      "@type": "xsd:integer"
+    },
+    "orderNumber": {
+      "@id": "colissimo:orderNumber",
+      "@type": "xsd:string"
+    },
+    "commercialName": {
+      "@id": "colissimo:commercialName",
+      "@type": "xsd:string"
+    },
+    "returnTypeChoice": {
+      "@id": "colissimo:returnTypeChoice",
+      "@type": "xsd:integer"
+    },
+    "reseauPostal": {
+      "@id": "colissimo:reseauPostal",
+      "@type": "xsd:string"
+    },
+    "GenerateLabelRequest": "colissimo:GenerateLabelRequest",
+    "EntityTag": "colissimo:EntityTag",
+    "weak": {
+      "@id": "colissimo:weak",
+      "@type": "xsd:boolean"
+    },
+    "Link": "colissimo:Link",
+    "uriBuilder": {
+      "@id": "colissimo:uriBuilder",
+      "@type": "@id"
+    },
+    "rel": {
+      "@id": "colissimo:rel",
+      "@type": "xsd:string"
+    },
+    "rels": {
+      "@id": "colissimo:rels",
+      "@container": "@list"
+    },
+    "title": {
+      "@id": "colissimo:title",
+      "@type": "xsd:string"
+    },
+    "params": {
+      "@id": "colissimo:params"
+    },
+    "uri": {
+      "@id": "colissimo:uri",
+      "@type": "@id"
+    },
+    "MediaType": "colissimo:MediaType",
+    "subtype": {
+      "@id": "colissimo:subtype",
+      "@type": "xsd:string"
+    },
+    "parameters": {
+      "@id": "colissimo:parameters"
+    },
+    "wildcardType": {
+      "@id": "colissimo:wildcardType",
+      "@type": "xsd:boolean"
+    },
+    "wildcardSubtype": {
+      "@id": "colissimo:wildcardSubtype",
+      "@type": "xsd:boolean"
+    },
+    "MultivaluedMapStringObject": "colissimo:MultivaluedMapStringObject",
+    "empty": {
+      "@id": "colissimo:empty",
+      "@type": "xsd:boolean"
+    },
+    "MultivaluedMapStringString": "colissimo:MultivaluedMapStringString",
+    "NewCookie": "colissimo:NewCookie",
+    "name": {
+      "@id": "colissimo:name",
+      "@type": "xsd:string"
+    },
+    "version": {
+      "@id": "colissimo:version",
+      "@type": "xsd:integer"
+    },
+    "path": {
+      "@id": "colissimo:path",
+      "@type": "xsd:string"
+    },
+    "domain": {
+      "@id": "colissimo:domain",
+      "@type": "xsd:string"
+    },
+    "comment": {
+      "@id": "colissimo:comment",
+      "@type": "xsd:string"
+    },
+    "maxAge": {
+      "@id": "colissimo:maxAge",
+      "@type": "xsd:integer"
+    },
+    "expiry": {
+      "@id": "colissimo:expiry",
+      "@type": "xsd:dateTime"
+    },
+    "secure": {
+      "@id": "colissimo:secure",
+      "@type": "xsd:boolean"
+    },
+    "httpOnly": {
+      "@id": "colissimo:httpOnly",
+      "@type": "xsd:boolean"
+    },
+    "sameSite": {
+      "@id": "colissimo:sameSite",
+      "@type": "xsd:string"
+    },
+    "Response": "colissimo:Response",
+    "length": {
+      "@id": "colissimo:length",
+      "@type": "xsd:integer"
+    },
+    "location": {
+      "@id": "colissimo:location",
+      "@type": "@id"
+    },
+    "date": {
+      "@id": "colissimo:date",
+      "@type": "xsd:dateTime"
+    },
+    "lastModified": {
+      "@id": "colissimo:lastModified",
+      "@type": "xsd:dateTime"
+    },
+    "stringHeaders": {
+      "@id": "colissimo:stringHeaders"
+    },
+    "closed": {
+      "@id": "colissimo:closed",
+      "@type": "xsd:boolean"
+    },
+    "metadata": {
+      "@id": "colissimo:metadata"
+    },
+    "status": {
+      "@id": "colissimo:status",
+      "@type": "xsd:integer"
+    },
+    "mediaType": {
+      "@id": "colissimo:mediaType",
+      "@type": "@id"
+    },
+    "cookies": {
+      "@id": "colissimo:cookies"
+    },
+    "allowedMethods": {
+      "@id": "colissimo:allowedMethods",
+      "@container": "@list"
+    },
+    "statusInfo": {
+      "@id": "colissimo:statusInfo",
+      "@type": "@id"
+    },
+    "entityTag": {
+      "@id": "colissimo:entityTag",
+      "@type": "@id"
+    },
+    "links": {
+      "@id": "colissimo:links",
+      "@container": "@list"
+    },
+    "headers": {
+      "@id": "colissimo:headers"
+    },
+    "entity": {
+      "@id": "colissimo:entity"
+    },
+    "StatusType": "colissimo:StatusType",
+    "family": {
+      "@id": "colissimo:family",
+      "@type": "xsd:string"
+    },
+    "reasonPhrase": {
+      "@id": "colissimo:reasonPhrase",
+      "@type": "xsd:string"
+    },
+    "statusCode": {
+      "@id": "colissimo:statusCode",
+      "@type": "xsd:integer"
+    },
+    "GetLabelGpRequest": "colissimo:GetLabelGpRequest",
+    "pickupCodeParcelNum": {
+      "@id": "colissimo:pickupCodeParcelNum",
+      "@type": "xsd:string"
+    },
+    "format": {
+      "@id": "colissimo:format",
+      "@type": "xsd:string"
+    },
+    "regateCode": {
+      "@id": "colissimo:regateCode",
+      "@type": "xsd:string"
+    },
+    "formatCn23": {
+      "@id": "colissimo:formatCn23",
+      "@type": "xsd:string"
+    },
+    "GenerateCN23Request": "colissimo:GenerateCN23Request",
+    "GetListMailBoxPickingDatesRetourRequest": "colissimo:GetListMailBoxPickingDatesRetourRequest",
+    "GetListMailBoxPickingDatesSender": "colissimo:GetListMailBoxPickingDatesSender",
+    "GetLabelInternalRequest": "colissimo:GetLabelInternalRequest",
+    "CheckInfoPlanPickupResponse": "colissimo:CheckInfoPlanPickupResponse",
+    "messages": {
+      "@id": "colissimo:messages",
+      "@container": "@list"
+    },
+    "isValid": {
+      "@id": "colissimo:isValid",
+      "@type": "xsd:boolean"
+    },
+    "Message": "colissimo:Message",
+    "id": {
+      "@id": "colissimo:id",
+      "@type": "xsd:string"
+    },
+    "messageContent": {
+      "@id": "colissimo:messageContent",
+      "@type": "xsd:string"
+    },
+    "CheckInfoPlanPickupInternalRequest": "colissimo:CheckInfoPlanPickupInternalRequest",
+    "PlanPickupSender": "colissimo:PlanPickupSender",
+    "ListMailBoxPickingDatesRetourOnlineResponse": "colissimo:ListMailBoxPickingDatesRetourOnlineResponse",
+    "mailBoxPickingDateMaxHour": {
+      "@id": "colissimo:mailBoxPickingDateMaxHour",
+      "@type": "xsd:string"
+    },
+    "mailBoxPickingDates": {
+      "@id": "colissimo:mailBoxPickingDates",
+      "@container": "@list"
+    },
+    "validityTime": {
+      "@id": "colissimo:validityTime",
+      "@type": "xsd:string"
+    },
+    "PlanPickupResponse": "colissimo:PlanPickupResponse",
+    "PlanPickupRequest": "colissimo:PlanPickupRequest",
+    "ActivationDataFlavor": "colissimo:ActivationDataFlavor",
+    "mimeType": {
+      "@id": "colissimo:mimeType",
+      "@type": "xsd:string"
+    },
+    "humanPresentableName": {
+      "@id": "colissimo:humanPresentableName",
+      "@type": "xsd:string"
+    },
+    "AddressPCH": "colissimo:AddressPCH",
+    "AddressPickupLocation": "colissimo:AddressPickupLocation",
+    "line4": {
+      "@id": "colissimo:line4",
+      "@type": "xsd:string"
+    },
+    "countryLabel": {
+      "@id": "colissimo:countryLabel",
+      "@type": "xsd:string"
+    },
+    "BelgiumLabel": "colissimo:BelgiumLabel",
+    "codeVAS": {
+      "@id": "colissimo:codeVAS",
+      "@type": "@id"
+    },
+    "identification": {
+      "@id": "colissimo:identification",
+      "@type": "xsd:string"
+    },
+    "codeBarre": {
+      "@id": "colissimo:codeBarre",
+      "@type": "xsd:string"
+    },
+    "returnAddress": {
+      "@id": "colissimo:returnAddress",
+      "@type": "@id"
+    },
+    "CodeVAS": "colissimo:CodeVAS",
+    "mention": {
+      "@id": "colissimo:mention",
+      "@type": "xsd:string"
+    },
+    "deliveryMode": {
+      "@id": "colissimo:deliveryMode",
+      "@type": "xsd:string"
+    },
+    "reserve": {
+      "@id": "colissimo:reserve",
+      "@type": "xsd:string"
+    },
+    "signature": {
+      "@id": "colissimo:signature",
+      "@type": "xsd:string"
+    },
+    "CommandInfo": "colissimo:CommandInfo",
+    "commandClass": {
+      "@id": "colissimo:commandClass",
+      "@type": "xsd:string"
+    },
+    "commandName": {
+      "@id": "colissimo:commandName",
+      "@type": "xsd:string"
+    },
+    "CommandMap": "colissimo:CommandMap",
+    "mimeTypes": {
+      "@id": "colissimo:mimeTypes",
+      "@container": "@list"
+    },
+    "DataHandler": "colissimo:DataHandler",
+    "dataSource": {
+      "@id": "colissimo:dataSource",
+      "@type": "@id"
+    },
+    "inputStream": {
+      "@id": "colissimo:inputStream"
+    },
+    "content": {
+      "@id": "colissimo:content"
+    },
+    "commandMap": {
+      "@id": "colissimo:commandMap",
+      "@type": "@id"
+    },
+    "transferDataFlavors": {
+      "@id": "colissimo:transferDataFlavors",
+      "@container": "@list"
+    },
+    "preferredCommands": {
+      "@id": "colissimo:preferredCommands",
+      "@container": "@list"
+    },
+    "allCommands": {
+      "@id": "colissimo:allCommands",
+      "@container": "@list"
+    },
+    "contentType": {
+      "@id": "colissimo:contentType",
+      "@type": "xsd:string"
+    },
+    "outputStream": {
+      "@id": "colissimo:outputStream"
+    },
+    "DataSource": "colissimo:DataSource",
+    "ElementVisual": "colissimo:ElementVisual",
+    "shortcut": {
+      "@id": "colissimo:shortcut",
+      "@type": "xsd:string"
+    },
+    "position": {
+      "@id": "colissimo:position",
+      "@type": "xsd:string"
+    },
+    "GenerateLabelV2Response": "colissimo:GenerateLabelV2Response",
+    "labelXmlV2Reponse": {
+      "@id": "colissimo:labelXmlV2Reponse",
+      "@type": "@id"
+    },
+    "labelV2Response": {
+      "@id": "colissimo:labelV2Response",
+      "@type": "@id"
+    },
+    "LabelV2Response": "colissimo:LabelV2Response",
+    "parcelNumberPartner": {
+      "@id": "colissimo:parcelNumberPartner",
+      "@type": "xsd:string"
+    },
+    "pdfUrl": {
+      "@id": "colissimo:pdfUrl",
+      "@type": "xsd:string"
+    },
+    "MessageRest": "colissimo:MessageRest",
+    "replacementValues": {
+      "@id": "colissimo:replacementValues",
+      "@container": "@list"
+    },
+    "PickupLocation": "colissimo:PickupLocation",
+    "pointId": {
+      "@id": "colissimo:pointId",
+      "@type": "xsd:string"
+    },
+    "groupRouting": {
+      "@id": "colissimo:groupRouting",
+      "@type": "xsd:string"
+    },
+    "serviceLabel": {
+      "@id": "colissimo:serviceLabel",
+      "@type": "xsd:string"
+    },
+    "sortDistribution": {
+      "@id": "colissimo:sortDistribution",
+      "@type": "xsd:string"
+    },
+    "routingZipCode": {
+      "@id": "colissimo:routingZipCode",
+      "@type": "xsd:string"
+    },
+    "netWork": {
+      "@id": "colissimo:netWork",
+      "@type": "xsd:string"
+    },
+    "idPartenaire": {
+      "@id": "colissimo:idPartenaire",
+      "@type": "xsd:string"
+    },
+    "routingFileVersion": {
+      "@id": "colissimo:routingFileVersion",
+      "@type": "xsd:string"
+    },
+    "ReplacementValue": "colissimo:ReplacementValue",
+    "translatable": {
+      "@id": "colissimo:translatable",
+      "@type": "xsd:boolean"
+    },
+    "ReturnAddressBelgium": "colissimo:ReturnAddressBelgium",
+    "Routing": "colissimo:Routing",
+    "destinationCountry": {
+      "@id": "colissimo:destinationCountry",
+      "@type": "xsd:string"
+    },
+    "serviceText": {
+      "@id": "colissimo:serviceText",
+      "@type": "xsd:string"
+    },
+    "depotDest": {
+      "@id": "colissimo:depotDest",
+      "@type": "xsd:string"
+    },
+    "serviceMark": {
+      "@id": "colissimo:serviceMark",
+      "@type": "xsd:string"
+    },
+    "sortOrigin": {
+      "@id": "colissimo:sortOrigin",
+      "@type": "xsd:string"
+    },
+    "groupingPriorityLabel": {
+      "@id": "colissimo:groupingPriorityLabel",
+      "@type": "xsd:string"
+    },
+    "sortDest": {
+      "@id": "colissimo:sortDest",
+      "@type": "xsd:string"
+    },
+    "barcodeId": {
+      "@id": "colissimo:barcodeId",
+      "@type": "xsd:string"
+    },
+    "routingVersion": {
+      "@id": "colissimo:routingVersion",
+      "@type": "xsd:string"
+    },
+    "destinationCountryText": {
+      "@id": "colissimo:destinationCountryText",
+      "@type": "xsd:string"
+    },
+    "partnerType": {
+      "@id": "colissimo:partnerType",
+      "@type": "xsd:string"
+    },
+    "barcodePostcode": {
+      "@id": "colissimo:barcodePostcode",
+      "@type": "xsd:string"
+    },
+    "buAlphaStr": {
+      "@id": "colissimo:buAlphaStr",
+      "@type": "xsd:string"
+    },
+    "buCode": {
+      "@id": "colissimo:buCode",
+      "@type": "xsd:string"
+    },
+    "getcSort": {
+      "@id": "colissimo:getcSort",
+      "@type": "xsd:string"
+    },
+    "destinationDepot": {
+      "@id": "colissimo:destinationDepot",
+      "@type": "xsd:string"
+    },
+    "destinationDepotCountry": {
+      "@id": "colissimo:destinationDepotCountry",
+      "@type": "xsd:string"
+    },
+    "destinationDepotStr": {
+      "@id": "colissimo:destinationDepotStr",
+      "@type": "xsd:string"
+    },
+    "getdSort": {
+      "@id": "colissimo:getdSort",
+      "@type": "xsd:string"
+    },
+    "groupingPriority": {
+      "@id": "colissimo:groupingPriority",
+      "@type": "xsd:string"
+    },
+    "networkCode": {
+      "@id": "colissimo:networkCode",
+      "@type": "xsd:string"
+    },
+    "getoSort": {
+      "@id": "colissimo:getoSort",
+      "@type": "xsd:string"
+    },
+    "partnerCode": {
+      "@id": "colissimo:partnerCode",
+      "@type": "xsd:string"
+    },
+    "getsSort": {
+      "@id": "colissimo:getsSort",
+      "@type": "xsd:string"
+    },
+    "getdCountry": {
+      "@id": "colissimo:getdCountry",
+      "@type": "xsd:string"
+    },
+    "getdDepotCountry": {
+      "@id": "colissimo:getdDepotCountry",
+      "@type": "xsd:string"
+    },
+    "getdDepot": {
+      "@id": "colissimo:getdDepot",
+      "@type": "xsd:string"
+    },
+    "getdDepotStr": {
+      "@id": "colissimo:getdDepotStr",
+      "@type": "xsd:string"
+    },
+    "Site": "colissimo:Site",
+    "code": {
+      "@id": "colissimo:code",
+      "@type": "xsd:string"
+    },
+    "rdepot": {
+      "@id": "colissimo:rdepot",
+      "@type": "xsd:string"
+    },
+    "SwissLabel": "colissimo:SwissLabel",
+    "injectionSite": {
+      "@id": "colissimo:injectionSite",
+      "@type": "xsd:string"
+    },
+    "signatureOption": {
+      "@id": "colissimo:signatureOption",
+      "@type": "xsd:boolean"
+    },
+    "codeSwissPost": {
+      "@id": "colissimo:codeSwissPost",
+      "@type": "xsd:string"
+    },
+    "swissParcelNumber": {
+      "@id": "colissimo:swissParcelNumber",
+      "@type": "xsd:string"
+    },
+    "XmlV2Response": "colissimo:XmlV2Response",
+    "sitePCH": {
+      "@id": "colissimo:sitePCH",
+      "@type": "@id"
+    },
+    "pickupLocation": {
+      "@id": "colissimo:pickupLocation",
+      "@type": "@id"
+    },
+    "routing": {
+      "@id": "colissimo:routing",
+      "@type": "@id"
+    },
+    "zoneRouting": {
+      "@id": "colissimo:zoneRouting",
+      "@type": "@id"
+    },
+    "belgiumLabel": {
+      "@id": "colissimo:belgiumLabel",
+      "@type": "@id"
+    },
+    "barCodePCH": {
+      "@id": "colissimo:barCodePCH",
+      "@type": "xsd:string"
+    },
+    "numberPCH": {
+      "@id": "colissimo:numberPCH",
+      "@type": "xsd:string"
+    },
+    "barCodeCityssimo": {
+      "@id": "colissimo:barCodeCityssimo",
+      "@type": "xsd:string"
+    },
+    "barCodeRouting": {
+      "@id": "colissimo:barCodeRouting",
+      "@type": "xsd:string"
+    },
+    "numberRouting": {
+      "@id": "colissimo:numberRouting",
+      "@type": "xsd:string"
+    },
+    "swissLabel": {
+      "@id": "colissimo:swissLabel",
+      "@type": "@id"
+    },
+    "hazmat": {
+      "@id": "colissimo:hazmat",
+      "@type": "@id"
+    },
+    "elementVisual": {
+      "@id": "colissimo:elementVisual",
+      "@container": "@list"
+    },
+    "cabAztec": {
+      "@id": "colissimo:cabAztec",
+      "@type": "xsd:string"
+    },
+    "ZoneCABRoutage": "colissimo:ZoneCABRoutage",
+    "parcelNumberRouting": {
+      "@id": "colissimo:parcelNumberRouting",
+      "@type": "xsd:string"
+    },
+    "ZoneInfosRoutage": "colissimo:ZoneInfosRoutage",
+    "trackingNumberRouting": {
+      "@id": "colissimo:trackingNumberRouting",
+      "@type": "xsd:string"
+    },
+    "controlKeyTrackingNumber": {
+      "@id": "colissimo:controlKeyTrackingNumber",
+      "@type": "xsd:string"
+    },
+    "getrDepot": {
+      "@id": "colissimo:getrDepot",
+      "@type": "xsd:string"
+    },
+    "identificationDestination1": {
+      "@id": "colissimo:identificationDestination1",
+      "@type": "xsd:string"
+    },
+    "identificationDestination2": {
+      "@id": "colissimo:identificationDestination2",
+      "@type": "xsd:string"
+    },
+    "typeServiceLivraison": {
+      "@id": "colissimo:typeServiceLivraison",
+      "@type": "xsd:string"
+    },
+    "datePrinting": {
+      "@id": "colissimo:datePrinting",
+      "@type": "xsd:string"
+    },
+    "hourPrinting": {
+      "@id": "colissimo:hourPrinting",
+      "@type": "xsd:string"
+    },
+    "numberVersionWS": {
+      "@id": "colissimo:numberVersionWS",
+      "@type": "xsd:string"
+    },
+    "msort": {
+      "@id": "colissimo:msort",
+      "@type": "xsd:string"
+    },
+    "ZoneRouting": "colissimo:ZoneRouting",
+    "zoneCABRoutage": {
+      "@id": "colissimo:zoneCABRoutage",
+      "@type": "@id"
+    },
+    "zoneInfosRoutage": {
+      "@id": "colissimo:zoneInfosRoutage",
+      "@type": "@id"
+    },
+    "GenerateBordereauByParcelsNumbersRequest": "colissimo:GenerateBordereauByParcelsNumbersRequest",
+    "generateBordereauParcelNumberList": {
+      "@id": "colissimo:generateBordereauParcelNumberList",
+      "@type": "@id"
+    },
+    "GetLabelRequest": "colissimo:GetLabelRequest",
+    "GetListMailBoxPickingDatesResponse": "colissimo:GetListMailBoxPickingDatesResponse",
+    "GetProductInterResponse": "colissimo:GetProductInterResponse",
+    "product": {
+      "@id": "colissimo:product",
+      "@container": "@list"
+    },
+    "GetProductInterRequest": "colissimo:GetProductInterRequest",
+    "insurance": {
+      "@id": "colissimo:insurance",
+      "@type": "xsd:boolean"
+    },
+    "GenerateLabelRequestV3": "colissimo:GenerateLabelRequestV3",
+    "GenerateLabelRequestV31": "colissimo:GenerateLabelRequestV31",
+    "LetterRequestV31": "colissimo:LetterRequestV31",
+    "ParcelRequestV31": "colissimo:ParcelRequestV31",
+    "hazmatFlag": {
+      "@id": "colissimo:hazmatFlag",
+      "@type": "xsd:boolean"
+    },
+    "hazmatCategory": {
+      "@id": "colissimo:hazmatCategory",
+      "@type": "xsd:string"
+    },
+    "hazmatPrintLogo": {
+      "@id": "colissimo:hazmatPrintLogo",
+      "@type": "xsd:boolean"
+    },
+    "postCommand": {
+      "@id": "colissimo:postCommand",
+      "@type": "xsd:boolean"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Colissimo API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Colissimo's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-13) from openapi/colissimo-sls-openapi.yml.",
+  "dcterms:created": "2026-10-13",
+  "dcterms:source": [
+    "openapi/colissimo-sls-openapi.yml"
+  ]
+}

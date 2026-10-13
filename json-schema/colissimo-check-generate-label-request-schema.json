@@ -1,0 +1,636 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/colissimo/main/json-schema/colissimo-check-generate-label-request-schema.json",
+  "title": "CheckGenerateLabelRequest",
+  "x-generated": "2026-10-13",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/colissimo-sls-openapi.yml#/components/schemas/CheckGenerateLabelRequest",
+  "required": [
+    "letter"
+  ],
+  "type": "object",
+  "properties": {
+    "contractNumber": {
+      "type": "string",
+      "description": "<i>AN</i> <br/>  <lang><en>Deprecated. Use apikey instead as explained in \"Acess to the Web Service SLS/API Authentication\".</en><fr>Obsolète. Utiliser l'apikey à la place comme expliqué dans \"Accès au Web Service SLS/Authentification API\".</fr></lang>"
+    },
+    "password": {
+      "type": "string",
+      "description": "<i>AN</i> <br/>  <lang><en>Deprecated. Use apikey instead as explained in \"Acess to the Web Service SLS/API Authentication\".</en><fr>Obsolète. Utiliser l'apikey à la place comme expliqué dans \"Accès au Web Service SLS/Authentification API\".</fr></lang>"
+    },
+    "letter": {
+      "$ref": "#/$defs/Letter"
+    },
+    "outputFormat": {
+      "$ref": "#/$defs/OutputFormat"
+    },
+    "fields": {
+      "$ref": "#/$defs/Fields"
+    },
+    "customizationFields": {
+      "$ref": "#/$defs/CustomizationFields"
+    }
+  },
+  "$defs": {
+    "Address": {
+      "required": [
+        "countryCode",
+        "zipCode"
+      ],
+      "type": "object",
+      "properties": {
+        "companyName": {
+          "type": "string",
+          "description": "<i>AN35</i> <br/>  <lang><en>companyName <br/><br/>For return postage (product code CORE 8R, CORI 7R or 5R), the company name is mandatory for the recipient.</en><fr>Raison sociale. <br/><br/>Pour un affranchissement retour (code produit CORE 8R, CORI 7R ou 5R), la raison sociale est obligatoire pour le destinataire</fr></lang>"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "<i>A1...35</i> <br/>  <lang><en>Last name.<br/>Mandatory to send a parcel unless zipcode is a cedex Code</en><fr>Nom.<br/><br/>Obligatoire pour envoyer un colis sauf si le code postal est un code cedex</fr></lang>"
+        },
+        "firstName": {
+          "type": "string",
+          "description": "<i>A1...29</i> <br/>  <lang><en>First name.<br/>Mandatory for out-of-home delivery (product code HD)</en><fr>Prénom.<br/><br/>Obligatoire pour un envoi hors domicile (code produit HD)</fr></lang>"
+        },
+        "line0": {
+          "type": "string",
+          "description": "<i>AN1...35</i> <br/>  <lang><en>Floor, hallway, stairs, apartment.<br/><br/><b>Important: this line does not appear on labels being sent to Switzerland.</b></en><fr>Etage, couloir, escalier, appart.</fr></lang>"
+        },
+        "line1": {
+          "type": "string",
+          "description": "<i>AN1...35</i> <br/>  <lang><en>Entrance, bulding, residence.<br/><br/><b>Important: this line does not appear on labels being sent to Switzerland.</b></en><fr>Entrée, bâtiment, immeuble, résidence.</fr></lang>"
+        },
+        "line2": {
+          "type": "string",
+          "description": "<i>AN1...35</i> <br/>  <lang><en>Number and route label.<br/><br/>Example: « 5 rue du Bellay »<br/><br/>must contain at least one character</en> <fr>Numéro et libellé de voie.<br/><br/> Exemple : « 5 rue du Bellay »<br/><br/>doit comporter impérativement au moins un caractère</fr></lang>"
+        },
+        "line3": {
+          "type": "string",
+          "description": "<i>AN1...35</i> <br/>  <lang><en>Place said or other mention.<br/><br/><b>Important: this line does not appear on labels being sent to Switzerland.</b></en><fr>Lieu dit ou autre mention.</fr></lang>"
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "<i>A2</i> <br/>  <lang><en>ISO country code on 2 letters.<br/>Example: « FR » for France</en><fr>Code ISO du pays sur 2 lettres.<br/><br/>Ex : « FR » pour la France </fr></lang>"
+        },
+        "city": {
+          "type": "string",
+          "description": "<i>AN1...35</i> <br/>  <lang><en>Town.<br/><br/>Can be left blank (or else filled in by a chain of some sort, possibly not adequate) if the tag zipCode is filled with a Cedex code. *</en><fr>Ville.<br/><br/> Peut être laissée vide (ou aussi bien renseignée par une chaîne quelconque, éventuellement non appropriée) si la balise zipCode est renseignée par un code Cedex. * </fr></lang>"
+        },
+        "zipCode": {
+          "type": "string",
+          "description": "<i>AN5</i> <br/>  <lang><en>Postal code.<br/>If the postcode matches a Cedex code then:<br/><ul><li>the tag line2 can be left blank,</li><li>the tag city can be left blank.</li></ul></en><fr>Code postal.<br/><br/> Si le code postal correspond à un code Cedex alors :<br/> <ul> <li>la balise line2 peut être laissée vide,</li> <li>la balise city peut être laissée vide.</li></ul><br/></fr></lang>"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "<i>AN10...12</i> <br/> <lang><en>Phone Number.</en><br/><fr>Numéro de téléphone.</fr></lang>"
+        },
+        "mobileNumber": {
+          "type": "string",
+          "description": "<i>AN</i> <br/> <lang><en>The cell phone number is strongly recommended to improve the chances of delivery to the recipient (it is used to send tracking notifications by SMS).<br/>Checks performed :<ul><li>15 characters maximum</li><li>For Belgium parcel, the format must be exactly : +324NNNNNNNN</li></ul>It must be filled in for the following packages :<ul><li>Domestic out-of-home parcels (productCode=HD)</li><li>Parcels with DDP option</li><li>Parcels to the US</li></ul><br/><br/>For any international shipment, it is necessary to use the telephone prefix specific to the country in which your recipient is located.<br/><br/>The digits of the number must not follow an incremental sequence (e.g., 123456789), otherwise the WebService will return an error.</en><br/><fr>Le numéro de portable est fortement recommandé pour améliorer les chances de livraison au destinataire (il est notamment utilisé pour l'envoi des notifications de suivi par SMS).<br/>Contrôles effectués :<ul><li>15 caractères maximum</li><li>Pour les envois vers la Belgique, le format doit être exactement : +324NNNNNNNN</li></ul>Il doit être renseigné obligatoirement pour les colis suivants :<ul><li>Colis hors domicile (productCode=HD) nationaux</li><li>Colis avec l'option DDP</li><li>Colis vers les US</li></ul><br/><br/>Pour tout envoi à l'international, il est nécessaire d’utiliser le préfixe téléphonique spécifique au pays dans lequel se trouve votre destinataire.<br/><br/>les chiffres du numéro ne doivent pas se suivre de manière incrémentale (ex. : 123456789), sinon le WebService retournera une erreur.</fr></lang>"
+        },
+        "doorCode1": {
+          "type": "string",
+          "description": "<i>AN1...8</i> <br/>  <lang><en>Door code 1.<br/>Doesn’t appear on the CN23 document.</en><fr>Code porte 1.<br/><br/>N’apparaît pas sur la CN23.</fr></lang>"
+        },
+        "doorCode2": {
+          "type": "string",
+          "description": "<i>AN1...8</i> <br/>  <lang><en>Door code 2.<br/>Doesn’t appear on the CN23 document.</en><fr>Code porte 2.<br/><br/>N’apparaît pas sur la CN23.</fr></lang>"
+        },
+        "intercom": {
+          "type": "string",
+          "description": "<i>AN1...30</i> <br/>  <lang><en>Interphone.<br/><br/>Doesn’t appear on the CN23 document.</en><fr>Interphone.<br/><br/>N’apparaît pas sur la CN23.</fr></lang>"
+        },
+        "email": {
+          "type": "string",
+          "description": "<i>AN5...80</i> <br/>  <lang><en>Mandatory if the tag productCode is <b>HD</b>.<br/><br/>Email Address.<br/>Used for follow-up notifications to the sender.<br/>Expected form: Text@Text.Text.</en><fr>Obligatoire pour les envois hors domiciles <br/><br/> Adresse courriel.<br/><br/>Utilisé pour les notifications de suivi à l’expéditeur.<br/><br/>Forme attendue : Texte@Texte.Texte  </fr></lang>"
+        },
+        "language": {
+          "type": "string",
+          "description": "<i>A2</i> <br/>  <lang><en>By default, the local language of the sending country.<br/>Language of the notification e-mail to the sender.<br/>Used for tracking notifications by email or SMS.<br/>The information is transmitted to local partners who can exploit it or not.</en><fr>Langue du mail de notification à l’expéditeur.<br/><br/> Utilisée pour les retours de colis avec le code produit <b>CORI</b> (7R) si la balise returnType est renseignée. <br/><br/> Utilisée pour les notifications de suivi par email ou SMS.<br/>Par défaut : FR <br/><br/> Langues disponibles : ES, IT, NL, EN, DE. </fr></lang>"
+        },
+        "stateOrProvinceCode": {
+          "type": "string",
+          "description": "<i>AN2</i> <br/>  <lang><en>State or province code. Required for the United States.</en><fr>Code de l'état ou de la province. Obligatoire pour les Etats Unis.</fr></lang>"
+        }
+      },
+      "description": "<i>SUB</i> <br/>  <lang><en></en><fr></fr></lang>"
+    },
+    "Addressee": {
+      "required": [
+        "address"
+      ],
+      "type": "object",
+      "properties": {
+        "addresseeParcelRef": {
+          "type": "string",
+          "description": "<i>AN1...15</i> <br/>  <lang><en>Recipient order reference.<br/><b>It allows the destination reference to be displayed only on the label. This data is not reflected in the Colissimo IT System and will not be visible in OSC. Its size must not exceed 15. </b></en><fr>Référence de commande du destinataire <br/> Elle permet d'afficher la référence destinataire seulement sur l'étiquette. Cette donnée n'est pas remontée dans le SI Colissimo et ne sera pas visible dans OSC. Sa taille ne doit pas excéder 15.</fr></lang>"
+        },
+        "codeBarForReference": {
+          "type": "boolean",
+          "description": "<i>B</i> <br/>  <lang><en>Default: false<br/>Used for Colissimo Retour only (tag productCode is <b>CORE</b>).<br/>Allows to indicate (or not) the reference of the order of the recipient in the form of a bar code on the label of the package.<br/>Enter \"true\" (or \"1\") to show the value of the tag addresseeParcelRef as a barcode on the parcel label.</en><fr>Par défaut, renseigner \"false \" (ou \"0\").</fr></lang>"
+        },
+        "serviceInfo": {
+          "type": "string",
+          "description": "<i>AN</i> <br/>  <lang><en>Used for Colissimo Retour only (tag productCode is <b>CORE</b>).<br/>Name of the department in the company.<br/>Example: \"Returns department\".</en><fr></fr></lang>"
+        },
+        "promotionCode": {
+          "type": "string",
+          "description": "<i>AN</i> <br/>  <lang><en>Not used (La Poste internal use only)</en><fr>Non utilisé (usage interne à la poste uniquement)</fr></lang>"
+        },
+        "address": {
+          "$ref": "#/$defs/Address"
+        }
+      },
+      "description": "<i>SUB</i> <br/>  <lang><en></en><fr></fr></lang>"
+    },
+    "Article": {
+      "required": [
+        "description",
+        "quantity",
+        "value",
+        "weight"
+      ],
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "<i>AN1…64</i> <br/>  <lang><en>Detailed description of the article. Appears on CN23 document.<br/>Must be in English for the US and for shipments with the DDP option.</en><fr>Description détaillée de l’article. <br/> Apparaît sur le fichier CN23. <br/>Obligatoirement en anglais pour les US et pour les envois avec l'option DDP</fr></lang>"
+        },
+        "quantity": {
+          "type": "integer",
+          "description": "<i>N</i> <br/>  <lang><en>Number of articles of this type. Appears on CN23 document.</en><fr>Nombre d’articles de ce type. <br/> Apparaît sur le fichier CN23. </fr></lang>",
+          "format": "int32"
+        },
+        "weight": {
+          "type": "number",
+          "description": "<i>N</i> <br/>  <lang><en>Unitary net weight of the articles in kg. Appears on CN23 document.</en><fr>Poids net unitaire des articles en kg. <br/> Apparaît sur le fichier CN23. </fr></lang>",
+          "format": "float"
+        },
+        "value": {
+          "type": "number",
+          "description": "<i>N</i> <br/>  <lang><en>Unitary value of articles in EUROS.<br/>Appears on CN23 document.</en><fr>Valeur unitaire des articles en EURO. <br/> Apparaît sur le fichier CN23.</fr></lang>",
+          "format": "float"
+        },
+        "hsCode": {
+          "type": "string",
+          "description": "<i>N6, N8 ou N10</i> <br/>  <lang><en>Mandatory if is 3 (commercial shipment). <br/>Mandatory for 7R and 5R return products. Then its size must be 6 or 11.<br/><br/>Tariff number corresponding to the article. It will be necessary to indicate 6, 8 or 10 digits for the international shipments requiring a customs declaration. <br/><br/>Appears on CN23 document.</en><fr>Numéro tarifaire correspondant à l’article. <br/><br/> Il faudra indiquer 6, 8 ou 10 chiffres pour les envois à l’international nécessitant une déclaration douani&egrave;re.  <br/> Un code erreur 30519 apparaîtra dans la réponse du Web Service si la balise est mal renseignée. <br/><br/> Obligatoire si category vaut 3 (envoi commercial). <br/><br/> Obligatoire pour les produits retours 7R et 5R. Il doit être de taille 6 ou 11 <br/><br/> Apparaît sur le fichier CN23. </fr></lang>"
+        },
+        "originCountry": {
+          "type": "string",
+          "description": "<i>A2</i> <br/>  <lang><en>ISO code of the country of origin of the article. <br/><br/> Mandatory for 7R and 5R return products. It must be identical for all declared articles.<br/><br/> Mandatory if category = 3 (commercial shipment). <br/><br/>Country name appears on CN23 document. <br/><br/> If filled in, check that the country code is A2 otherwise set FR by default. <br/>If the country code is different from the format A2, the WS sls will return an error.</en><fr>Code ISO du pays d’origine de l’article. <br/><br/> Obligatoire pour les produits retours 7R et 5R. Il doit être identique pour tous les articles déclarés <br/><br/>  Obligatoire si category=3 (envoi commercial) <br/><br/> Le nom du pays apparait en entier sur le fichier CN23. <br/><br/> Si non vide, vérifier que le code pays est sur A2 sinon mettre FR par défaut.  <br/><br/> Si le code pays est différent du format A2, le WS sls retournera une erreur</fr></lang>"
+        },
+        "originCountryLabel": {
+          "type": "string",
+          "description": "<lang><en>Label</en><fr>Libellé</fr></lang>"
+        },
+        "currency": {
+          "type": "string",
+          "description": "<i>AN3</i> <br/>  <lang><en>Set EUR by default if empty<br/><br/>Mandatory for 7R and 5R return products.<br/><br/>The currency must be the same for all declared articles. It must belong to the list {USD, EUR, CHF, GBP, CNY, JPY, CAD, AUD}. If the currency is different from the list above, the Web Service will return an error.|</en><fr>Devise. <br/><br/>Fixé par défaut en EUR si vide<br/><br/>Obligatoire pour les produits de retour 7R et 5R.<br/><br/>La devise doit être la même pour tous les articles déclarés. Elle doit appartenir à la liste {USD, EUR, CHF, GBP, CNY, JPY, CAD, AUD}. Si la devise est différente de la liste ci-dessus, le service web renverra une erreur.</fr></lang>"
+        },
+        "artref": {
+          "type": "string",
+          "description": "<i>AN1...35</i> <br/>  <lang><en>Mandatory for 7R and 5R return products.<br/><br/>Article reference, serial number.</en><fr>Référence de l’article, numéro de s&eacute;rie. <br/><br/> Obligatoire pour les produits retours inter (7R) hors UE et 5R (OM).</fr></lang>"
+        },
+        "originalIdent": {
+          "type": "string",
+          "description": "<i>A1</i> <br/>  <lang><en>Mandatory for 7R and 5R return products. <br/><br/>Key for identifying the outgoing invoice and the parcel related to the article.<br/><br/>Link up the parcel number with its sequencing: <br/><ul><li>if the article belongs to the 1st parcel, indicate A; </li><li>If the article belongs to the 3rd parcel, indicate C;</li><li>etc</li></ul></en><fr>Clé permettant d’identifier la facture aller et le colis lié à l’article. <br/><br/> Obligatoire pour les produits retours inter (7R) hors UE et 5R(OM). <br/> Appairer le numéro de colis avec son ordonnancement : <br/> <ul> <li>si l’article appartient au 1er colis, indiquer A ;</li> <li>si l’article appartient au 3ème colis, indiquer C ;</li> <li>etc …</li> </ul> </fr></lang>"
+        },
+        "vatAmount": {
+          "type": "number",
+          "description": "<i>N</i> <br/>  <lang><en>VAT on items</en><fr>TVA des articles</fr></lang>",
+          "format": "float"
+        },
+        "customsFees": {
+          "type": "number",
+          "description": "<i>N</i> <br/>  <lang><en>Customs duties on items</en><fr>Droits Douane des articles</fr></lang>",
+          "format": "float"
+        }
+      },
+      "description": "<i>SUB</i> <br/>  <lang><en>The block can be repeated up to 100 times.</en><fr>Le bloc article peut être répété jusqu’à 100 fois.</fr></lang>"
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "integer",
+          "description": "<i>N1</i> <br/>  <lang><en>Mandatory for products subject to a CN23 form.<br/>Type of shipment.</en><fr>Nature de l'envoi. <br/>Obligatoire pour les produits soumis à la CN23.</fr></lang>",
+          "format": "int32"
+        }
+      },
+      "description": "<i>SUB</i> <br/>  <lang><en>Mandatory for products subject to a CN23 form. <br/><br/>Block containing the tag related to the nature of the shipment.</en><fr>Bloc contenant la balise liée à la nature de l’envoi. <br/><br/> Obligatoire pour les produits soumis à la CN23.</fr></lang>"
+    },
+    "Contents": {
+      "type": "object",
+      "properties": {
+        "article": {
+          "type": "array",
+          "description": "<i>SUB</i> <br/>  <lang><en>The block can be repeated up to 100 times.</en><fr>Le bloc article peut être répété jusqu’à 100 fois.</fr></lang>",
+          "items": {
+            "$ref": "#/$defs/Article"
+          }
+        },
+        "category": {
+          "$ref": "#/$defs/Category"
+        },
+        "original": {
+          "type": "array",
+          "description": "<i>SUB</i> <br/>  <lang><en></en><fr>Bloc contenant le (ou les) set(s) de données Original. <br/> Obligatoire pour les produits retours inter (7R) hors UE et 5R (OM). <br/> Au plus 5 sets de données Original sont agréés.<br/> Les colis sont identifiés selon l’ensemble </fr></lang>",
+          "items": {
+            "$ref": "#/$defs/Original"
+          }
+        },
+        "explanations": {
+          "type": "string",
+          "description": "<i>AN1…35</i> <br/>  <lang><en></en><fr>A renseigner si la catégorie « retour de marchandise » ou « Autre » est choisie (cf. 0)</fr></lang>"
+        }
+      },
+      "description": "<lang><en>This block represents the type of shipment and list of articles to declare.<br/>Mandatory if articles are eligible for the CN23 form.</en><fr>Ce bloc représente la nature de l’envoi et liste des articles à déclarer. <br/> Obligatoire si les envois sont éligibles à la CN23. </fr></lang>"
+    },
+    "CustomizationField": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "x": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "y": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "taille": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "CustomizationFields": {
+      "type": "object",
+      "properties": {
+        "reference": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CustomizationTemplate"
+          }
+        },
+        "customizationField": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CustomizationField"
+          }
+        }
+      },
+      "description": "<i>SUB</i> <br/>  <lang><en></en><fr>Ce bloc peut être utilisé pour personnaliser la partie inféririeure de l'étiquette <br/> </fr></lang>"
+    },
+    "CustomizationTemplate": {
+      "type": "object",
+      "properties": {
+        "customizableReferenceKey": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "customizableReferenceValue": {
+          "type": "string"
+        }
+      }
+    },
+    "CustomsDeclarations": {
+      "type": "object",
+      "properties": {
+        "includeCustomsDeclarations": {
+          "type": "boolean",
+          "description": "<i>B</i> <br/>  <lang><en>Default: false<br/>Allows to include, in the response of the web service, the generation of a CN23 document in PDF format, relating to the articles declared in the web service request.<br/><br/>The CN23 document:<br/><ul><li>Is included by default in the web service response (the tag is \"true\" -or \"1\"),</li><li>Is not generated if the value of the tag is \"false\" (or \"0\")</li></ul>  <br/> \"includeCustomsDeclarations = 1\" tag is mandatory for shipments eligible for dematerialization of customs documents (DDP option or DOM TOM shipment).</en><fr>Permet d’inclure, dans la réponse du web service, la génération d’un document CN23 au format PDF portant sur les articles déclarés dans la requête web service. <br/><br/> Par défaut vaut \"true\" (ou \"1\") pour inclure le document CN23 dans la réponse du web service.  <br/><br/> Indiquez \"false\" (ou \"0\") pour ne pas inclure le document CN23 dans la réponse du web service. <br/><br/> La balise « includeCustomsDeclarations = 1 » est obligatoire pour les envois éligibles à la dématérialisation des documents douaniers (option DDP ou envoi Outre-Mer). </fr></lang>"
+        },
+        "numberOfCopies": {
+          "type": "integer",
+          "description": "<i>N</i> <br/>  <lang><en>Number of CN23 to print<br/>If the tag is not filled in, 4 copies of CN23 will be printed.<br/>The number goes from 1 included to 4 copies max. <br/> Note: international returns do not take into account the value entered here, due to their specific format.</en><fr>Nombre de CN23 à imprimer Si la balise n’est pas renseignée 4 exemplaires de CN23 seront imprimés. Le nombre va de 1 compris à 4 exemplaires max. <br/> Remarque : les produits retours internationaux ne tiennent pas compte de par leur format spécifique de la valeur renseignée ici.</fr></lang>",
+          "format": "int32"
+        },
+        "contents": {
+          "$ref": "#/$defs/Contents"
+        },
+        "importersReference": {
+          "type": "string",
+          "description": "<i>AN1…35</i> <br/>  <lang><en>Importer's reference, TVA number<br/>Appears on the CN23 document for shipments.<br/>Not used for returns.</en><fr>Référence de l’importateur, Numéro de TVA.<br/><br/> Apparaît sur le fichier CN23 pour les envois.<br/>N’est pas utilisé pour les retours. </fr></lang>"
+        },
+        "importersContact": {
+          "type": "string",
+          "description": "<i>AN35</i> <br/>  <lang><en>Importer's contact (tel./e-mail).<br/>Doesn’t appear on CN23 document.</en><fr>Contact (tél./e-mail) de l’importateur. <br/> N’apparaît pas sur le fichier CN23.</fr></lang>"
+        },
+        "officeOrigin": {
+          "type": "string",
+          "description": "<i>AN35</i> <br/>  <lang><en>Office origin.<br/>Doesn’t appear on CN23 document.</en><fr>Bureau d’origine. <br/> N’apparaît pas sur le fichier CN23.</fr></lang>"
+        },
+        "comments": {
+          "type": "string",
+          "description": "<i>AN35</i> <br/>  <lang><en>Observations<br/>Appears on CN23 document.</en><fr>Observations<br/>Apparaît sur le fichier CN23</fr></lang>"
+        },
+        "description": {
+          "type": "string",
+          "description": "<i>AN1.. ??</i> <br/>  <lang><en>Mandatory in the case of a DDP shipment<br/>Generic description of articles in English.<br/>Example: Textile items, Shoes, Music instrument, Hair dryer, etc.</en><fr>Description générique des articles en anglais. <br/> Obligatire dans le cas d’un envoi DDP <br/> Exemple : Textile items, Shoes, Music instrument, Hair dryer, etc  </fr></lang>"
+        },
+        "invoiceNumber": {
+          "type": "string",
+          "description": "<i>AN1...35</i> <br/>  <lang><en>Identifier of related invoice document.<br/>Appears in the « N° de la facture » field on the CN23 document.</en><fr>Identifiant du document facture lié.<br/> Apparaît dans le champ « N° de la facture » sur la CN23.</fr></lang>"
+        },
+        "licenceNumber": {
+          "type": "string",
+          "description": "<i>AN1…35</i> <br/>  <lang><en>Identifier of the related import license document.<br/>Appears in the « N° de la/les licences » field on the CN23 document.</en><fr>Identifiant du document de licence d’importation lié. <br/> Apparaît dans le champ « N° de la/les licences » sur la CN23.</fr></lang>"
+        },
+        "certificatNumber": {
+          "type": "string",
+          "description": "<i>AN1…35</i> <br/>  <lang><en>Identifier of the related certificate number document.<br/><br/>Appears in the « N° du/des certificats » field on the CN23 document.</en><fr>Identifiant du document de certificat lié. <br/> Apparaît dans le champ « N° du/des certificats » sur la CN23.</fr></lang>"
+        },
+        "importerAddress": {
+          "$ref": "#/$defs/Address"
+        }
+      },
+      "description": "<i>SUB</i> <br/>  <lang><en>These parameters are mandatory only for destinations requiring a CN23 customs declaration.</en><fr>Ces paramètres ne sont obligatoires que pour les destinations nécessitant une déclaration douanière de type CN23.</fr></lang>"
+    },
+    "Field": {
+      "required": [
+        "key",
+        "value"
+      ],
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "<i>A</i> <br/>  <lang><en>Key word to be informed</en><fr>Mot clef à renseigner</fr></lang>"
+        },
+        "value": {
+          "type": "string",
+          "description": "<i>AN32</i> <br/>  <lang><en>The expected value is the order identifier in the SI Colissimo.</en><fr>Valeur attendue dans l'ordre identifié du SI Colissimo</fr></lang>"
+        }
+      }
+    },
+    "Fields": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "array",
+          "description": "<lang><en>Package size in centimeters: length, width and height<br/>\r\nLength <= 274 cm<br/>\r\nLength + circumference (2 x height + 2 x width) <= 330 cm<br/>\r\n               \r\n               <field>\r\n                   <key>LENGTH</key>\r\n                   <value>30</value>\r\n               </field>\r\n               <field>\r\n                   <key>WIDTH</key>\r\n                   <value>20</value>\r\n               </field>\r\n               <field>\r\n                   <key>HEIGHT</key>\r\n                   <value>10</value>\r\n               </field>\r\n               \r\n<b>Customer Barcode</b><br/>\r\nAdding a custom barcode in GEOLABEL standard labels cf. chapter \"Available Shipment options/Customer Barcode\" (maximum 17 alpha-numeric and 25 numeric characters)<br/>\r\n               \r\n               <field>\r\n                      <key>PRINT_CUSTOMER_BARCODE</key>\r\n                      <value>1</value>\r\n               </field>\r\n               <field>\r\n                       <key>CUSTOMER_BARCODE</key>\r\n                       <value>REF12345678</value>\r\n               </field>\r\n\r\nIF PRINT_CUSTOMER_BARCODE = 1, print the barcode with the value of the field CUSTOMER_BARCODE (see example of labels II.5.1.7)<br/>\r\nIF PRINT_CUSTOMER_BARCODE = 2, print the barcode with the value of the parcel number (see example of labels II.5.1.8)<br/>\r\n<br/>\r\n<br/>\r\n<b>Label with visible client tag</b><br/>\r\nOn standard GEOLABEL labels in 10x15 and PDF format, it is possible to add a customized 15 characters text below the label.<br/>\r\nThe PRINT_CUSTOMER_LABEL field allows the text to be displayed or not, and the CUSTOMER_LABEL field specifies the text.<br/>\r\n    \n             <field>\r\n                 <key>PRINT_CUSTOMER_LABEL</key>\r\n                 <value>1</value>\r\n             </field>\r\n    \n    \n             <field>\r\n                 <key>CUSTOMER_LABEL</key>\r\n                 <value>ABCDEFG</value>\r\n             </field>\r\n    \n<br/>\r\nNote: it is not possible to display a personalized barcode and a personalized text at the same time.<br/>\r\n<br/>\r\nNote 2: the personalized text will not appear on the label when reprinted by getlabel (or on a La Poste vending machine).<br/>\r\n<br/>\r\n<b>CN23 format</b><br/>\r\nAddition of a specific CN23 format :<br/>\r\n    \n             <field>\r\n                 <key>OUTPUT_PRINT_TYPE_CN23</key>\r\n                 <value>ZPL_10x12_203dpi</value>\r\n             </field>\r\n    \nFormat/value allowed :<br/>\r\nZPL_10x12_203dpi<br/>\r\nZPL_10x12_300dpi<br/>\r\nDPL_10x12_203dpi<br/>\r\nDPL_10x12_300dpi<br/>\r\nPDF_10x12_300dpi<br/>\r\nPDF_A4_300dpi<br/>\r\n<b>“Unique Label” (UL) including label and CN23 on the same page </b> <br/>\r\naccepted formats are : <br/>\r\nZPL_10x15_203dpi_UL<br/>\r\nZPL_10x15_300dpi_UL<br/>\r\nDPL_10x15_203dpi_UL<br/>\r\nDPL_10x15_300dpi_UL<br/>\r\nPDF_10x15_300dpi_UL<br/>\r\nPDF_A4_300dpi_UL<br/>\r\n    \n             <field>\r\n                 <key>OUTPUT_PRINT_TYPE_CN23</key>\r\n                 <value>PDF_10x15_300dpi_UL</value>\r\n             </field>\r\n    \nThe parcel (output_print_type_CN23) format and parcel format (outputprinting type) has to be the same in order to use the unique label feature :<br/>\r\nIf the parcel is not eligible for CN23, then the label format will be printed<br/>\r\n(OutputFormat block: outputprinting type field).<br/>\r\nIf more than 3 items are entered in the CN23 section, they will not be displayed in the item list, but included in the total value and weight.<br/>\r\nThis option overrides the customization features :<br/>\r\n- Add a customer label (PRINT_CUSTOMER_LABEL)<br/>\r\n- Adding a customer reference CAB (PRINT_CUSTOMER_BARCODE)<br/><br/>\r\n<b>Group your Parcel</b><br/>\r\n<br/>\r\n- The additional input parameters of the WS SLS for tracked parcels are as follows:<br/>\r\n•\tTracking parcel flag<br/>\r\n•\tTotal number of packages<br/>\r\n•\tIteration (order number of the package)<br/>\r\n<br/>\r\n<br/>\r\n               <field>\r\n                  <key>TYPE_MULTI_PARCEL</key>\r\n                  <value>FOLLOWER</value>\r\n               </field>\r\n               <field>\r\n                  <key>PARCEL_ITERATION_NUMBER</key>\r\n                  <value>2</value>\r\n               </field>\r\n               <field>\r\n                  <key>TOTAL_NUMBER_PARCEL</key>\r\n                  <value>5</value>\r\n               </field>\r\n<br/>\r\n- The additional input parameters of the WS SLS for the master parcel are <br/>\r\n•\tMaster parcel flag<br/>\r\n•\tIteration (order number of the package)<br/>\r\n•\tTotal number of packages<br/>\r\nLimitation of 5 parcels in total<br/>\r\n•\tList of follow-up packages<br/>\r\n     \r\n     \r\n              <field>\n                   <key>TYPE_MULTI_PARCEL</key>\r\n                   <value>MASTER</value>\r\n             </field>\r\n             <field>\r\n                  <key>PARCEL_ITERATION_NUMBER</key>\r\n                   <value>2</value>\r\n             </field>\r\n             <field>\r\n                  <key>TOTAL_NUMBER_PARCEL</key>\r\n                   <value>5</value>\r\n             </field>\r\n             <field>\r\n                  <key>LIST_FOLLOWER_PARCEL</key>\r\n\t\t\t\t     <value>8Q53764663714/8Q53764663721/8Q53764663738/8Q53764663748/8Q53764663758</value>\r\n             </field>\r\n<br/>\r\n<b>BuyNowPayLater</b><br/>\r\nThis input is used to notify transaction id attached to a parcel as part of the Colissimo<br/>\r\npay offer for deferred and fractioned payment.<br/>\r\nThis id parameter is truncated at 50 characters<br/>\r\n    \n             <field>\r\n                 <key>BNPL</key>\r\n                 <value>ID de transaction</value>\r\n             </field>\r\n    \n<b>CUSER_INFO_TEXT</b><br/>\r\nResearch label for OSC. The label can be unique or shared between multiple parcels in order to search for a list of parcels with the same reference, for example.<br/>\r\n    \n             <field>\r\n                 <key>CUSER_INFO_TEXT</key>\r\n                 <value>xxxxxxxxxxxxxxxxxx</value>\r\n             </field>\r\n    \n<b>CUSER_INFO_TEXT_4</b><br/>\r\nPartner reference (if given by your Colissimo contacts). Specific to the use of the service by our partners.<br/>\r\n    \n             <field>\r\n                 <key>CUSER_INFO_TEXT_4</key>\r\n                 <value>xxxxxxxxxxxxxxxxxx</value>\r\n             </field>\r\n    \n<br/>\r\n<b>EORI (Economics Operators Registration and Identification)</b><br/>\r\n<br/>EORI numbers of the sender and/or recipient, which will appear on the customs declaration.\r\n  * Use the 'EORI_ADDRESSEE' field for the recipient's EORI.\r\n    <br/>\n  * Use the 'EORI' field for the sender's EORI using the exact format: 2 letters + 9 digits.\r\n    \n             <field>\n                <key>EORI</key>\n                <value>1234567</value>\n             </field>\n             <field>\n                <key>EORI_ADRESSEE</key>\n                <value>1234567</value>\n             </field>\n</en><fr>Taille du colis en centimètres: longueur, largeur et hauteur<br/>\r\nLongueur <= 274 cm<br/>\r\nLongueur + curconférence (2 x hauteur + 2 x largeur) <= 330 cm<br/>\r\n               \r\n               <field>\r\n                   <key>LENGTH</key>\r\n                   <value>30</value>\r\n               </field>\r\n               <field>\r\n                   <key>WIDTH</key>\r\n                   <value>20</value>\r\n               </field>\r\n               <field>\r\n                   <key>HEIGHT</key>\r\n                   <value>10</value>\r\n               </field>\r\n               \r\n<b>Code barre personnalisé</b><br/>\r\nAjouter un code barre personnalisé sur les étiquettes standards GEOLABEL conf. chapitre \"Option d'envoi/Code barres client\" (maximum 17 caractères alpha numériques et 25 numériques)<br/>\r\n               \r\n               <field>\r\n                      <key>PRINT_CUSTOMER_BARCODE</key>\r\n                      <value>1</value>\r\n               </field>\r\n               <field>\r\n                       <key>CUSTOMER_BARCODE</key>\r\n                       <value>REF12345678</value>\r\n               </field>\r\n\r\nIF PRINT_CUSTOMER_BARCODE = 1, affiche le code barre avec la valeur du champ CUSTOMER_BARCODE (voir les exemples d'etiquettes)<br/>\r\nIF PRINT_CUSTOMER_BARCODE = 2, affiche le code barre avec la valeur du numéro de colis (voir les exemples d'etiquettes)<br/>\r\n<br/>\r\n<br/>\r\n<b>Etiquette avec référence client</b><br/>\r\nSur les étiquettes standard GEOLABEL au format 10x15 et PDF , il est possible d'ajouter un texte personnalisé de 15 caractères maximum sous les étiquettes.<br/>\r\nLe champ PRINT_CUSTOMER_LABEL permet d'afficher ou non le texte, et le champ CUSTOMER_LABEL précise le texte.<br/>\r\n    \n             <field>\r\n                 <key>PRINT_CUSTOMER_LABEL</key>\r\n                 <value>1</value>\r\n             </field>\r\n    \n    \n             <field>\r\n                 <key>CUSTOMER_LABEL</key>\r\n                 <value>ABCDEFG</value>\r\n             </field>\r\n    \n<br/>\r\nRemarque : il n'est pas possible d'afficher en même temps un code à barre personnalisé et un texte personnalisé<br/>\r\n<br/>\r\nRemarque 2 : le texte personnalisé n'apparaîtra pas sur l'étiquette en cas de réimpression par getlabel (ou sur un automate La Poste).<br/>\r\n<br/>\r\n<b>CN23 format</b><br/>\r\nFormats spécifiques pour la CN23 :<br/>\r\n    \n             <field>\r\n                 <key>OUTPUT_PRINT_TYPE_CN23</key>\r\n                 <value>ZPL_10x12_203dpi</value>\r\n             </field>\r\n    \nFormats possibles :<br/>\r\nZPL_10x12_203dpi<br/>\r\nZPL_10x12_300dpi<br/>\r\nDPL_10x12_203dpi<br/>\r\nDPL_10x12_300dpi<br/>\r\nPDF_10x12_300dpi<br/>\r\nPDF_A4_300dpi<br/>\r\n<b>une étiquette unique (UL) incluant la CN23 sur la même page</b> <br/>\r\nles formats acceptés sont : <br/>\r\nZPL_10x15_203dpi_UL<br/>\r\nZPL_10x15_300dpi_UL<br/>\r\nDPL_10x15_203dpi_UL<br/>\r\nDPL_10x15_300dpi_UL<br/>\r\nPDF_10x15_300dpi_UL<br/>\r\nPDF_A4_300dpi_UL<br/>\r\n    \n             <field>\r\n                 <key>OUTPUT_PRINT_TYPE_CN23</key>\r\n                 <value>PDF_10x15_300dpi_UL</value>\r\n             </field>\r\n    \nLe format de la CN23 (output_print_type_CN23) et format de l'étiquette (outputprinting type) doit être le même pour bénéficier de la fonctionnalité d'étiquette unifiée: <br/><br/>\r\nSi le colis n'est pas éligile à la CN23, le format affiché sera<br/>\r\n(OutputFormat block: outputprinting type field).<br/>\r\nSi il y a plus de 3 articles, la CN23 affichera que les 3 premiers mais les totaux seront pour l'ensemble des articles<br/>\r\nCette option écrase les personalisations suivantes : <br/>\r\n- Ajout d'une étiquette personalisée (PRINT_CUSTOMER_LABEL)<br/>\r\n- Ajout d'une référence CAB personalisée (PRINT_CUSTOMER_BARCODE)<br/><br/>\r\n<b>Groupage de colis</b><br/>\r\n<br/>\r\n- Les paramètres additionnels du service sls pour tracer les colis sont les suivants : <br/>\r\n•\tEtiquette de traçage du colis<br/>\r\n•\tNombre total de packages<br/>\r\n•\tIteration (numéro du package)<br/>\r\n<br/>\r\n<br/>\r\n               <field>\r\n                  <key>TYPE_MULTI_PARCEL</key>\r\n                  <value>FOLLOWER</value>\r\n               </field>\r\n               <field>\r\n                  <key>PARCEL_ITERATION_NUMBER</key>\r\n                  <value>2</value>\r\n               </field>\r\n               <field>\r\n                  <key>TOTAL_NUMBER_PARCEL</key>\r\n                  <value>5</value>\r\n               </field>\r\n<br/>\r\n- Les paramètres additionnels du service sls pour les colis master sont les suivants : <br/>\r\n•\tEtiquette du colis master<br/>\r\n•\tNombre total de packages<br/>\r\n•\tIteration (numéro du package)<br/>\r\n•    Limitation à 5 colis<br/>\r\n•\tListe des packages suivis<br/>\r\n     \r\n     \r\n              <field>\n                   <key>TYPE_MULTI_PARCEL</key>\r\n                   <value>MASTER</value>\r\n             </field>\r\n             <field>\r\n                  <key>PARCEL_ITERATION_NUMBER</key>\r\n                   <value>2</value>\r\n             </field>\r\n             <field>\r\n                  <key>TOTAL_NUMBER_PARCEL</key>\r\n                   <value>5</value>\r\n             </field>\r\n             <field>\r\n                  <key>LIST_FOLLOWER_PARCEL</key>\r\n\t\t\t\t     <value>8Q53764663714/8Q53764663721/8Q53764663738/8Q53764663748/8Q53764663758</value>\r\n             </field>\r\n<br/>\r\n<b>BuyNowPayLater</b><br/>\r\nCette saisie permet de notifier l'identifiant de la transaction attachée à un colis Colissimo<br/>\r\noffre payante en paiement différé et fractionné.<br/>\r\nCe paramètre id est tronqué à 50 caractères<br/>\r\n    \n             <field>\r\n                 <key>BNPL</key>\r\n                 <value>ID de transaction</value>\r\n             </field>\r\n    \n<b>CUSER_INFO_TEXT</b><br/>\r\nRéférence de recherche pour OSC. La référence peut être unique ou partagée sur plusieurs colis, afin de permettre de rechercher une liste de colis ayant la même référence par exemple.<br/>\r\n    \n             <field>\r\n                 <key>CUSER_INFO_TEXT</key>\r\n                 <value>xxxxxxxxxxxxxxxxxx</value>\r\n             </field>\r\n    \n<b>CUSER_INFO_TEXT_4</b><br/>\r\nRéférence partenaire (si communiquée par vos interlocuteurs Colissimo). Spécifique à l'utilisation du service par nos partenaires.<br/>\r\n    \n             <field>\r\n                 <key>CUSER_INFO_TEXT_4</key>\r\n                 <value>xxxxxxxxxxxxxxxxxx</value>\r\n             </field>\r\n    \n<br/>\r\n<b>EORI (Economics Operators Registration and Identification)</b><br/>\r\n<br/>Numéros EORI de l'expéditeur et/ou du destinataire qui seront visibles notamment sur la déclaration douanière.\r\n  * Utiliser le champs 'EORI_ADDRESSEE' pour l'EORI du destinataire\r\n    <br/>\n  * Utiliser le champs 'EORI' pour l'EORI de l'expéditeur (obligatoire pour les envois vers les US) : 2 lettres + 9 chiffres.\r\n    \n             <field>\n                <key>EORI</key>\n                <value>1234567</value>\n             </field>\n             <field>\n                <key>EORI_ADRESSEE</key>\n                <value>1234567</value>\n             </field>\n</fr></lang>",
+          "items": {
+            "$ref": "#/$defs/Field"
+          }
+        },
+        "customField": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Field"
+          }
+        }
+      },
+      "description": "<i>SUB</i> <br/>  <lang><en></en><fr>Ce bloc peut être utilisé pour renseigner l’identifiant <br/><br/> -Gestion des utilisateurs </b> <br/> -Colissimo Pass ID <br/> - GST <br/> - EORI </fr></lang>"
+    },
+    "Letter": {
+      "required": [
+        "addressee",
+        "parcel",
+        "service"
+      ],
+      "type": "object",
+      "properties": {
+        "service": {
+          "$ref": "#/$defs/Service"
+        },
+        "parcel": {
+          "$ref": "#/$defs/ParcelRequestV2"
+        },
+        "customsDeclarations": {
+          "$ref": "#/$defs/CustomsDeclarations"
+        },
+        "sender": {
+          "$ref": "#/$defs/Sender"
+        },
+        "addressee": {
+          "$ref": "#/$defs/Addressee"
+        },
+        "codSenderAddress": {
+          "$ref": "#/$defs/Address"
+        }
+      },
+      "description": "<i>SUB</i> <br/>  <lang><en>This block contains tags and blocks related to the shipment (options, parcel, sender, addressee, customs).<br/>List sub-bocks (described below): <br/><ul><li>Service: type of product and prices, </li><li>Parcel: insurances and options, </li><li>Sender: sender,</li><li>Addressee: addressee, </li><li>CustomsDeclarations: customs.</li></ul></en><fr>Ce bloc contient des balises et blocs liés à l’expédition (options, colis, expéditeur, destinataire, douanes).<br/><br/>Liste des sous-blocs (décrits plus bas) : <br/><ul><li>Service : type de produit et tarifs, </li><li>Parcel : assurances et options, </li><li>Sender : expéditeur ou déposant en retour </li><li>Addressee : destinataire,</li><li>CustomsDeclarations : douanes.</li></ul></fr></lang>"
+    },
+    "Original": {
+      "type": "object",
+      "properties": {
+        "originalIdent": {
+          "type": "string",
+          "description": "<i>A1</i> <br/>  <lang><en>Mandatory for 7R and 5R return products. <br/><br/>Key for identifying the invoice and outgoing parcel related to the article.<br/>Link up the parcel number with its sequencing: <br/><ul><li>if the article belongs to the 1st parcel, indicate A;</li><li>If the article belongs to the 3rd parcel, indicate C; </li><li>etc.</li></ul></en><fr>Clé permettant d’identifier la facture et colis aller liés à l’article. <br/><br/> Obligatoire pour les produits retours inter (7R) hors UE et 5R(OM). <br/><br/> Appairer le numéro de colis avec son ordonnancement :<br/><ul> <li>si l’article appartient au 1er colis, indiquer A ;</li> <li>si l’article appartient au 3ème colis, indiquer C ;</li> <li>etc …</li> </ul> </fr></lang>"
+        },
+        "originalInvoiceNumber": {
+          "type": "string",
+          "description": "<i>AN1...35</i> <br/>  <lang><en>Mandatory for a return parcel.<br/><br/>Original invoice number for a return parcel.</en><fr>Numéro de la facture d’origine du colis. <br/><br/> Obligatoire pour un colis Retour.</fr></lang>"
+        },
+        "originalInvoiceDate": {
+          "type": "string",
+          "description": "<i>AN10</i> <br/>  <lang><en>Mandatory for a return parcel. <br/><br/>Original invoice date for a return parcel. YYYY-MM-DD format is expected. The date must be before or the same as today’s date</en><fr>Date de la facture d’origine du colis. <br/><br/> Obligatoire pour un colis Retour. <br/><br/> Format attendu AAAA-MM-JJ. <br/><br/> Doit être antérieure ou égale à la date du jour.</fr></lang>",
+          "format": "date-time"
+        },
+        "originalParcelNumber": {
+          "type": "string",
+          "description": "<i>AN1...35</i> <br/>  <lang><en>Mandatory for a return parcel.<br/><br/>Original parcel number.</en><fr>Numéro de colis d’origine.<br/><br/>Obligatoire pour un colis Retour. </fr></lang>"
+        }
+      },
+      "description": "<lang><en>Mandatory for 7R and 5R return products. <br/><br/>Block containing Original data set(s).<br/>Up to 5 Original data sets are approved. Packages are identified all together with the 5 Original sets</en> <fr>Bloc contenant le (ou les) set(s) de données Original. <br/><br/> Obligatoire pour les produits retours inter (7R) hors UE et 5R (OM). <br/><br/> Au plus 5 sets de données Original sont agréés.<br/><br/> Les colis sont identifiés selon l’ensemble </fr></lang>"
+    },
+    "OutputFormat": {
+      "required": [
+        "outputPrintingType",
+        "x",
+        "y"
+      ],
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "integer",
+          "description": "<i>N-9999…9999</i> <br/> <lang><en>By default, enter \"false\" (or \"0\"). <br/>Allows horizontal adjustment of printing on the label (expressed in points): <br/><ul><li>if x < 0: the label is shifter to the right</li><li>if x > 0: the label is shifted to the left</li></ul></en><fr>Par défaut, mettre à \"false\" (ou \"0\"). <br/>Permet d’ajuster le décalage horizontal de l’impression sur l’étiquette (exprimé en points): <br/><ul><li>si x < 0: l'étiquette est décalée à droite.</li><li>si x > 0: l'étiquette est décalée à gauche.</li></ul></fr></lang>",
+          "format": "int32"
+        },
+        "y": {
+          "type": "integer",
+          "description": "<i>N-120…120</i> <br/> <lang><en>By default, enter \"false\" (or \"0\"). <br/>Allows vertical adjustment of printing on the label (expressed in points): <br/><ul><li>if y < 0: the label is shifter up</li><li>if y > 0: the label is shifted down</li></ul></en><fr>Par défaut, mettre à \"false\" (ou \"0\"). <br/>Permet d’ajuster le décalage vertical de l’impression sur l’étiquette (exprimé en points) : <br/><ul><li>si y < 0: l'étiquette est décalée en haut.</li><li>si y > 0: l'étiquette est décalée en bas.</li></ul></fr></lang>",
+          "format": "int32"
+        },
+        "outputPrintingType": {
+          "type": "string",
+          "description": "<i>L</i> <br/> <lang><en>Label printing format.</en><fr>Format d'impression des étiquettes.</fr></lang>"
+        },
+        "dematerialized": {
+          "type": "boolean",
+          "description": "<i>B</i> <br/> <lang><en>Not used (La Poste internal use only)</en><fr>Non utilisé (utilisation interne à La Poste uniquement)</fr></lang>"
+        },
+        "returnType": {
+          "type": "string",
+          "description": "<i>L</i> <br/> <lang><en>Used if the tag productCode is <b>CORE (8R)</b> or <b>CORF (CQ).</b><br/><br/>Defines the label transmission mode. By default, the label is sent in the Web Service response only.<br/>Possible values:<br/><ul><li>SendPDFByMail: the label is also sent by email, as an attachment, to the address indicated in the “sender block”.</li><li>SendPDFLinkByMail: the label is also sent by email, as a hypertext link, to the address indicated in the “sender block”.</li></ul></en><fr>Définit le mode de transmission de l’étiquette.</b></b> Utilisé pour le Colissimo Retour uniquement.</b>Par défaut, l’étiquette est envoyée uniquement dans la réponse du Web Service.</b></b> Valeurs possibles : <br/><ul><li>SendPDFByMail : l’étiquette est également envoyée par e-mail en tant que pièce jointe à l’adresse renseignée dans le bloc « sender ».</li> <li>SendPDFLinkByMail : l’étiquette est également envoyée par e-mail sous forme de lien hypertexte à l’adresse renseignée dans le bloc « sender ».</li></ul> </fr></lang>"
+        },
+        "printCODDocument": {
+          "type": "boolean",
+          "description": "<i>B</i> <br/> <lang><en>Allow you to print the CRBT document <br/><br/> Default: false</en><fr>Permettre d’imprimer le document CRBT <br/>Par défaut : false</fr></lang>"
+        }
+      },
+      "description": "<i>SUB</i> <br/>  <lang><en>This block contains the sub-tags linked to the format of the data sent by the Web Service</en><fr>Ce bloc contient les balises liées au format des éditions renvoyées par le Web Service.</fr></lang>"
+    },
+    "ParcelRequestV2": {
+      "required": [
+        "weight"
+      ],
+      "type": "object",
+      "properties": {
+        "parcelNumber": {
+          "type": "string",
+          "description": "<i>AN13</i> <br/>  <lang><en>Not used (La Poste internal use only)</en><fr>Non utilisé (utilisation interne à La Poste uniquement)</fr></lang>"
+        },
+        "insuranceAmount": {
+          "type": "integer",
+          "description": "<i>N</i> <br/>  <lang><en>Not used (La Poste internal use only)</en><fr>Non utilisé (utilisation interne à La Poste uniquement)</fr></lang>",
+          "format": "int32"
+        },
+        "insuranceValue": {
+          "type": "integer",
+          "description": "<i>N</i> <br/>  <lang><en>Insured value <br/><br/>  By default, enter \"0\".<br/><br/>If the insurance option is chosen, enter the amount of the desired insurance level by selecting among one of the 6 levels below . <br/> The amount must be written in cents. Example: 500000 for 5,000 EUR.<br/><br/> If the value entered does not match one of the 6 levels of insurance available, the value will be changed the level in which the entered amount is located. Example: 16200 for 162 EUR will become 30000 for 300 EUR. <br/><br/> 6 optional insurance levels: <br/> <ul> <li>150 EUR ; </li> <li>300 EUR ; </li> <li>500 EUR ; </li> <li>1000 EUR ; </li> <li>2000 EUR ; </li> <li>5000 EUR ;</li></ul><br/>Maximum= 5000€.</en><fr>Valeur assurée. <br/><br/> Par défaut, renseigner \"0\". <br/> Si l’option d’assurance est choisie, renseigner le montant du niveau d’assurance souhaité parmi les 6 niveaux proposés. Le montant doit être exprimé en centimes. Exemple : 500000 pour 5000 EUR. <br/><br/> Si la valeur renseignée ne correspond pas à l’un des 6 niveaux d’assurance, la valeur affichée sera celle du niveau dans lequel le montant renseigné se situe. Exemple : 16200 soit 162 EUR, deviendra 30000 EUR soit 300 EUR. <br/><br/>6 niveaux d’assurance optionnelle : <br/> <ul> <li>150 EUR ; </li> <li>300 EUR ; </li> <li>500 EUR ; </li> <li>1000 EUR ; </li> <li>2000 EUR ; </li> <li>5000 EUR ;</li></ul><br/>Maximum= 5000€.</fr></lang>",
+          "format": "int32"
+        },
+        "recommendationLevel": {
+          "type": "string",
+          "description": "<lang><en>Level</en><fr>Niveau</fr></lang>"
+        },
+        "weight": {
+          "type": "number",
+          "description": "<i>N</i> <br/>  <lang><en>Weight of parcel in kg. <br/> Example: \"5.50\". <br/><br/> <b>parameter \"weight\":</b> <ul> <li>Parcel weight in kg,</li> <li>Minimum: 0.01kg,</li> <li>Maximum: 30.00 kg or the maximum weight authorised by the pick-up location</li> <li>Only 2 decimals different from 0 are accepted.</li> </ul> <br/> <b>The status of the customer account:</b> a terminated customer account will not allow labels to be generated. </en><fr>Poids du colis en kg. <br/> Exemple : \"5.50\". </fr></lang>",
+          "format": "float"
+        },
+        "nonMachinable": {
+          "type": "boolean",
+          "description": "<i>B</i> <br/>  <lang><en>Default: false<br/>Parcel format.<br/>If productCode is <b>HD</b>, enter \"false\" (or \"0\") by default.<br/>Enter \"true\" (or \"1\") to indicate that parcel format is non-standard (non-machinable).</en><fr>Format du colis. <br/> Si la balise productCode a les codes <b>HD</b> renseigner \"false\" (ou \"0\") par défaut. <br/> Passer à \"true\" (ou \"1\") pour indiquer que le format du colis est non standard (non mécanisable). </fr></lang>"
+        },
+        "returnReceipt": {
+          "type": "boolean",
+          "description": "<i>B</i> <br/>  <lang><en>Default: false<br/>Advice of receipt</en><fr>Avis de réception. <br/><br/> Par défaut, renseigner \"false \" (ou \"0\"). </fr></lang>"
+        },
+        "instructions": {
+          "type": "string",
+          "description": "<i>AN1...35</i> <br/>  <lang><en>Additional information:<br/><ul><li>For the delivery labels,</li><li>For Colissimo Return labels (return pattern).</li></ul>Example for a delivery: \"to the left of interior gate\".</en><fr>Permet d’afficher sur l’étiquette : <br/> <ul> <li>Des indications complémentaires pour la livraison,</li> <li>Le motif du retour.</li> </ul>  <br/>  Exemple pour une livraison : « à gauche au portail intérieur ». </fr></lang>"
+        },
+        "pickupLocationId": {
+          "type": "string",
+          "description": "<i>N6</i> <br/>  <lang><en>Pick-up location identifier for Colissimo out of home delivery.<br/>This tag:<br/><ul><li>Must be entered if the tag productCode is <b>HD</b></li><li>Must be blank if the tag productCode is <b>DOM or DOS.</b></li></ul>If the network code is \"X00\", the block <fields> must be set.</en><fr>Identifiant du point de retrait pour une livraison Colissimo hors domicile. <br/><br/> Cette balise : <br/> <ul> <li>Doit être renseignée si productCode vaut <b>HD</b></li> <li>Doit être vide si productCode vaut <b>DOM</b> ou <b>DOS.</b></li> </ul> <br/> Si le code réseau est \"X00\", il sera obligatoire de renseigner le bloc fields.  </fr></lang>"
+        },
+        "ftd": {
+          "type": "boolean",
+          "description": "<i>B</i> <br/>  <lang><en>Default: false<br/>For overseas shipments <br/>Mandatory, to be filled in by \"true\" (or \"1\"), for shipments to Overseas France only.</en><fr>Pour les envois vers l'outre-mer <br/><br/> Par défaut, renseigner \"false \" (ou \"0\"). <br/><br/>Obligatoire, à renseigner par \"true \" (ou \"1\"), pour les envois vers l’Outre-Mer uniquement.   </fr></lang>"
+        },
+        "ddp": {
+          "type": "boolean",
+          "description": "<i>B</i> <br/>  <lang><en>Default: false <br/>- For international shipments <br/>Indicate \"1\" if the package is ddp</en><fr>Pour les envois vers l’international <br/><br/> Indiquer « 1 » si le colis est ddp, <br/><br/> Par défaut, renseigner « 0 » (zéro) </fr></lang>"
+        },
+        "disabledDeliveryBlockingCode": {
+          "type": "string",
+          "description": "<lang><en>Prerequisite: you must have activated the \"Code Bloquant\" service on the Colissimo Box.<br/><br/>Indicates whether delivery should be made without a blocking code (if no value is entered, eligible parcels will be delivered with a blocking code).<br/><br/>1 = true: Deactivates the blocking code<br/>0 = False: Does not deactivate the blocking code<br/>Empty = False: Does not deactivate the blocking code</en><fr>Prérequis : avoir activé le service \"Code Bloquant\" sur la Colissimo Box<br/><br/>Indique si la livraison doit se faire sans code bloquant. (Si aucune valeur n'est renseignée, les colis éligibles seront livrés avec code bloquant)<br/><br/>1 = true : Désactive le code bloquant<br/>0 = False : Ne désactive pas le code bloquant<br/>Vide = False : Ne désactive pas le code bloquant</fr></lang>"
+        },
+        "cod": {
+          "type": "boolean",
+          "description": "<i>B</i> <br/>  <lang><en>Default: false<br/>Indicates whether delivery should be made on a reimbursable basis.</en><fr>Indique si la livraison doit se faire contre remboursement. <br/> <br/> Par défaut, renseigner \"0\" (zéro). <br/><br/>  Passer à \"true\" (ou \"1\") si la livraison doit se faire contre remboursement.  </fr></lang>"
+        },
+        "codamount": {
+          "type": "integer",
+          "description": "<i>N</i> <br/>  <lang><en>Default: false (or 0)<br/>Mandatory if the value of the tag COD is \"true\" (or \"1\").<br/>Amount expected for cash on delivery.</en><fr>Montant attendu pour une livraison contre remboursement.  <br/><br/> Par défaut, renseigner \"false\" (ou \"0\"). <br/><br/> Obligatoire si la valeur de la balise COD est \"true\" (ou \"1\"). </fr></lang>",
+          "format": "int32"
+        },
+        "codcurrency": {
+          "type": "string",
+          "description": "<lang><en>COD currency</en><fr>COD devise</fr></lang>"
+        }
+      },
+      "description": "<i>SUB</i> <br/>  <lang><en></en><fr></fr></lang>"
+    },
+    "Sender": {
+      "type": "object",
+      "properties": {
+        "senderParcelRef": {
+          "type": "string",
+          "description": "<i>AN1...17</i> <br/>  <lang><en>Sender Order Number.<br/>It displays the customer reference only on the label. This data is not reflected in the Colissimo IT System and will not be visible in OSC.</en><fr>Référence de commande de l’expéditeur. <br/> <b>Elle permet d’afficher la référence client seulement sur l’étiquette.</b><br/>  <b>Cette donnée n’est pas remontée dans le SI Colissimo et ne sera pas visible dans l'outil de Suivi Colis.</b>  </fr></lang>"
+        },
+        "address": {
+          "$ref": "#/$defs/Address"
+        }
+      },
+      "description": "<i>SUB</i> <br/>  <lang><en></en><fr></fr></lang>"
+    },
+    "Service": {
+      "required": [
+        "depositDate",
+        "productCode"
+      ],
+      "type": "object",
+      "properties": {
+        "productCode": {
+          "type": "string",
+          "description": "<i>L</i> <br/>  <lang><en>Code indicating the desired product.<br/>Example: code <b>CORE</b> for Colissimo Return.<br/>If the tag is:<br/><ul><li><b>HD</b>, the tag pickupLocationId must be entered,</li><li><b>DOM or DOS</b>, the tag pickupLocationId should not be entered.</li></ul></en><fr>Code désignant l’offre produit souhaitée. <br/><br/> Exemple : code <b>CORE</b> pour Colissimo Retour. <br/><br/>  Si la balise vaut : <ul><li><b>HD</b> la balise pickupLocationId doit être renseignée,</li> <li><b>DOM</b> ou <b>DOS</b>, la balise pickupLocationId ne doit pas être renseignée.</li></ul></fr></lang>"
+        },
+        "depositDate": {
+          "type": "string",
+          "description": "<i>D</i> <br/>  <lang><en>Scheduled deposit date in the La Poste network.Example: \"2022-06-25\".</en><fr>Date de dépôt prévisionnelle dans le réseau La Poste. <br/><br/> Exemple : \"2022-06-25\"</fr></lang>",
+          "format": "date-time"
+        },
+        "mailBoxPicking": {
+          "type": "boolean",
+          "description": "<i>B</i> <br/>  <lang><en>Default: false<br/>Used if the tag <productCode> is <b>CORE (8R) or CORF (CQ).</b><br/><br/>Use if the former recipient of the parcel wishes to return it by placing it in his mailbox (offer “return mailbox”).<br/>Enter \"true\" (or \"1\") so that the parcel, returned by its former recipient, can be collected by a Colissimo agent from the mailbox of the former recipient.</en><fr>Demander la collecte du colis retourné à partir d'une boîte aux lettres (retour BAL).<br/><br/> Utilisé pour autoriser le retour des colis en boîte aux lettres. <br/><br/>  Utilisé pour le code <b>CORE (8R)</b><br/> et <b>CORF (CQ).</b>  <br/><br/>  Par défaut, renseigner \"false\" (ou \"0\"). <br/><br/> Doit valoir \"true\" (ou \"1\") pour que le colis retourné par son ancien destinataire puisse être collecté par un agent de Colissimo à partir de la boîte aux lettres de l’ancien destinataire. </fr></lang>"
+        },
+        "mailBoxPickingDate": {
+          "type": "string",
+          "description": "<i>D</i> <br/>  <lang><en>Used if the tag <productCode> is <b>CORE (8R) or CORF (CQ).</b><br/>Mandatory only if mailBoxPicking is \"true\" (or \"1\").<br/>Date requested for picking up from the mailbox.<br/>Example: \"2022-06-25\".<br/>To find out the next available date, call the getListMailBoxPickingDates method.<br/></en><fr>Date d’emport en boîte aux lettres demandée.<br/><br/> Utilisé pour le code <b>CORE (8R)</b> et <b>CORF (CQ).</b><br/><br/> Obligatoire (et pris en compte) seulement si mailBoxPicking vaut \"true\" (ou \"1\"). <br/><br/> Exemple : 2015-12-23 <br/>  Pour connaître la prochaine date possible, appeler la méthode getListMailBoxPickingDates .  </fr></lang>",
+          "format": "date-time"
+        },
+        "vatCode": {
+          "type": "integer",
+          "description": "<i>N</i> <br/>  <lang><en>Not used (La Poste internal use only)</en><fr>Non utilisé (utilisation interne à La Poste uniquement)</fr></lang>",
+          "format": "int32"
+        },
+        "vatPercentage": {
+          "type": "integer",
+          "description": "<i>N</i> <br/>  <lang><en>Not used (La Poste internal use only)</en><fr>Non utilisé (utilisation interne à La Poste uniquement)</fr></lang>",
+          "format": "int32"
+        },
+        "vatAmount": {
+          "type": "integer",
+          "description": "<i>N</i> <br/>  <lang><en>Not used (La Poste internal use only)</en><fr>Non utilisé (utilisation interne à La Poste uniquement)</fr></lang>",
+          "format": "int32"
+        },
+        "transportationAmount": {
+          "type": "integer",
+          "description": "<i>N</i> <br/>  <lang><en>Default: false<br/><br/>Basic shipping price (carriage costs) without any options. In euro cents.<br/><br/>Example: 4530 for 45.30€.<br/>Does not appear in the CN23 form.<br/></en><fr>Prix du transport de base (frais de port) sans les options éventuelles. <br/><br/> En centièmes d’euro <br/> Exemple : 4530 pour 45,30€. <br/> Par défaut, passer à \"0\". <br/>  N’apparaît pas dans le formulaire CN23. </fr></lang>",
+          "format": "int32"
+        },
+        "totalAmount": {
+          "type": "integer",
+          "description": "<i>N</i> <br/>  <lang><en>Mandatory for parcels requiring a CN23 declaration.<br/>Basic shipping price increased by the price of shipment options. In euro cents.<br/>Example: 4530 for 45.30€.<br/> Appears in the CN23 form in the \"Frais de port\" field.</en><fr>Prix du transport de base augmenté du prix des options de l’envoi. <br/><br/>Obligatoire pour les colis nécessitant une déclaration CN23. <br/><br/> En centièmes d’euro.<br/>  Exemple : 4530 pour 45,30€. <br/> Apparaît dans le formulaire CN23 dans le champ « Frais de port ». </fr></lang>",
+          "format": "int32"
+        },
+        "orderNumber": {
+          "type": "string",
+          "description": "<i>AN1…30</i> <br/>  <lang><en>Customer's order number.<br/>Does not appear on the label but will be included in the Colissimo IT System.<br/>Returned in tracking information.<br/>Can be useful for searching for parcels using this field in the OSC tracking system (appears in the \"réf. client.\" field).</en><fr>Référence de commande du client. <br/><br/> <b>N’apparait pas sur l’étiquette mais est intégré dans le SI Colissimo.</b> <br/> <b>Renvoyée dans les fichiers de suivi de colis (EDI-Retour).</b> <br/><br/> Peut être utile pour rechercher des colis selon ce champ dans l'outil de Suivi Colis (apparaît dans le champ « réf. client »). </fr></lang>"
+        },
+        "commercialName": {
+          "type": "string",
+          "description": "<i>AN</i> <br/>  <lang><en>Commercial name of the shipper.<br/>The tag is:<br/><ul><li>Mandatory if tag <productCode> is <b>HD</b></li><li>Not mandatory if tag <productCode> is <b>DOM, DOS</b></li></ul>This name will be displayed in e-mail notifications sent to the parcel addressees.</en><fr>Nom commercial du chargeur.<br/><br/>  Cette balise : <br/> <ul><li><b>Est obligatoire si productCode vaut HD</b></li><li>Facultative si productCode vaut <b>DOM, DOS,</b></li></ul> <br/> Ce nom sera affiché dans les notifications par e-mail faites aux destinataires des colis.  </fr></lang>"
+        },
+        "returnTypeChoice": {
+          "type": "integer",
+          "description": "<i>L</i> <br/>  <lang><en>Indicates whether the parcel must be returned to the sender in case of non-delivery of the parcel.<br/>Mandatory for certain international parcels, according to the applicable tariff areas.</en><fr>Indique si le colis doit être retourné à l’expéditeur en cas de <span style='text-decoration: underline;text-decoration-style: double;'>non distribution</span> du colis. <br/><br/> Obligatoire pour certains colis à l’international selon les zones tarifaires applicables. </fr></lang>",
+          "format": "int32"
+        },
+        "reseauPostal": {
+          "type": "string",
+          "description": "<i>B</i> <br/>  <lang><en>This parameter enables the possibility to choose the network responsible of the shipping (DPD or the local postal network), for international shipments.  <br/> <ul><li><b>reseauPostal = 0 => Select DPD network</b></li><li><b>reseauPostal = 1 => Select local postal network</b></li></ul></en><fr>Ce paramètre permet de choisir le réseau postal responsable de la livraison (DPD ou réseau postal local) pour tout envoi de colis à l’international parmi les pays concernés et sur les produits concernés. <br/><br/> <ul><li><b>reseauPostal = 0 => Choix DPD</b></li> <li><b>reseauPostal = 1 => Choix réseau postal local</b></li></ul> <br/><br/> Le code erreur <b>30027</b> s’affiche lorsqu’un réseau postal (DPD ou réseau postal local) est choisit pour un produit qui ne comporte par l’option sélectionnée.  </fr></lang>"
+        }
+      },
+      "description": "<i>SUB</i> <br/>  <lang><en></en><fr></fr></lang>"
+    }
+  }
+}

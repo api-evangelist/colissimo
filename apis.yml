@@ -1,23 +1,150 @@
 aid: colissimo
+
 name: Colissimo
-description: 'Colissimo is a company surfaced via the API Evangelist harvest backlog (source: market-gap:shipping-logistics)
-  and added to the network as a stub for full-pipeline profiling.'
+
+description: Colissimo is La Poste's parcel delivery brand for France and international shipping. For business shippers it publishes developer
+  web services on ws.colissimo.fr - the Shipping Label Service (SLS, web service d'affranchissement) for labels, CN23 customs forms, bordereaux
+  and pickup planning, available as SOAP (WSDL) and REST (OpenAPI), and the Point Retrait web service (SOAP) for finding pickup and drop-off points
+  - documented in Redoc on the Colissimo Entreprise site.
+
 url: https://raw.githubusercontent.com/api-evangelist/colissimo/refs/heads/main/apis.yml
+
+image: https://www.laposte.fr/ecom/_nuxt/logo-part-vertical.BAUyeuwa.svg
+
 x-type: company
+
 x-source: harvest:market-gap:shipping-logistics
-x-tier: stub
-x-tier-reason: harvest
+
+x-tier: profiled
+
+x-tier-reason: enrichment pass 2026-10-13 (local-v5; was harvest)
+
 specificationVersion: '0.20'
+
 created: '2026-10-13'
+
 modified: '2026-10-13'
+
 tags:
 - Company
-apis: []
+- Shipping
+- Logistics
+- Parcels
+- Labels
+- Pickup Points
+- France
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+
 common:
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgenticAccess
+  url: agentic-access/colissimo-agentic-access.yml
+- type: Spectral
+  url: rules/colissimo-rules.yml
+- type: JSONLD
+  url: json-ld/colissimo-context.jsonld
+- type: Vocabulary
+  url: vocabulary/colissimo-vocabulary.yml
+- type: DataModel
+  url: data-model/colissimo-data-model.yml
+- type: Security
+  url: https://vdp.laposte.fr/p/Security-Information
+- type: ErrorCatalog
+  url: errors/colissimo-problem-types.yml
+- type: Conformance
+  url: conformance/colissimo-conformance.yml
+- type: Hosts
+  url: hosts/colissimo-hosts.yml
+- type: Vendors
+  url: vendors/colissimo-vendors.yml
+- type: SDKs
+  url: packages/colissimo-packages.yml
+- type: Packages
+  url: packages/colissimo-packages.yml
+- type: StatusPage
+  url: https://status.colissimo.fr/
+- type: VulnerabilityDisclosure
+  url: security/colissimo-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/colissimo-domain-security.yml
 - type: Website
   url: https://www.colissimo.fr
+- type: DeveloperPortal
+  url: https://www.colissimo.entreprise.laposte.fr/outils-et-solutions
+- type: Documentation
+  url: https://www.applications.colissimo.entreprise.laposte.fr/doc-colissimo/redoc-sls/fr
+- type: Support
+  url: https://www.colissimo.entreprise.laposte.fr/contact
+- type: TermsOfService
+  url: https://www.colissimo.entreprise.laposte.fr/mentions-legales
+
+apis:
+- aid: colissimo:colissimo-sls-api
+  name: Colissimo Shipping Label Service (SLS) API
+  description: Colissimo's web service d'affranchissement - generate and check shipping labels, CN23 customs declarations, bordereaux by parcel
+    numbers, international product lookup, mailbox picking dates, pickup planning and authentication tokens. Offered as REST (OpenAPI 3.0.1 served
+    by the endpoint) and SOAP (WSDL).
+  humanURL: https://www.applications.colissimo.entreprise.laposte.fr/doc-colissimo/redoc-sls/fr
+  baseURL: https://ws.colissimo.fr/sls-ws/SlsServiceWSRest/2.0
+  tags:
+  - Shipping
+  - Labels
+  - Customs
+  - Pickup
+  properties:
+  - type: OpenAPI
+    url: openapi/colissimo-sls-openapi.yml
+  - type: OpenAPI
+    name: OpenAPI (provider-hosted)
+    url: https://ws.colissimo.fr/sls-ws/SlsServiceWSRest/2.0/openapi.json
+  - type: OpenAPI
+    name: Swagger (documentation)
+    url: https://www.applications.colissimo.entreprise.laposte.fr/doc-colissimo/yaml/fr
+  - type: WSDL
+    url: wsdl/colissimo-sls-service-ws-2.0.wsdl
+  - type: WSDL
+    name: WSDL (provider-hosted)
+    url: https://ws.colissimo.fr/sls-ws/SlsServiceWS/2.0?wsdl
+  - type: Documentation
+    url: https://www.applications.colissimo.entreprise.laposte.fr/doc-colissimo/redoc-sls/fr
+  - type: JSONSchema
+    url: json-schema/colissimo-get-product-inter-request-schema.json
+  - type: JSONSchema
+    url: json-schema/colissimo-response-schema.json
+  - type: JSONSchema
+    url: json-schema/colissimo-plan-pickup-request-schema.json
+  - type: JSONSchema
+    url: json-schema/colissimo-generate-label-request-v31-schema.json
+  - type: JSONSchema
+    url: json-schema/colissimo-generate-label-request-schema.json
+  - type: JSONSchema
+    url: json-schema/colissimo-check-generate-label-request-schema.json
+- aid: colissimo:colissimo-point-retrait-api
+  name: Colissimo Point Retrait API
+  description: Colissimo's delivery-choice / pickup point web service (SOAP) - find pickup and drop-off points by address, coordinates, identifier
+    or token for display in a checkout.
+  humanURL: https://www.applications.colissimo.entreprise.laposte.fr/doc-colissimo/redoc-pdr/fr
+  baseURL: https://ws.colissimo.fr/pointretrait-ws-cxf/PointRetraitServiceWS/2.0
+  tags:
+  - Pickup Points
+  - Delivery Choice
+  properties:
+  - type: WSDL
+    url: wsdl/colissimo-point-retrait-service-ws-2.0.wsdl
+  - type: WSDL
+    name: WSDL (provider-hosted)
+    url: https://ws.colissimo.fr/pointretrait-ws-cxf/PointRetraitServiceWS/2.0?wsdl
+  - type: Documentation
+    url: https://www.applications.colissimo.entreprise.laposte.fr/doc-colissimo/redoc-pdr/fr
+
+x-enrichment:
+  date: '2026-10-13'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v5
