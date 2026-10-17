@@ -1,0 +1,247 @@
+openapi: 3.2.0
+info:
+  contact: {}
+  license:
+    name: Apache 2.0 License
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Colissimo Shipping Label Service (SLS) REST…
+  version: '2.0'
+  description: Colissimo SLS (Service de Livraison / web service d'affranchissement) REST API for generating shipping labels, CN23 customs declarations, bordereaux, pickup planning and authentication tokens.
+  x-original-servers:
+  - url: http://api-etiquetage.colis.intra.laposte.fr/sls-ws/SlsServiceRest
+  x-source: https://ws.colissimo.fr/sls-ws/SlsServiceWSRest/2.0/openapi.json
+servers:
+- url: https://ws.colissimo.fr/sls-ws/SlsServiceWSRest/2.0
+  description: Colissimo production
+tags:
+- name: 'SlsInternalService : Services destinés aux applications internes'
+paths:
+  /SlsInternalService/checkInfoPlanPickup:
+    post:
+      tags:
+      - 'SlsInternalService : Services destinés aux applications internes'
+      operationId: checkInfoPlanPickup_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckInfoPlanPickupInternalRequest'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CheckInfoPlanPickupResponse'
+      summary: Check info plan pickup 1
+      x-summary-source: derived
+  /SlsInternalService/getListMailBoxPickingDates:
+    post:
+      tags:
+      - 'SlsInternalService : Services destinés aux applications internes'
+      operationId: getListMailBoxPickingDates
+      parameters:
+      - name: apiKey
+        in: header
+        description: <lang><en>apiKey </en><fr>L'apiKey </fr></lang>
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetListMailBoxPickingDatesRetourRequest'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ListMailBoxPickingDatesRetourOnlineResponse'
+      summary: Get list mail box picking dates
+      x-summary-source: derived
+  /SlsInternalService/planPickup:
+    post:
+      tags:
+      - 'SlsInternalService : Services destinés aux applications internes'
+      operationId: planPickup_1
+      parameters:
+      - name: apiKey
+        in: header
+        description: <lang><en>apiKey </en><fr>L'apiKey </fr></lang>
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanPickupRequest'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/PlanPickupResponse'
+      summary: Plan pickup 1
+      x-summary-source: derived
+components:
+  schemas:
+    GetListMailBoxPickingDatesRetourRequest:
+      required:
+      - sender
+      type: object
+      properties:
+        contractNumber:
+          type: string
+          description: <i>AN</i> <br/>  <lang><en>Deprecated. Use apikey instead as explained in "Acess to the Web Service SLS/API Authentication".</en><fr>Obsolète. Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service SLS/Authentification API".</fr></lang>
+        password:
+          type: string
+          description: <i>AN</i> <br/>  <lang><en>Deprecated. Use apikey instead as explained in "Acess to the Web Service SLS/API Authentication".</en><fr>Obsolète. Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service SLS/Authentification API".</fr></lang>
+        sender:
+          $ref: '#/components/schemas/GetListMailBoxPickingDatesSender'
+    ListMailBoxPickingDatesRetourOnlineResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        mailBoxPickingDateMaxHour:
+          type: string
+        mailBoxPickingDates:
+          type: array
+          items:
+            type: string
+            format: date-time
+        validityTime:
+          type: string
+    CheckInfoPlanPickupResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        isValid:
+          type: boolean
+    CheckInfoPlanPickupInternalRequest:
+      required:
+      - parcelNumber
+      - sender
+      type: object
+      properties:
+        parcelNumber:
+          type: string
+        mailBoxPickingDate:
+          type: string
+          format: date-time
+        sender:
+          $ref: '#/components/schemas/PlanPickupSender'
+    PlanPickupSender:
+      required:
+      - zipCode
+      type: object
+      properties:
+        companyName:
+          type: string
+          description: <i>AN35</i> <br/>  <lang><en>Company name</en><fr>Raison sociale.</fr></lang>
+        lastName:
+          type: string
+          description: <i>AN35</i> <br/>  <lang><en>Last name</en><fr>Nom.</fr></lang>
+        firstName:
+          type: string
+          description: <i>AN29</i> <br/>  <lang><en>First name</en><fr>Prénom.</fr></lang>
+        line0:
+          type: string
+          description: <i>AN35</i> <br/>  <lang><en>Floor, corridor, stairwell, flat number</en><fr>Etage, couloir, escalier, appartement.</fr></lang>
+        line1:
+          type: string
+          description: <i>AN35</i> <br/>  <lang><en>Entrance, building, residence. </en><fr>Entrée, b&acirc;timent, immeuble, résidence.</fr></lang>
+        line2:
+          type: string
+          description: '<i>AN35</i> <br/>  <lang><en>Number and street name. <br/><br/>Example: "5 rue du Bellay"</en><fr>Numéro et libellé de voie. <br/><br/>Example: \"5 rue du Bellay\"</fr></lang>'
+        line3:
+          type: string
+          description: <i>AN35</i> <br/>  <lang><en>Named place or other mention</en><fr>Lieu-dit ou autre mention.</fr></lang>
+        city:
+          type: string
+          description: <i>AN35</i> <br/>  <lang><en>Municipality</en><fr>Commune.</fr></lang>
+        zipCode:
+          type: string
+          description: <i>AN5</i> <br/>  <lang><en>Postcode</en><fr>Code postal.</fr></lang>
+        countryCode:
+          type: string
+          description: <i>A2</i> <br/>  <lang><en>Only the "FR" value is authorised. <br/>Country code.</en><fr>Code pays.<br/><br/>Seule la valeur « <b>FR</b> » est autorisée.</fr></lang>
+        email:
+          type: string
+          description: <i>AN80</i> <br/>  <lang><en>Email address. <br/>Used for sending tracking notifications to addressees.</en><fr>Adresse courriel. <br/><br/> Utilisé pour les notifications de suivi aux destinataires.</fr></lang>
+        phoneNumber:
+          type: string
+          description: <i>AN15</i> <br/>  <lang><en>Telephone</en><fr>Téléphone.</fr></lang>
+      description: <i>SUB</i> <br/>  <lang><en>Block containing sender's address</en><fr>Bloc contenant les coordonnées du déposant en retour.</fr></lang>
+    PlanPickupRequest:
+      required:
+      - mailBoxPickingDate
+      - parcelNumber
+      - sender
+      type: object
+      properties:
+        contractNumber:
+          type: string
+          description: <i>AN</i> <br/>  <lang><en>Deprecated. Use apikey instead as explained in "Acess to the Web Service SLS/API Authentication".</en><fr>Obsolète. Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service SLS/Authentification API".</fr></lang>
+        password:
+          type: string
+          description: <i>AN</i> <br/>  <lang><en>Deprecated. Use apikey instead as explained in "Acess to the Web Service SLS/API Authentication".</en><fr>Obsolète. Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service SLS/Authentification API".</fr></lang>
+        parcelNumber:
+          type: string
+          description: <i>AN13</i> <br/>  <lang><en>Parcel number</en><fr>Numéro de colis.</fr></lang>
+        mailBoxPickingDate:
+          type: string
+          description: '<i>D</i> <br/>  <lang><en>Requested pick-up date. <br/><br/>Example: "2022-06-25"</en><fr>Date d’emport demandée.<br/><br/>Example: \"2022-06-25\"</fr></lang>'
+          format: date-time
+        sender:
+          $ref: '#/components/schemas/PlanPickupSender'
+    PlanPickupResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+    GetListMailBoxPickingDatesSender:
+      required:
+      - zipCode
+      type: object
+      properties:
+        line0:
+          type: string
+          description: <i>AN35</i> <br/>  <lang><en>Floor, corridor, stairwell, flat number</en><fr>Etage, couloir, escalier, appartement.</fr></lang>
+        line1:
+          type: string
+          description: <i>AN35</i> <br/>  <lang><en>Entrance, building, residence. </en><fr>Entrée, b&acirc;timent, immeuble, résidence.</fr></lang>
+        line2:
+          type: string
+          description: '<i>AN35</i> <br/>  <lang><en>Number and street name. <br/><br/>Example: "5 rue du Bellay"</en><fr>Numéro et libellé de voie.<br/><br/>Example: \"5 rue du Bellay\"</fr></lang>'
+        line3:
+          type: string
+          description: <i>AN35</i> <br/>  <lang><en>Named place or other mention</en><fr>Lieu-dit ou autre mention.</fr></lang>
+        city:
+          type: string
+          description: <i>AN35</i> <br/>  <lang><en>Municipality</en><fr>Commune.</fr></lang>
+        zipCode:
+          type: string
+          description: <i>AN5</i> <br/>  <lang><en>Postcode</en><fr>Code postal.</fr></lang>
+        countryCode:
+          type: string
+          description: <i>A2</i> <br/>  <lang><en>Only the "FR" value is authorised. <br/>Country code.</en><fr>Code pays.<br/>Seule la valeur « FR » est autorisée.</fr></lang>
+      description: <i>SUB</i> <br/>  <lang><en>Block containing sender's address</en><fr>Bloc contenant les coordonnées du déposant en retour.</fr></lang>
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        messageContent:
+          type: string

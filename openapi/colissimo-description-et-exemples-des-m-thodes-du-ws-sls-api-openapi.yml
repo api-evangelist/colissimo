@@ -1,0 +1,1868 @@
+openapi: 3.2.0
+info:
+  version: '2.0'
+  x-logo:
+    altText: Colissimo logo
+    backgroundColor: '#FFFFFF'
+    url: ../images/Colissimo.svg
+  title: Documentation technique Description et exemples des…
+  description: '# Dernières évolutions
+
+
+    Août 2026
+
+
+    * Ajout dans la documentation de la règle de format du champ EORI (2 lettres correspondant au code pays suivies de 9 chiffres) et du code erreur 30562 associé en cas de format invalide.'
+tags:
+- name: Description et exemples des méthodes du WS SLS
+paths:
+  /checkGenerateLabel:
+    post:
+      tags:
+      - Description et exemples des méthodes du WS SLS
+      summary: checkGenerateLabel
+      description: Contrôle des données sans génération d'étiquette
+      operationId: checkGenerateLabel_1
+      parameters:
+      - name: apiKey
+        in: header
+        description: L'apiKey
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckGenerateLabelRequest'
+      responses:
+        '200':
+          description: Traitement OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateLabelV2Response'
+        '400':
+          description: Erreur fonctionnel
+        '403':
+          description: Token KO            ou Acc&egrave;s non autoris&eacute;. (sid inexistant ou compte client            inactif ou client r&eacute;sili&eacute;)
+        '500':
+          description: Erreur Technique            ou erreur serveur
+        '422':
+          description: Le            JSON en entrée du service est mal formatté
+      x-codeSamples:
+      - lang: REST request
+        source: "{\n  \"outputFormat\": {\n    \"x\": 0,\n    \"y\": 0,\n    \"outputPrintingType\": \"PDF_A4_300dpi\"\n  },\n  \"letter\": {\n    \"service\": {\n      \"productCode\": \"CORE\",\n      \"depositDate\": \"2018-09-28\",\n      \"orderNumber\": \"orderNumber\",\n      \"commercialName\": \"commercialName\"\n    },\n    \"parcel\": {\n      \"weight\": 3\n    },\n    \"sender\": {\n      \"senderParcelRef\": \"senderParcelRef\",\n      \"address\": {\n        \"lastName\": \"lastName\",\n         \"firstName\": \"firstName\",\n         \"line0\": \"line0\",\n        \"line1\": \"line1\",\n         \"line2\": \"mon adresse\",\n        \"line3\": \"line3\",\n         \"countryCode\": \"FR\",\n         \"city\": \"Paris\",\n         \"zipCode\": \"75007\"\n      }\n    },\n    \"addressee\": {\n      \"addresseeParcelRef\": \"addresseeParcelRef\",\n      \"address\": {\n        \"companyName\": \"companyName\",\n        \"line0\": \"line0\",\n        \"line1\": \"line1\",\n         \"line2\": \"mon adresse\",\n        \"line3\": \"line3\",\n         \"countryCode\": \"FR\",\n         \"city\": \"Paris\",\n         \"zipCode\": \"75015\"\n      }\n    }\n  }\n}-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: REST  Response
+        source: "{\n  \"messages\":[\n     {\n        \"id\": \"0\",\n        \"type\": \"INFOS\",\n        \"messageContent\": \"La requête a été traitée avec succès\"\n}\n"
+      - lang: SOAP request - utilisateur avancé
+        source: "<sls:checkGenerateLabel>\n   <checkGenerateLabelRequest>\n      <outputFormat>\n         <x>0</x>\n         <y>0</y>\n         <outputPrintingType>PDF_A4_300dpi</outputPrintingType>\n        <returnType></returnType>\n     </outputFormat>\n      <letter>\n         <service>\n            <productCode>CORE</productCode>\n            <depositDate>2018-09-28</depositDate>\n            <orderNumber>orderNumber</orderNumber>\n            <commercialName>commercialName</commercialName>\n         </service>\n         <parcel>\n            <weight>3</weight>\n         </parcel>\n         <sender>\n            <senderParcelRef>senderParcelRef</senderParcelRef>\n            <address>\n            <lastName>lastName</lastName>\n               <firstName>firstName</firstName>\n               <line0>line0</line0>\n               <line1>line1</line1>\n               <line2>mon adresse</line2>\n               <line3>line3</line3>\n               <countryCode>FR</countryCode>\n               <city>Paris</city>\n               <zipCode>75007</zipCode>\n            </address>\n         </sender>\n         <addressee>\n            <addresseeParcelRef>addresseeParcelRef</addresseeParcelRef>\n            <address>\n               <companyName>companyName</companyName> \n               <line0>line0</line0>\n               <line1>line1</line1>\n               <line2>mon adresse</line2>\n               <line3>line3</line3>\n               <countryCode>FR</countryCode>\n               <city>Paris</city>\n               <zipCode>75017</zipCode>\n            </address>\n         </addressee>\n      </letter>\n   </checkGenerateLabelRequest>\n</sls:checkGenerateLabel>\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: SOAP Response
+        source: "<ns2:checkGenerateLabelResponse xmlns:ns2=\"http://sls.ws.coliposte.fr\">\n   <return>\n      <messages>\n         <id>0</id>\n         <messageContent>La requête a été traitée avec succès</messageContent>\n         <type>INFOS</type>\n      </messages>\n   </return>\n</ns2:checkGenerateLabelResponse>\n"
+  /generateLabel:
+    post:
+      tags:
+      - Description et exemples des méthodes du WS SLS
+      summary: generateLabel
+      description: 'Cette méthode est proposée pour créer les expéditions relevant des offres suivantes, quels que soient le produit ou la destination associés :
+
+
+        Offre France : Colissimo Domicile, Point Retrait, Retour,
+
+
+        Offre Internationale : Colissimo Expert, Domicile, Point Retrait, Retour,
+
+
+        Offre Outre-Mer : Colissimo Domicile et Colissimo Eco.
+
+
+        Remarque : il est recommandé de ne pas envoyer un champ facultatif plutôt que de l’envoyer vide.
+
+
+        Fonction principale d''affranchissement :
+
+        Gé nère une annonce informatique du colis et ses documents associés(é tiquette et déclarations douanières)
+
+        Réponse:
+
+        Ce service retourne une Map contenant un objet json et 0 à 3 tableaux d''octets.
+
+        La Map retournée est un objet MultipartBody.
+
+        L''objet json est sauvegardé avec la clé "jsonInfos" et est de type "application-json".
+
+        Les trois tableaux d''octets sont chacun sauvegardé avec les clés : proforma, label et cn23, et sont de type "application/octet-stream".
+
+        Exemple de client en cxf :
+
+
+        WebClient client = WebClient.create(URL);
+
+        client.type(" application/json").accept("multipart/mixed");
+
+        MultipartBody bodyResponse = client.post(ObjetJsonRequete, MultipartBody.class);
+
+
+        A ce niveau, chaque objet sauvegardé dans la Map MultipartBody est récupéré grace à sa clé.
+
+        Pour le tableau d''octets "label", on utilise le code ci-dessous:
+
+
+        DataHandler dataHandler = bodyResponse.getAttachment("label" ).getDataHandler();
+
+        InputStream is = dataHandler.getInputStream(); L''objet jsonInfos a le format ci-dessous:
+
+        {
+
+        "messages":Array[Message],
+
+        " parcelNumber":String,
+
+        "parcelNumberPartner":String
+
+        }
+
+
+        Message
+
+        {
+
+        " id":String,
+
+        "type":String,
+
+        "messageContent" :String
+
+        }'
+      operationId: generateLabel_1
+      parameters:
+      - name: apiKey
+        in: header
+        description: L'apiKey
+        schema:
+          type: string
+      requestBody:
+        description: numéro de contrat
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateLabelRequestV31'
+      responses:
+        '200':
+          description: Traitement OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateLabelV2Response'
+        '400':
+          description: Erreur fonctionnel
+        '403':
+          description: Token KO            ou Acc&egrave;s non autoris&eacute;. (sid inexistant ou compte client            inactif ou client r&eacute;sili&eacute;)
+        '500':
+          description: Erreur Technique            ou erreur serveur
+        '422':
+          description: Le            JSON en entrée du service est mal formatté
+      x-codeSamples:
+      - lang: REST hors domicile
+        source: "{\n  \"outputFormat\": {\n    \"x\": 0,\n    \"y\": 0,\n    \"outputPrintingType\": \"ZPL_10x15_203dpi\"\n  },\n  \"letter\": {\n    \"service\": {\n      \"productCode\": \"HD\",\n      \"depositDate\": \"2018-09-28\",\n      \"orderNumber\": \"orderNumber\",\n      \"commercialName\": \"commercialName\"\n    },\n    \"parcel\": {\n      \"weight\": 3,\n      \"pickupLocationId\": \"001055\",\n      \"nonMachinable\": true,\n      \"hazmatFlag\": 1,\n      \"hazmatCategory\": \"A\",\n      \"hazmatPrintLogo\": true\n    },\n    \"sender\": {\n      \"senderParcelRef\": \"senderParcelRef\",\n      \"address\": {\n        \"companyName\": \"companyName\",\n        \"line0\": \"line0\",\n        \"line1\": \"line1\",\n        \"line2\": \"mon adresse\",\n        \"line3\": \"line3\",\n        \"countryCode\": \"FR\",\n        \"city\": \"Paris\",\n        \"zipCode\": \"75007\"\n      }\n    },\n    \"addressee\": {\n      \"addresseeParcelRef\": \"addresseeParcelRef\",\n      \"address\": {\n        \"lastName\": \"lastName\",\n        \"firstName\": \"firstName\",\n        \"line0\": \"line0\",\n        \"line1\": \"line1\",\n        \"line2\": \"mon adresse\",\n        \"line3\": \"line3\",\n        \"countryCode\": \"FR\",\n        \"city\": \"Paris\",\n        \"zipCode\": \"75007\",\n        \"mobileNumber\": \"0600000007\",\n        \"email\": \"email@test.fr\"\n      }\n    }\n  }\n}\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: REST International
+        source: "{\n  \"outputFormat\": {\n     \"x\": 0,\n     \"y\": 0,\n     \"outputPrintingType\": \"PDF_10x15_300dpi\"\n   },\n   \"letter\": {\n    \"service\": {\n      \"productCode\": \"DOS\",\n      \"depositDate\": \"2018-12-30\",\n      \"transportationAmount\" : \"1040\",\n      \"totalAmount\": \"3245\",\n      \"orderNumber\": \"orderNumber\",\n      \"commercialName\": \"commercialName\",\n      \"returnTypeChoice\": \"2\"\n    },\n    \"parcel\": {\n      \"weight\": 3\n    },\n    \"customsDeclarations\": {\n      \"includeCustomsDeclarations\": 1,\n      \"contents\": {\n        \"article\": [\n          {\n            \"description\": \"description1\",\n            \"quantity\": 1,\n            \"weight\": 1,\n            \"value\": 30\n          },\n          {\n            \"description\": \"description2\",\n            \"quantity\": 1,\n            \"weight\": 1,\n            \"value\": 30\n          },\n          {\n            \"description\": \"description3\",\n            \"quantity\": 1,\n            \"weight\": 1,\n            \"value\": 30\n          }\n        ],\n        \"category\": {\n          \"value\": 1\n        }\n      }\n    },\n    \"sender\": {\n      \"senderParcelRef\": \"senderParcelRef\",\n      \"address\": {\n        \"companyName\": \"companyName\",\n        \"line0\": \"line0\",\n        \"line1\": \"line1\",\n        \"line2\": \"mon adresse\",\n        \"line3\": \"line3\",\n        \"countryCode\": \"FR\",\n        \"city\": \"Paris\",\n        \"zipCode\": \"75007\"\n      }\n    },\n    \"addressee\": {\n      \"addresseeParcelRef\": \"addresseeParcelRef\",\n      \"address\": {\n       \"lastName\": \"lastName\",\n        \"firstName\": \"firstName\",\n        \"line0\": \"line0\",\n        \"line1\": \"line1\",\n        \"line2\": \"mon adresse\",\n        \"line3\": \"line3\",\n        \"countryCode\": \"?\",\n        \"city\": \"?\",\n        \"zipCode\": \"?\"\n      }\n    }\n  }\n}\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: REST International réponse
+        source: "{\n  \"messages\": [   {\n    \"id\": \"0\",\n    \"type\": \"INFOS\",\n    \"messageContent\": \"La requête a été traitée avec succès\",\n    \"replacementValues\": []\n  }],\n  \"parcelNumber\": \"EY012582011FR\",\n  \"parcelNumberPartner\": \"002002011775101258201101840N\",\n  \"partnerName\": \"USPS\",\n  \"networkName\": \"KPG\",\n  \"partnerCab\": \"EY012582011FR\"\n}\n"
+      - lang: REST Retour national
+        source: "{\n  \"outputFormat\": {\n    \"x\": 0,\n    \"y\": 0,\n    \"outputPrintingType\": \"PDF_A4_300dpi\"\n  },\n  \"letter\": {\n    \"service\": {\n      \"productCode\": \"CORE\",\n      \"depositDate\": \"2018-09-28\",\n      \"orderNumber\": \"orderNumber\",\n      \"commercialName\": \"commercialName\"\n    },\n    \"parcel\": {\n      \"weight\": 3\n    },\n    \"sender\": {\n      \"senderParcelRef\": \"senderParcelRef\",\n      \"address\": {\n        \"lastName\": \"lastName\",\n         \"firstName\": \"firstName\",\n         \"line0\": \"line0\",\n        \"line1\": \"line1\",\n         \"line2\": \"mon adresse\",\n        \"line3\": \"line3\",\n         \"countryCode\": \"FR\",\n         \"city\": \"Paris\",\n         \"zipCode\": \"75007\"\n      }\n    },\n    \"addressee\": {\n      \"addresseeParcelRef\": \"addresseeParcelRef\",\n      \"address\": {\n        \"companyName\": \"companyName\",\n        \"line0\": \"line0\",\n        \"line1\": \"line1\",\n         \"line2\": \"mon adresse\",\n        \"line3\": \"line3\",\n         \"countryCode\": \"FR\",\n         \"city\": \"Paris\",\n         \"zipCode\": \"75015\"\n      }\n    }\n  }\n}\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: REST Domicile Sans Signature
+        source: "{\n  \"outputFormat\": {\n    \"x\": 0,\n    \"y\": 0,\n    \"outputPrintingType\": \"PDF_A4_300dpi\",\n    \"dematerialized\": false,\n    \"returnType\": \"\",\n    \"printCODDocument\": 1\n  },\n  \"letter\": {\n    \"service\": {\n      \"productCode\": \"DOM\",\n      \"depositDate\": \"2099-11-23\",\n      \"mailBoxPicking\": false,\n      \"transportationAmount\": 1040,\n      \"totalAmount\": 1222,\n      \"orderNumber\": 123456,\n      \"commercialName\": \"nom du commercial\",\n      \"returnTypeChoice\": 2\n    },\n    \"parcel\": {\n      \"weight\": 2,\n      \"nonMachinable\": false,\n      \"COD\": 0,\n      \"CODAmount\": 0,\n      \"nonMachinable\": true,\n      \"hazmatFlag\": 1,\n      \"hazmatCategory\": \"A\",\n      \"hazmatPrintLogo\": true\n    },\n    \"sender\": {\n      \"senderParcelRef\": \"ref sender\",\n      \"address\": {\n        \"companyName\": \"abcdefghijklmnopqrstuvwxyzsener comp\",\n        \"lastName\": \"dupont\",\n        \"firstName\": \"fred\",\n        \"line0\": \"line0\",\n        \"line1\": \"line1\",\n        \"line2\": \"line2\",\n        \"line3\": \"line3\",\n        \"countryCode\": \"MC\",\n        \"city\": \"paris\",\n        \"zipCode\": 98000,\n        \"phoneNumber\": \"0100000000\",\n        \"mobileNumber\": \"0600000000\",\n        \"doorCode1\": \"\",\n        \"doorCode2\": \"\",\n        \"email\": \"yy@k.fr\",\n        \"intercom\": \"\",\n        \"language\": \"FR\"\n      }\n    },\n    \"addressee\": {\n      \"codeBarForReference\": false,\n      \"serviceInfo\": \"service info\",\n      \"promotionCode\": 4444,\n      \"address\": {\n        \"companyName\": \"test site\",\n        \"lastName\": \"martin\",\n        \"firstName\": \"alain\",\n        \"line0\": \"line0dest\",\n        \"line1\": \"line1dest\",\n        \"line2\": \"line2dest\",\n        \"line3\": \"line3dest\",\n        \"countryCode\": \"FR\",\n        \"city\": \"paris\",\n        \"zipCode\": 75015,\n        \"phoneNumber\": \"0100000000\",\n        \"mobileNumber\": \"0600000000\",\n        \"doorCode1\": \"EEE\",\n        \"doorCode2\": 44444,\n        \"email\": \"\",\n        \"intercom\": \"\",\n        \"language\": \"FR\"\n      }\n    }\n  }\n}\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: REST Domicile Sans Signature Response
+        source: "{\n  \"messages\":[\n     {\n        \"id\": \"0\", (identifiant du message)\n        \"type\": \"INFOS\", (type de message, INFO, ERROR, WARNING)\n        \"messageContent\": \"La requête a été traitée avec succès\", (contenu du message)\n        \"replacementValues\": [\n           \n        ]\n     }\n  ],\n  \"parcelNumber\": \"6A4126416XXXX\", (numéro du colis généré, appartient à la plage attribuée par la poste pour le code produit correspondant)\n  \"parcelNumberPartner\": \"0075015116A4126416XXXX012500\", (Contenu du Code Bar BIC3)\n  \"partnerName\": \"\", (nom du partenaire)\n  \"networkName\": \"\", (nom du réseau partenaire)\n  \"partnerCab\": \"\" (id tracking du partenaire)\n}\n"
+      - lang: SOAP hors domicile- utilisateur avancé
+        source: "<sls:generateLabel>\n      <generateLabelRequest>\n      <outputFormat>\n         <x>0</x>\n         <y>0</y>\n         <outputPrintingType>ZPL_10x15_203dpi</outputPrintingType>\n      </outputFormat>\n      <letter>\n         <service>\n            <productCode>HD</productCode>\n            <depositDate>2018-06-25</depositDate>\n            <orderNumber>orderNumber</orderNumber>\n            <commercialName>commercialName</commercialName>\n         </service>\n         <parcel>\n            <weight>3</weight>\n            <pickupLocationId>001055</pickupLocationId>\n            <nonMachinable>true</nonMachinable>\n            <hazmatFlag>1</hazmatFlag>\n            <hazmatCategory>A</hazmatCategory>\n            <hazmatPrintLogo>true</hazmatPrintLogo>\n         </parcel>\n         <sender>\n            <senderParcelRef>senderParcelRef</senderParcelRef>\n            <address>\n               <companyName>companyName</companyName>\n               <line2>mon adresse</line2>\n               <countryCode>FR</countryCode>\n               <city>Paris</city>\n               <zipCode>75007</zipCode>\n            </address>\n         </sender>\n         <addressee>\n            <addresseeParcelRef>addresseeParcelRef</addresseeParcelRef>\n            <address>\n               <lastName>lastName</lastName>\n               <firstName>firstName</firstName>\n               <line2>mon adresse</line2>\n               <countryCode>FR</countryCode>\n               <city>Paris</city>\n               <zipCode>75017</zipCode>\n               <mobileNumber>0600000007</mobileNumber>\n               <email>email@test.fr</email>\n            </address>\n         </addressee>\n      </letter>\n      </fields>\n        <field>\n          <key>ACCOUNT_NUMBER</key>\n          <value>818337</value>\n        </field>\n      </fields>\n   </generateLabelRequest>\n</sls:generateLabel>\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: SOAP International
+        source: "<sls:generateLabel>\n   <generateLabelRequest>\n      <outputFormat>\n         <x>0</x>\n         <y>0</y>\n         <outputPrintingType>PDF_A4_300dpi</outputPrintingType>\n      </outputFormat>\n      <letter>\n         <service>\n            <productCode>DOS</productCode>\n            <depositDate>2018-12-27</depositDate>\n            <transportationAmount>1040</transportationAmount>\n            <totalAmount>3245</totalAmount>\n            <orderNumber>orderNumber</orderNumber>\n            <commercialName>commercialName</commercialName>\n            <returnTypeChoice>2</returnTypeChoice>\n         </service>\n         <parcel>\n            <weight>3</weight>\n         </parcel>\n         <customsDeclarations>\n            <includeCustomsDeclarations>1</includeCustomsDeclarations>\n            <contents>   \n               <article>\n                  <description>description1</description>\n                  <quantity>1</quantity>\n                  <weight>1</weight>\n                  <value>30</value>\n               </article>\n             <article>\n                  <description>description2</description>\n                  <quantity>1</quantity>\n                  <weight>1</weight>\n                  <value>30</value>\n               </article>\n             <article>\n                  <description>description3</description>\n                  <quantity>1</quantity>\n                  <weight>1</weight>\n                  <value>30</value>\n               </article>\n               <category>\n                  <value>5</value>\n               </category>\n            </contents>\n         </customsDeclarations>\n         <sender>\n            <senderParcelRef>senderParcelRef</senderParcelRef>\n            <address>\n               <companyName>companyName</companyName>\n               <line0>line0</line0>\n               <line1>line1</line1>\n               <line2>mon adresse</line2>\n               <line3>line3</line3>\n               <countryCode>FR</countryCode>\n               <city>Paris</city>\n               <zipCode>75007</zipCode>\n            </address>\n         </sender>\n         <addressee>\n            <addresseeParcelRef>addresseeParcelRef</addresseeParcelRef>\n            <address>\n               <lastName>lastName</lastName>\n               <firstName>firstName</firstName>\n               <line0>line0</line0>\n               <line1>line1</line1>\n               <line2>mon adresse</line2>\n               <line3>line3</line3>\n               <countryCode>CN</countryCode>\n               <city>PEKIN</city>\n               <zipCode>100006</zipCode>\n            </address>\n         </addressee>\n      </letter>\n   </generateLabelRequest>\n</sls:generateLabel>\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: SOAP International réponse
+        source: "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <ns2:generateLabelResponse xmlns:ns2=\"http://sls.ws.coliposte.fr\">\n      <return>\n        <messages>\n          <id>0</id>\n          <messageContent>La requête a été traitée avec succès</messageContent>\n          <type>INFOS</type>\n        </messages>\n        <labelV2Response>\n          <label>\n            <xop:Include href=\"cid:e5cc534b-d0cb-4e5f-967b-7ccb1df0ebcf-741@cxf.apache.org\" xmlns:xop=\"http://www.w3.org/2004/08/xop/include\"/>\n          </label>\n          <parcelNumber>CF300645565FR</parcelNumber>\n          <parcelNumberPartner>002002011528030064556101276F</parcelNumberPartner>\n          <fields>\n            <field>\n              <key>NETWORK_NAME</key>\n              <value>EPG</value>\n            </field>\n            <field>\n              <key>PARTNER_NAME</key>\n              <value>Deutsche Post</value>\n            </field>\n            <field>\n              <key>PARTNER_CAB</key>\n              <value>CF300645565FR</value>\n            </field>\n            <field>\n              <key>CN23_THERMIQUE</key>\n              <value>N</value>\n            </field>\n          </fields>\n        </labelV2Response>\n      </return>\n    </ns2:generateLabelResponse>\n  </soap:Body>\n</soap:Envelope>\n"
+      - lang: SOAP Retour national
+        source: "<sls:generateLabel>\n   <generateLabelRequest>\n      <outputFormat>\n         <x>0</x>\n         <y>0</y>\n         <outputPrintingType>PDF_A4_300dpi</outputPrintingType>\n        <returnType></returnType>\n     </outputFormat>\n      <letter>\n         <service>\n            <productCode>CORE</productCode>\n            <depositDate>2018-09-28</depositDate>\n            <orderNumber>orderNumber</orderNumber>\n            <commercialName>commercialName</commercialName>\n         </service>\n         <parcel>\n            <weight>3</weight>\n         </parcel>\n         <sender>\n            <senderParcelRef>senderParcelRef</senderParcelRef>\n            <address>\n            <lastName>lastName</lastName>\n               <firstName>firstName</firstName>\n               <line0>line0</line0>\n               <line1>line1</line1>\n               <line2>mon adresse</line2>\n               <line3>line3</line3>\n               <countryCode>FR</countryCode>\n               <city>Paris</city>\n               <zipCode>75007</zipCode>\n            </address>\n         </sender>\n         <addressee>\n            <addresseeParcelRef>addresseeParcelRef</addresseeParcelRef>\n            <address>\n               <companyName>companyName</companyName> \n               <line0>line0</line0>\n               <line1>line1</line1>\n               <line2>mon adresse</line2>\n               <line3>line3</line3>\n               <countryCode>FR</countryCode>\n               <city>Paris</city>\n               <zipCode>75017</zipCode>\n            </address>\n         </addressee>\n      </letter>\n   </generateLabelRequest>\n</sls:generateLabel>\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: SOAP Domicile Sans Signature
+        source: "<sls:generateLabel>\n <generateLabelRequest>\n  <outputFormat>\n    <x>0</x>\n     <y>0</y>\n    <outputPrintingType>PDF_A4_300dpi</outputPrintingType>\n    <dematerialized>false</dematerialized>\n     <returnType></returnType>\n  <printCODDocument>1</printCODDocument>\n  </outputFormat>\n  <letter>\n    <service>\n    <productCode>DOM</productCode>\n      <depositDate>2099-11-23</depositDate>\n      <mailBoxPicking>false</mailBoxPicking>\n      <transportationAmount>1040</transportationAmount>\n      <totalAmount>1222</totalAmount>\n      <orderNumber>123456</orderNumber>\n      <commercialName>nom du commercial</commercialName>\n      <returnTypeChoice>2</returnTypeChoice>\n     </service>\n     <parcel>\n    <weight>2</weight>\n      <nonMachinable>false</nonMachinable>\n    <COD>0</COD>\n      <CODAmount>0</CODAmount>\n        <nonMachinable>true</nonMachinable>\n        <hazmatFlag>1</hazmatFlag>\n        <hazmatCategory>A</hazmatCategory>\n        <hazmatPrintLogo>true</hazmatPrintLogo>\n     </parcel>\n     <sender>\n      <senderParcelRef>ref sender</senderParcelRef>\n      <address>\n       <companyName>abcdefghijklmnopqrstuvwxyzsener comp</companyName>\n       <lastName>dupont</lastName>\n       <firstName>fred</firstName>\n       <line0>line0</line0>\n       <line1>line1</line1>\n       <line2>line2</line2>\n       <line3>line3</line3>\n       <countryCode>MC</countryCode>\n       <city>paris</city>\n       <zipCode>98000</zipCode>\n       <phoneNumber>0123456789</phoneNumber>\n       <mobileNumber>0677777777</mobileNumber>\n       <doorCode1></doorCode1>\n       <doorCode2></doorCode2>\n       <email>yy@k.fr</email>\n       <intercom></intercom>\n       <language>FR</language>\n      </address>\n     </sender>\n    <addressee>\n    <codeBarForReference>false</codeBarForReference>\n      <serviceInfo>service info</serviceInfo>\n      <promotionCode>4444</promotionCode>\n      <address>\n        <companyName>test site</companyName>\n        <lastName>martin</lastName>\n        <firstName>alain</firstName>\n        <line0>line0dest</line0>\n        <line1>line1dest</line1>\n        <line2>line2dest</line2>\n        <line3>line3dest</line3>\n        <countryCode>FR</countryCode>\n        <city>paris</city>\n        <zipCode>75015</zipCode>\n        <phoneNumber>0133223345</phoneNumber>\n        <mobileNumber>0623456745</mobileNumber>\n        <doorCode1>EEE</doorCode1>\n        <doorCode2>44444</doorCode2>\n        <email></email>\n        <intercom></intercom>\n        <language>FR</language>\n      </address>\n     </addressee>\n  </letter>\n </generateLabelRequest>\n</sls:generateLabel>\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: SOAP Domicile Sans Signature Response
+        source: "<ns2:generateLabelResponse xmlns:ns2=\"http://sls.ws.coliposte.fr\">\n   <return>\n      <messages>\n         <id>0</id>\n         <messageContent>La requête a été traitée avec succès</messageContent>\n         <type>INFOS</type>\n      </messages>\n      <labelV2Response>\n         <label>\n            <xop:Include href=\"cid:d42c6037-071b-492e-aab4-414e9656784f-215@cxf.apache.org\" xmlns:xop=\"http://www.w3.org/2004/08/xop/include\"/>\n         </label>\n         <parcelNumber>6A41264162004</parcelNumber>\n         <parcelNumberPartner>0075015116A4126416200801250T</parcelNumberPartner>\n      </labelV2Response>\n   </return>\n</ns2:generateLabelResponse>\n"
+  /getLabel:
+    post:
+      tags:
+      - Description et exemples des méthodes du WS SLS
+      summary: getLabel
+      operationId: getLabel_1
+      parameters:
+      - name: login
+        in: header
+        description: <i>AN</i> <br/>  Obsolète.          Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service SLS/Authentification          API".
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: <i>AN</i> <br/>  Obsolète.          Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service SLS/Authentification          API".
+        schema:
+          type: string
+      - name: apiKey
+        in: header
+        description: L'apiKey
+        schema:
+          type: string
+      - name: accountNumber
+        in: header
+        description: <i>N6</i> <br/> accountNumber
+        schema:
+          type: string
+      requestBody:
+        description: getLabelRequest
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetLabelRequest'
+        required: true
+      responses:
+        '200':
+          description: Traitement OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+      x-codeSamples:
+      - lang: SOAP requête
+        source: "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sls=\"http://sls.ws.coliposte.fr\">\n  <soapenv:Header/>\n  <soapenv:Body>\n    <sls:getLabel>\n      <getLabelRequest>\n        <outputPrintingType>PDF_A4_300dpi</outputPrintingType>\n        <parcelNumber>8R42654819935</parcelNumber>\n      </getLabelRequest>\n    </sls:getLabel>\n  </soapenv:Body>\n</soapenv:Envelope>\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n \n"
+      - lang: SOAP réponse
+        source: "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n   <ns2:getLabelResponse xmlns:ns2=\"http://sls.ws.coliposte.fr\">\n    <return>\n          <messages>\n             <id>0</id>\n             <messageContent>La requête a été traitée avec succès</messageContent>\n             <type>INFOS</type>\n          </messages>\n          <label>\n             <xop:Include href=\"cid:57bc2792-8634-4a12-94b2-4ee8fa68dc76-497@cxf.apache.org\" xmlns:xop=\"http://www.w3.org/2004/08/xop/include\"/>\n          </label>\n     </return>\n   </ns2:getLabelResponse>\n </soap:Body>\n</soap:Envelope>\n"
+      - lang: REST requête
+        source: "{\n \"parcelNumber\": \"8R42590210087\",\n \"outputPrintingType\": \"PDF_10x12_300dpi\"\n}\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: REST réponse
+        source: "{\"messages\": [{\n  \"id\": \"0\",\n  \"type\": \"INFOS\",\n  \"messageContent\": \"La requête a été traitée avec succès\",\n  \"replacementValues\": []\n}]}\n"
+  /generateCN23:
+    post:
+      tags:
+      - Description et exemples des méthodes du WS SLS
+      summary: generateCN23
+      description: Méthode permettant de générer le document douanier CN23
+      operationId: generateCN23_1
+      parameters:
+      - name: apiKey
+        in: header
+        description: L'apiKey
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateCN23Request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+      x-codeSamples:
+      - lang: REST request
+        source: "{\n  \"outputFormat\": {\n    \"x\": 0,\n    \"y\": 0,\n    \"outputPrintingType\": \"PDF_A4_300dpi\"\n  },\n  \"letter\": {\n    \"service\": {\n      \"productCode\": \"CORE\",\n      \"depositDate\": \"2018-09-28\",\n      \"orderNumber\": \"orderNumber\",\n      \"commercialName\": \"commercialName\"\n    },\n    \"parcel\": {\n      \"weight\": 3\n    },\n    \"sender\": {\n      \"senderParcelRef\": \"senderParcelRef\",\n      \"address\": {\n        \"lastName\": \"lastName\",\n         \"firstName\": \"firstName\",\n         \"line0\": \"line0\",\n        \"line1\": \"line1\",\n         \"line2\": \"mon adresse\",\n        \"line3\": \"line3\",\n         \"countryCode\": \"FR\",\n         \"city\": \"Paris\",\n         \"zipCode\": \"75007\"\n      }\n    },\n    \"addressee\": {\n      \"addresseeParcelRef\": \"addresseeParcelRef\",\n      \"address\": {\n        \"companyName\": \"companyName\",\n        \"line0\": \"line0\",\n        \"line1\": \"line1\",\n         \"line2\": \"mon adresse\",\n        \"line3\": \"line3\",\n         \"countryCode\": \"FR\",\n         \"city\": \"Paris\",\n         \"zipCode\": \"75015\"\n      }\n    }\n  }\n}-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: REST  Response
+        source: "{\n  \"messages\":[\n     {\n        \"id\": \"0\",\n        \"type\": \"INFOS\",\n        \"messageContent\": \"La requête a été traitée avec succès\"\n}\n"
+      - lang: SOAP request - utilisateur avancé
+        source: "<sls:checkGenerateLabel>\n   <checkGenerateLabelRequest>\n      <outputFormat>\n         <x>0</x>\n         <y>0</y>\n         <outputPrintingType>PDF_A4_300dpi</outputPrintingType>\n        <returnType></returnType>\n     </outputFormat>\n      <letter>\n         <service>\n            <productCode>CORE</productCode>\n            <depositDate>2018-09-28</depositDate>\n            <orderNumber>orderNumber</orderNumber>\n            <commercialName>commercialName</commercialName>\n         </service>\n         <parcel>\n            <weight>3</weight>\n         </parcel>\n         <sender>\n            <senderParcelRef>senderParcelRef</senderParcelRef>\n            <address>\n            <lastName>lastName</lastName>\n               <firstName>firstName</firstName>\n               <line0>line0</line0>\n               <line1>line1</line1>\n               <line2>mon adresse</line2>\n               <line3>line3</line3>\n               <countryCode>FR</countryCode>\n               <city>Paris</city>\n               <zipCode>75007</zipCode>\n            </address>\n         </sender>\n         <addressee>\n            <addresseeParcelRef>addresseeParcelRef</addresseeParcelRef>\n            <address>\n               <companyName>companyName</companyName> \n               <line0>line0</line0>\n               <line1>line1</line1>\n               <line2>mon adresse</line2>\n               <line3>line3</line3>\n               <countryCode>FR</countryCode>\n               <city>Paris</city>\n               <zipCode>75017</zipCode>\n            </address>\n         </addressee>\n      </letter>\n   </checkGenerateLabelRequest>\n</sls:checkGenerateLabel>\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: SOAP Response
+        source: "<ns2:checkGenerateLabelResponse xmlns:ns2=\"http://sls.ws.coliposte.fr\">\n   <return>\n      <messages>\n         <id>0</id>\n         <messageContent>La requête a été traitée avec succès</messageContent>\n         <type>INFOS</type>\n      </messages>\n   </return>\n</ns2:checkGenerateLabelResponse>\n"
+  /getListMailBoxPickingDates:
+    post:
+      tags:
+      - Description et exemples des méthodes du WS SLS
+      summary: getListMailBoxPickingDates
+      description: 'La méthode getListMailBoxPickingDates() permet de savoir si une adresse est éligible à un dépôt de colis retour en boîte aux lettres et de connaî tre la date et heure du prochain emport de colis à cette adresse.
+
+
+        Cette méthode sera utilisée pour valider l’éligibilité de l’adresse géographique pour un emport en boîte aux lettres le lendemain, ce qui permettra ensuite de renseigner cette date d’emport dans la balise mailBoxPickingDate du Bloc Service lors de l’annonce ultérieure de l’expédition au moyen de la méthode GenerateLabel.'
+      operationId: getListMailBoxPickingDates_2
+      parameters:
+      - name: apiKey
+        in: header
+        description: L'apiKey
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetListMailBoxPickingDatesRetourRequest'
+      responses:
+        '200':
+          description: Traitement OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetListMailBoxPickingDatesResponse'
+      x-codeSamples:
+      - lang: REST requête
+        source: "{\n  \"sender\": {\n    \"line2\":\"main address\",\n    \"countryCode\":\"FR\",\n    \"zipCode\":\"75007\",\n    \"city\":\"Paris\"\n  }\n}-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: REST réponse
+        source: "{\n  \"messages\": [   {\n    \"id\": \"0\",\n    \"type\": \"INFOS\",\n    \"messageContent\": \"The request has been processed successfully\"\n  }],\n  \"mailBoxPickingDateMaxHour\": \"08h00\",\n  \"mailBoxPickingDates\": [1491602400000],\n  \"validityTime\": \"23h00\"\n}\n"
+      - lang: SOAP requête
+        source: "<sls:getListMailBoxPickingDates>\n   <getListMailBoxPickingDatesRetourRequest>\n      <sender>\n         <line2>mon adresse</line2>\n         <countryCode>FR</countryCode>\n         <zipCode>75007</zipCode>\n         <city>Paris</city>\n      </sender>\n   </getListMailBoxPickingDatesRetourRequest>\n</sls:getListMailBoxPickingDates>\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: SOAP réponse
+        source: "<ns2:getListMailBoxPickingDatesResponse xmlns:ns2=\"http://sls.ws.coliposte.fr\">\n   <return>\n      <messages>\n         <id>0</id>\n         <messageContent>La requête a été traitée avec succès</messageContent>\n         <type>INFOS</type>\n      </messages>\n      <mailBoxPickingDateMaxHour>08h00</mailBoxPickingDateMaxHour>\n      <mailBoxPickingDates>2018-09-29T00:00:00+02:00</mailBoxPickingDates>\n      <validityTime>23h00</validityTime>\n   </return>\n</ns2:getListMailBoxPickingDatesResponse>\n"
+  /generateBordereauByParcelsNumbers:
+    post:
+      tags:
+      - Description et exemples des méthodes du WS SLS
+      summary: generateBordereauByParcelsNumbers
+      description: 'Remarque : les colis dans le document doivent tous avoir été généré par le même compte. Si nécessaire, il est possible de faire autant d''appels au service que de compte.'
+      operationId: generateBordereauByParcelsNumbers_1
+      parameters:
+      - name: apiKey
+        in: header
+        description: L'apiKey
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateBordereauByParcelsNumbersRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+      x-codeSamples:
+      - lang: REST requête
+        source: "{\n  \"generateBordereauParcelNumberList\": {\n  \"parcelsNumbers\": [\"6A19660344355\", \"6A19662941699\"]\n   }\n}-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: REST Réponse
+        source: "{\n  \"messages\": [   {\n  \"id\": \"0\",\n  \"type\": \"INFOS\",\n  \"messageContent\": \"La requête a été traitée avec succès\"\n   }],\n\"bordereauHeader\":    {\n\"bordereauNumber\": 5,\n\"publishingDate\": 1742879943581,\n\"numberOfParcels\": 1,\n\"codeSitePCH\": 354050,\n\"nameSitePCH\": \"LE RHEU RENNES PFC\",\n\"clientNumber\": \"900320\",\n\"address\": \"54 rue  d'Arcueil\",\n\"company\": \"I4KLGOOCDADB\"\n }\n}\n"
+      - lang: SOAP requête
+        source: "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:sls=\"http://sls.ws.coliposte.fr\">\n  <soapenv:Header/>\n  <soapenv:Body>\n     <sls:generateBordereauByParcelsNumbers>\n   <generateBordereauParcelNumberList>\n      <parcelsNumbers>9D00000122757</parcelsNumbers>\n      </generateBordereauParcelNumberList>\n   </sls:generateBordereauByParcelsNumbers>\n</soapenv:Body>\n</soapenv:Envelope>\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: SOAP réponse
+        source: "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n<ns2:getBordereauByNumberResponse xmlns:ns2=\"http://sls.ws.coliposte.fr\">\n   <return>\n      <messages>\n         <id>0</id>\n         <messageContent>La requête a été traitée avec succès</messageContent>\n         <type>INFOS</type>\n      </messages>\n      <bordereau>\n         <bordereauDataHandler>\n            <xop:Include href=\"cid:868e1b08-45b6-477f-9c0f-0471dafd6bea-220@cxf.apache.org\" xmlns:xop=\"http://www.w3.org/2004/08/xop/include\"/>\n         </bordereauDataHandler>\n         <bordereauHeader>\n            <address>17 AV BOUISSON FERNAND</address>\n            <bordereauNumber>31</bordereauNumber>\n            <clientNumber>100178</clientNumber>\n            <codeSitePCH>999999</codeSitePCH>\n            <company>NOM-100178</company>\n            <numberOfParcels>764</numberOfParcels>\n            <publishingDate>2016-08-02T15:18:35+02:00</publishingDate>\n         </bordereauHeader>\n      </bordereau>\n   </return>\n</ns2:getBordereauByNumberResponse>\n</soap:Body>\n</soap:Envelope>\n"
+  /generateToken:
+    post:
+      tags:
+      - Description et exemples des méthodes du WS SLS
+      summary: generateToken
+      description: null
+      operationId: generateToken_1
+      parameters:
+      - name: apiKey
+        in: header
+        description: L'apiKey
+        schema:
+          type: string
+      requestBody:
+        description: numéro de contrat
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateLabelRequest'
+      responses:
+        '200':
+          description: Traitement OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        '400':
+          description: Erreur fonctionnel
+        '403':
+          description: Token KO            ou Acc&egrave;s non autoris&eacute;. (sid inexistant ou compte client            inactif ou client r&eacute;sili&eacute;)
+        '500':
+          description: Erreur Technique            ou erreur serveur
+        '422':
+          description: Le            JSON en entrée du service est mal formatté
+      x-codeSamples:
+      - lang: REST request
+        source: "{\n  \"outputFormat\": {\n    \"x\": 0,\n    \"y\": 0,\n    \"outputPrintingType\": \"PDF_A4_300dpi\"\n  },\n  \"letter\": {\n    \"service\": {\n      \"productCode\": \"CORE\",\n      \"depositDate\": \"2018-09-28\",\n      \"orderNumber\": \"orderNumber\",\n      \"commercialName\": \"commercialName\"\n    },\n    \"parcel\": {\n      \"weight\": 3\n    },\n    \"sender\": {\n      \"senderParcelRef\": \"senderParcelRef\",\n      \"address\": {\n        \"lastName\": \"lastName\",\n         \"firstName\": \"firstName\",\n         \"line0\": \"line0\",\n        \"line1\": \"line1\",\n         \"line2\": \"mon adresse\",\n        \"line3\": \"line3\",\n         \"countryCode\": \"FR\",\n         \"city\": \"Paris\",\n         \"zipCode\": \"75007\"\n      }\n    },\n    \"addressee\": {\n      \"addresseeParcelRef\": \"addresseeParcelRef\",\n      \"address\": {\n        \"companyName\": \"companyName\",\n        \"line0\": \"line0\",\n        \"line1\": \"line1\",\n         \"line2\": \"mon adresse\",\n        \"line3\": \"line3\",\n         \"countryCode\": \"FR\",\n         \"city\": \"Paris\",\n         \"zipCode\": \"75015\"\n      }\n    }\n  }\n}-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: REST  Response
+        source: "{\n  \"messages\":[\n     {\n        \"id\": \"0\", (identifiant du message)\n        \"type\": \"INFOS\", (type de message, INFO, ERROR, WARNING)\n        \"messageContent\": \"La requête a été traitée avec succès\", (contenu du message)\n        \"replacementValues\": [\n           \n        ]\n     }\n  ],\n  \"parcelNumber\": \"8R4126416XXXX\", (numéro du colis généré, appartient à la plage attribuée par la poste pour le code produit correspondant)\n  \"parcelNumberPartner\": \"0075015116A4126416XXXX012500\", (Contenu du Code Bar BIC3)\n  \"token\":\"039PMJ5HW\"\n\n}\n"
+      - lang: SOAP request - utilisateur avancé
+        source: "<sls:generateToken>\n   <generateTokenRequest>\n      <outputFormat>\n         <x>0</x>\n         <y>0</y>\n         <outputPrintingType>PDF_A4_300dpi</outputPrintingType>\n        <returnType></returnType>\n     </outputFormat>\n      <letter>\n         <service>\n            <productCode>CORE</productCode>\n            <depositDate>2018-09-28</depositDate>\n            <orderNumber>orderNumber</orderNumber>\n            <commercialName>commercialName</commercialName>\n         </service>\n         <parcel>\n            <weight>3</weight>\n         </parcel>\n         <sender>\n            <senderParcelRef>senderParcelRef</senderParcelRef>\n            <address>\n            <lastName>lastName</lastName>\n               <firstName>firstName</firstName>\n               <line0>line0</line0>\n               <line1>line1</line1>\n               <line2>mon adresse</line2>\n               <line3>line3</line3>\n               <countryCode>FR</countryCode>\n               <city>Paris</city>\n               <zipCode>75007</zipCode>\n            </address>\n         </sender>\n         <addressee>\n            <addresseeParcelRef>addresseeParcelRef</addresseeParcelRef>\n            <address>\n               <companyName>companyName</companyName> \n               <line0>line0</line0>\n               <line1>line1</line1>\n               <line2>mon adresse</line2>\n               <line3>line3</line3>\n               <countryCode>FR</countryCode>\n               <city>Paris</city>\n               <zipCode>75017</zipCode>\n            </address>\n         </addressee>\n      </letter>\n   </generateTokenRequest>\n</sls:generateToken>\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: SOAP Response
+        source: "<ns2:generateTokenResponse xmlns:ns2=\"http://sls.ws.coliposte.fr\">\n   <return>\n      <messages>\n         <id>0</id>\n         <messageContent>La requête a été traitée avec succès</messageContent>\n         <type>INFOS</type>\n      </messages>\n      <labelV2Response>\n         <label>\n            <xop:Include href=\"cid:d42c6037-071b-492e-aab4-414e9656784f-215@cxf.apache.org\" xmlns:xop=\"http://www.w3.org/2004/08/xop/include\"/>\n         </label>\n         <parcelNumber>8R41264162004</parcelNumber>\n         <parcelNumberPartner>0075015116A4126416200801250T</parcelNumberPartner>\n         <token>039PMJ5HW</token>\n      </labelV2Response>\n   </return>\n</ns2:generateTokenResponse>\n"
+  /getProductInter:
+    post:
+      tags:
+      - Description et exemples des méthodes du WS SLS
+      summary: getProductInter
+      description: 'Cette fonction, dédiée exclusivement aux envois internationaux, fournit les options de retour compatibles avec la destination demandée (par exemple : « retour payant », « ne pas retourner »).
+
+
+        L’option de retour saisie est transmise à nos partenaires internationaux afin de leur indiquer l’action à réaliser dans le cas où le colis ne pourrait ê tre remis à son destinataire'
+      operationId: getProductInter_1
+      parameters:
+      - name: apiKey
+        in: header
+        description: L'apiKey
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetProductInterRequest'
+      responses:
+        '200':
+          description: Traitement OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductInterResponse'
+        '400':
+          description: Erreur fonctionnel
+        '403':
+          description: Token KO            ou Acc&egrave;s non autoris&eacute;. (sid inexistant ou compte client            inactif ou client r&eacute;sili&eacute;)
+        '500':
+          description: Erreur Technique            ou erreur serveur
+        '422':
+          description: Le            JSON en entrée du service est mal formatté
+      x-codeSamples:
+      - lang: REST requête
+        source: "{\n   \"productCode\":\"COLI\",\n   \"insurance\":\"false\",\n   \"nonMachinable\":\"false\",\n   \"returnReceipt\":\"false\",\n   \"countryCode\":\"DZ\",\n   \"zipCode\":\"2000\"\n}-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\" \n"
+      - lang: REST réponse
+        source: "{\n   \"messages\": [   {\n      \"id\": \"0\",\n      \"type\": \"INFOS\",\n      \"messageContent\": \"La requête a été traitée avec succès\"\n   }],\n   \"product\": [\"CF\"],\n   \"partnerType\": \"1\",\n   \"returnTypeChoice\":    [\n      \"2\",\n      \"3\"\n   ]\n} \n"
+      - lang: SOAP requête
+        source: "<sls:getProductInter>\n  <getProductInterRequest>\n    <productCode>COLI</productCode>\n    <countryCode>DZ</countryCode>\n    <zipCode>2000</zipCode>\n  </getProductInterRequest>\n</sls:getProductInter>\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: SOAP réponse
+        source: "<ns2:getProductInterResponse xmlns:ns2=\"http://sls.ws.coliposte.fr\">\n  <return>\n    <messages>\n      <id>0</id>\n      <messageContent>La requête a été traitée avec succès</messageContent>\n      <type>INFOS</type>\n    </messages>\n    <product>CF</product>\n    <partnerType>1</partnerType>\n    <returnTypeChoice>2</returnTypeChoice>\n    <returnTypeChoice>3</returnTypeChoice>\n  </return>\n</ns2:getProductInterResponse>\n"
+  /planPickup:
+    post:
+      tags:
+      - Description et exemples des méthodes du WS SLS
+      summary: planPickup
+      description: 'La méthode planPickup() permet de faire une demande d’emport d’un colis retour déposé par l’expé diteur dans sa boîte aux lettres.
+
+        Le colis doit avoir été préalablement annoncé auprès de La Poste.
+
+        Cette méthode sera utilisée pour confirmer de manière ferme l’emport à la date voulue, après avoir annoncé en premier lieu l’expédition au moyen de la méthode GenerateLabel.
+
+        Cette méthode est compatible avec le code produit CORE (8R Colissimo Retour France) et CORF (CQ Colissimo Retour International)'
+      operationId: planPickup_2
+      parameters:
+      - name: apiKey
+        in: header
+        description: L'apiKey
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanPickupRequest'
+      responses:
+        '200':
+          description: Traitement OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanPickupResponse'
+components:
+  schemas:
+    NewCookie:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        version:
+          type: integer
+          format: int32
+        path:
+          type: string
+        domain:
+          type: string
+        comment:
+          type: string
+        maxAge:
+          type: integer
+          format: int32
+        expiry:
+          type: string
+          format: date-time
+        secure:
+          type: boolean
+        httpOnly:
+          type: boolean
+        sameSite:
+          type: string
+          enum:
+          - NONE
+          - LAX
+          - STRICT
+    GetListMailBoxPickingDatesRetourRequest:
+      required:
+      - sender
+      type: object
+      properties:
+        contractNumber:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        password:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        sender:
+          $ref: '#/components/schemas/GetListMailBoxPickingDatesSender'
+    Field:
+      required:
+      - key
+      - value
+      type: object
+      properties:
+        key:
+          type: string
+          description: <i>A</i> <br/>  Mot            clef à renseigner
+        value:
+          type: string
+          description: <i>AN32</i> <br/>  Valeur attendue dans l'ordre identifié            du SI Colissimo
+    Article:
+      required:
+      - description
+      - quantity
+      - value
+      - weight
+      type: object
+      properties:
+        description:
+          type: string
+          description: <i>AN1…64</i> <br/>  Description détaillée de l’article.            <br/> Apparaît sur le fichier CN23. <br/>Obligatoirement en anglais pour            les US et pour les envois avec l'option DDP
+        quantity:
+          type: integer
+          description: <i>N</i> <br/>  Nombre d’articles de ce type. <br/>            Apparaît sur le fichier CN23.
+          format: int32
+        weight:
+          type: number
+          description: <i>N</i> <br/>  Poids net unitaire des articles            en kg. <br/> Apparaît sur le fichier CN23.
+          format: float
+        value:
+          type: number
+          description: <i>N</i> <br/>  Valeur unitaire des articles en EURO. <br/>            Apparaît sur le fichier CN23.
+          format: float
+        hsCode:
+          type: string
+          description: '<i>N6, N8 ou N10</i> <br/>  Numéro tarifaire correspondant à l’article. <br/><br/>             Il faudra indiquer 6, 8 ou 10 chiffres pour les envois à l’international             nécessitant une déclaration douani&egrave;re.  <br/> Un code erreur             30519 apparaîtra dans la réponse du Web Service si la balise est mal             renseignée. <br/><br/> Obligatoire si category vaut 3 (envoi commercial).             <br/><br/> Obligatoire pour les produits retours 7R et 5R. Il doit ê            tre de taille 6 ou 11 <br/><br/> Apparaît sur le fichier CN23. '
+        originCountry:
+          type: string
+          description: <i>A2</i> <br/>  Code ISO             du pays d’origine de l’article. <br/><br/> Obligatoire pour les produits             retours 7R et 5R. Il doit être identique pour tous les articles déclaré            s <br/><br/>  Obligatoire si category=3 (envoi commercial) <br/><br/>             Le nom du pays apparait en entier sur le fichier CN23. <br/><br/> Si             non vide, vérifier que le code pays est sur A2 sinon mettre FR par dé            faut.  <br/><br/> Si le code pays est différent du format A2, le WS sls             retournera une erreur
+        originCountryLabel:
+          type: string
+          description: Libellé
+        currency:
+          type: string
+          description: <i>AN3</i> <br/>  Devise. <br/><br/>Fixé             par défaut en EUR si vide<br/><br/>Obligatoire pour les produits de             retour 7R et 5R.<br/><br/>La devise doit être la même pour tous les             articles déclarés. Elle doit appartenir à la liste {USD, EUR, CHF, GBP,             CNY, JPY, CAD, AUD}. Si la devise est différente de la liste ci-dessus,             le service web renverra une erreur.
+        artref:
+          type: string
+          description: <i>AN1...35</i> <br/>  Référence             de l’article, numéro de s&eacute;rie. <br/><br/> Obligatoire pour les             produits retours inter (7R) hors UE et 5R (OM).
+        originalIdent:
+          type: string
+          description: '<i>A1</i> <br/>  Clé permettant d’identifier la facture             aller et le colis lié à l’article. <br/><br/> Obligatoire pour les produits             retours inter (7R) hors UE et 5R(OM). <br/> Appairer le numéro de colis             avec son ordonnancement : <br/> <ul> <li>si l’article appartient au             1er colis, indiquer A ;</li> <li>si l’article appartient au 3ème colis,             indiquer C ;</li> <li>etc …</li> </ul> '
+        vatAmount:
+          type: number
+          description: <i>N</i> <br/>  TVA des articles
+          format: float
+        customsFees:
+          type: number
+          description: <i>N</i> <br/>  Droits            Douane des articles
+          format: float
+      description: <i>SUB</i> <br/>  Le bloc article peut être répété jusqu’à 100 fois.
+    Service:
+      required:
+      - depositDate
+      - productCode
+      type: object
+      properties:
+        productCode:
+          type: string
+          description: '<i>L</i> <br/>  Code             désignant l’offre produit souhaitée. <br/><br/> Exemple : code <b>CORE</b>             pour Colissimo Retour. <br/><br/>  Si la balise vaut : <ul><li><b>HD</b>             la balise pickupLocationId doit être renseignée,</li> <li><b>DOM</b>             ou <b>DOS</b>, la balise pickupLocationId ne doit pas être renseigné            e.</li></ul>'
+        depositDate:
+          type: string
+          description: '<i>D</i> <br/>  Date de dépôt prévisionnelle             dans le réseau La Poste. <br/><br/> Exemple : "2022-06-25"'
+          format: date-time
+        mailBoxPicking:
+          type: boolean
+          description: '<i>B</i> <br/>  Demander             la collecte du colis retourné à partir d''une boîte aux lettres (retour             BAL).<br/><br/> Utilisé pour autoriser le retour des colis en boîte             aux lettres. <br/><br/>  Utilisé pour le code <b>CORE (8R)</b><br/>             et <b>CORF (CQ).</b>  <br/><br/>  Par défaut, renseigner "false" (ou             "0"). <br/><br/> Doit valoir "true" (ou "1") pour que le colis             retourné par son ancien destinataire puisse être collecté par un agent             de Colissimo à partir de la boîte aux lettres de l’ancien destinataire.             '
+        mailBoxPickingDate:
+          type: string
+          description: '<i>D</i> <br/>  Date d’emport en boîte aux lettres demandée.<br/><br/>             Utilisé pour le code <b>CORE (8R)</b> et <b>CORF (CQ).</b><br/><br/>             Obligatoire (et pris en compte) seulement si mailBoxPicking vaut "            true" (ou "1"). <br/><br/> Exemple : 2015-12-23 <br/>  Pour connaî            tre la prochaine date possible, appeler la méthode getListMailBoxPickingDates             .  '
+          format: date-time
+        vatCode:
+          type: integer
+          description: <i>N</i> <br/>  Non            utilisé (utilisation interne à La Poste uniquement)
+          format: int32
+        vatPercentage:
+          type: integer
+          description: <i>N</i> <br/>  Non            utilisé (utilisation interne à La Poste uniquement)
+          format: int32
+        vatAmount:
+          type: integer
+          description: <i>N</i> <br/>  Non            utilisé (utilisation interne à La Poste uniquement)
+          format: int32
+        transportationAmount:
+          type: integer
+          description: '<i>N</i> <br/>  Prix             du transport de base (frais de port) sans les options éventuelles. <br/><br/>             En centièmes d’euro <br/> Exemple : 4530 pour 45,30€. <br/> Par défaut,             passer à "0". <br/>  N’apparaît pas dans le formulaire CN23. '
+          format: int32
+        totalAmount:
+          type: integer
+          description: '<i>N</i> <br/>  Prix             du transport de base augmenté du prix des options de l’envoi. <br/><br/>Obligatoire             pour les colis nécessitant une déclaration CN23. <br/><br/> En centiè            mes d’euro.<br/>  Exemple : 4530 pour 45,30€. <br/> Apparaît dans le formulaire             CN23 dans le champ « Frais de port ». '
+          format: int32
+        orderNumber:
+          type: string
+          description: <i>AN1…30</i> <br/>  Référence            de commande du client. <br/><br/> <b>N’apparait pas sur l’étiquette mais            est intégré dans le SI Colissimo.</b> <br/> <b>Renvoyée dans les fichiers            de suivi de colis (EDI-Retour).</b> <br/><br/> Peut être utile pour rechercher            des colis selon ce champ dans l'outil de Suivi Colis (apparaît dans le            champ « réf. client »).
+        commercialName:
+          type: string
+          description: '<i>AN</i> <br/>  Nom             commercial du chargeur.<br/><br/>  Cette balise : <br/> <ul><li><b>Est             obligatoire si productCode vaut HD</b></li><li>Facultative si productCode             vaut <b>DOM, DOS,</b></li></ul> <br/> Ce nom sera affiché dans les notifications             par e-mail faites aux destinataires des colis.  '
+        returnTypeChoice:
+          type: integer
+          description: '<i>L</i> <br/>  Indique si le colis doit être retourné à l’expéditeur             en cas de <span style=''text-decoration: underline;text-decoration-style:             double;''>non distribution</span> du colis. <br/><br/> Obligatoire pour             certains colis à l’international selon les zones tarifaires applicables.             '
+          format: int32
+        reseauPostal:
+          type: string
+          description: '<i>B</i> <br/>  Ce paramètre permet de choisir             le réseau postal responsable de la livraison (DPD ou réseau postal local)             pour tout envoi de colis à l’international parmi les pays concernés             et sur les produits concernés. <br/><br/> <ul><li><b>reseauPostal =             0 => Choix DPD</b></li> <li><b>reseauPostal = 1 => Choix réseau postal             local</b></li></ul> <br/><br/> Le code erreur <b>30027</b> s’affiche             lorsqu’un réseau postal (DPD ou réseau postal local) est choisit pour             un produit qui ne comporte par l’option sélectionnée.  '
+      description: <i>SUB</i> <br/>
+    ParcelRequestV31:
+      required:
+      - weight
+      type: object
+      properties:
+        parcelNumber:
+          type: string
+          description: <i>AN13</i> <br/>  Non utilisé (utilisation interne à La Poste uniquement)
+        insuranceAmount:
+          type: integer
+          description: <i>N</i> <br/>  Non            utilisé (utilisation interne à La Poste uniquement)
+          format: int32
+        insuranceValue:
+          type: integer
+          description: '<i>N</i> <br/>  Valeur assurée. <br/><br/> Par défaut, renseigner "            0". <br/> Si l’option d’assurance est choisie, renseigner le montant             du niveau d’assurance souhaité parmi les 6 niveaux proposés. Le montant             doit être exprimé en centimes. Exemple : 500000 pour 5000 EUR. <br/><br/>             Si la valeur renseignée ne correspond pas à l’un des 6 niveaux d’assurance,             la valeur affichée sera celle du niveau dans lequel le montant renseigné             se situe. Exemple : 16200 soit 162 EUR, deviendra 30000 EUR soit 300             EUR. <br/><br/>6 niveaux d’assurance optionnelle : <br/> <ul> <li>150             EUR ; </li> <li>300 EUR ; </li> <li>500 EUR ; </li> <li>1000 EUR ; </li>             <li>2000 EUR ; </li> <li>5000 EUR ;</li></ul><br/>Maximum= 5000€.'
+          format: int32
+        recommendationLevel:
+          type: string
+          description: Niveau
+        weight:
+          type: number
+          description: '<i>N</i> <br/>  Poids du colis en kg. <br/> Exemple : "5.50"            . '
+          format: float
+        nonMachinable:
+          type: boolean
+          description: '<i>B</i> <br/>  Format             du colis. <br/> Si la balise productCode a les codes <b>HD</b> renseigner             "false" (ou "0") par défaut. <br/> Passer à "true" (ou "1")             pour indiquer que le format du colis est non standard (non mécanisable).             '
+        returnReceipt:
+          type: boolean
+          description: '<i>B</i> <br/>  Avis             de réception. <br/><br/> Par défaut, renseigner "false " (ou "0"            ). '
+        instructions:
+          type: string
+          description: '<i>AN1...35</i> <br/>  Permet d’            afficher sur l’étiquette : <br/> <ul> <li>Des indications complémentaires             pour la livraison,</li> <li>Le motif du retour.</li> </ul>  <br/>  Exemple             pour une livraison : « à gauche au portail intérieur ». '
+        pickupLocationId:
+          type: string
+          description: '<i>N6</i> <br/>  Identifiant du point de             retrait pour une livraison Colissimo hors domicile. <br/><br/> Cette             balise : <br/> <ul> <li>Doit être renseignée si productCode vaut <b>HD</b></li>             <li>Doit être vide si productCode vaut <b>DOM</b> ou <b>DOS.</b></li>             </ul> <br/> Si le code réseau est "X00", il sera obligatoire de renseigner             le bloc fields.  '
+        ftd:
+          type: boolean
+          description: '<i>B</i> <br/>  Pour les envois vers l''outre-mer             <br/><br/> Par défaut, renseigner "false " (ou "0"). <br/><br/>Obligatoire,             à renseigner par "true " (ou "1"), pour les envois vers l’Outre-Mer             uniquement.   '
+        ddp:
+          type: boolean
+          description: '<i>B</i> <br/>  Pour les             envois vers l’international <br/><br/> Indiquer « 1 » si le colis est             ddp, <br/><br/> Par défaut, renseigner « 0 » (zéro) '
+        disabledDeliveryBlockingCode:
+          type: string
+          description: 'Prérequis : avoir activé le service "Code Bloquant" sur             la Colissimo Box<br/><br/>Indique si la livraison doit se faire sans             code bloquant. (Si aucune valeur n''est renseignée, les colis éligibles             seront livrés avec code bloquant)<br/><br/>1 = true : Désactive le code             bloquant<br/>0 = False : Ne désactive pas le code bloquant<br/>Vide             = False : Ne désactive pas le code bloquant'
+        hazmatFlag:
+          type: boolean
+          description: Indique si le colis contient une matière dangereuse
+        hazmatCategory:
+          type: string
+          description: Code (comme définit dans le contrat) de la catégorie            de matière dangereuse
+        hazmatPrintLogo:
+          type: boolean
+          description: Indique si le logo de matières dangereuses doit être imprimé            après l’étiquette. Le logo sera imprimé dans un format 10x10 uniquement.
+        postCommand:
+          type: boolean
+        codamount:
+          type: integer
+          description: '<i>N</i> <br/>  Montant attendu pour une livraison contre             remboursement.  <br/><br/> Par défaut, renseigner "false" (ou "0"            ). <br/><br/> Obligatoire si la valeur de la balise COD est "true" (ou             "1"). '
+          format: int32
+        codcurrency:
+          type: string
+          description: COD devise
+        cod:
+          type: boolean
+          description: '<i>B</i> <br/>  Indique si             la livraison doit se faire contre remboursement. <br/> <br/> Par dé            faut, renseigner "0" (zéro). <br/><br/>  Passer à "true" (ou "1"            ) si la livraison doit se faire contre remboursement.  '
+      description: <i>SUB</i> <br/>
+    AddressPCH:
+      type: object
+      properties:
+        line0:
+          type: string
+        line1:
+          type: string
+        line2:
+          type: string
+        line3:
+          type: string
+        zipCode:
+          type: string
+        city:
+          type: string
+        countryCode:
+          type: string
+    CustomizationField:
+      type: object
+      properties:
+        type:
+          type: string
+        x:
+          type: integer
+          format: int32
+        y:
+          type: integer
+          format: int32
+        taille:
+          type: string
+        value:
+          type: string
+    Response:
+      type: object
+      properties:
+        length:
+          type: integer
+          format: int32
+        location:
+          type: string
+          format: uri
+        language:
+          type: object
+          properties:
+            language:
+              type: string
+            displayName:
+              type: string
+            country:
+              type: string
+            variant:
+              type: string
+            script:
+              type: string
+            unicodeLocaleAttributes:
+              uniqueItems: true
+              type: array
+              items:
+                type: string
+            unicodeLocaleKeys:
+              uniqueItems: true
+              type: array
+              items:
+                type: string
+            displayLanguage:
+              type: string
+            displayScript:
+              type: string
+            displayCountry:
+              type: string
+            displayVariant:
+              type: string
+            extensionKeys:
+              uniqueItems: true
+              type: array
+              items:
+                type: string
+            iso3Language:
+              type: string
+            iso3Country:
+              type: string
+        date:
+          type: string
+          format: date-time
+        lastModified:
+          type: string
+          format: date-time
+        statusInfo:
+          $ref: '#/components/schemas/StatusType'
+        entityTag:
+          $ref: '#/components/schemas/EntityTag'
+        stringHeaders:
+          type: object
+          properties:
+            empty:
+              type: boolean
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        allowedMethods:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        closed:
+          type: boolean
+        cookies:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/NewCookie'
+        metadata:
+          type: object
+          properties:
+            empty:
+              type: boolean
+          additionalProperties:
+            type: array
+            items:
+              type: object
+        mediaType:
+          $ref: '#/components/schemas/MediaType'
+        status:
+          type: integer
+          format: int32
+        links:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        headers:
+          type: object
+          properties:
+            empty:
+              type: boolean
+          additionalProperties:
+            type: array
+            items:
+              type: object
+        entity:
+          type: object
+    PlanPickupResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+    GetListMailBoxPickingDatesSender:
+      required:
+      - zipCode
+      type: object
+      properties:
+        line0:
+          type: string
+          description: <i>AN35</i> <br/>  Etage, couloir, escalier, appartement.
+        line1:
+          type: string
+          description: <i>AN35</i> <br/>  Entrée, b&acirc;timent, immeuble, résidence.
+        line2:
+          type: string
+          description: '<i>AN35</i> <br/>  Numéro et libellé de voie.<br/><br/>Example:             \"5 rue du Bellay\"'
+        line3:
+          type: string
+          description: <i>AN35</i> <br/>  Lieu-dit            ou autre mention.
+        city:
+          type: string
+          description: <i>AN35</i> <br/>  Commune.
+        zipCode:
+          type: string
+          description: <i>AN5</i> <br/>  Code postal.
+        countryCode:
+          type: string
+          description: <i>A2</i> <br/>  Code pays.<br/>Seule la valeur « FR » est autorisée.
+      description: <i>SUB</i> <br/>  Bloc        contenant les coordonnées du déposant en retour.
+    Fields:
+      type: object
+      properties:
+        field:
+          type: array
+          description: "Taille du colis en centimètres: longueur,             largeur et hauteur<br/>\nLongueur <= 274 cm<br/>\nLongueur + curconfé            rence (2 x hauteur + 2 x largeur) <= 330 cm<br/>\n               \n                           <field>\n                   <key>LENGTH</key>\n                               <value>30</value>\n               </field>\n                           <field>\n                   <key>WIDTH</key>\n                               <value>20</value>\n               </field>\n                           <field>\n                   <key>HEIGHT</key>\n                               <value>10</value>\n               </field>\n                           \n<b>Code barre personnalisé</b><br/>\nAjouter un code barre             personnalisé sur les étiquettes standards GEOLABEL conf. chapitre \"            Option d'envoi/Code barres client\" (maximum 17 caractères alpha numé            riques et 25 numériques)<br/>\n               \n               <field>            \n                      <key>PRINT_CUSTOMER_BARCODE</key>\n                                  <value>1</value>\n               </field>\n                           <field>\n                       <key>CUSTOMER_BARCODE</key>            \n                       <value>REF12345678</value>\n                           </field>\n\nIF PRINT_CUSTOMER_BARCODE = 1, affiche le code barre             avec la valeur du champ CUSTOMER_BARCODE (voir les exemples d'etiquettes)<br/>            \nIF PRINT_CUSTOMER_BARCODE = 2, affiche le code barre avec la valeur             du numéro de colis (voir les exemples d'etiquettes)<br/>\n<br/>\n            <br/>\n<b>Etiquette avec référence client</b><br/>\nSur les étiquettes             standard GEOLABEL au format 10x15 et PDF , il est possible d'ajouter             un texte personnalisé de 15 caractères maximum sous les étiquettes.<br/>            \nLe champ PRINT_CUSTOMER_LABEL permet d'afficher ou non le texte, et             le champ CUSTOMER_LABEL précise le texte.<br/>\n    \n                         <field>\n                 <key>PRINT_CUSTOMER_LABEL</key>\n                             <value>1</value>\n             </field>\n    \n                \n             <field>\n                 <key>CUSTOMER_LABEL</key>            \n                 <value>ABCDEFG</value>\n             </field>\n                \n<br/>\nRemarque : il n'est pas possible d'afficher en même temps             un code à barre personnalisé et un texte personnalisé<br/>\n<br/>            \nRemarque 2 : le texte personnalisé n'apparaîtra pas sur l'étiquette             en cas de réimpression par getlabel (ou sur un automate La Poste).<br/>            \n<br/>\n<b>CN23 format</b><br/>\nFormats spécifiques pour la CN23             :<br/>\n    \n             <field>\n                 <key>OUTPUT_PRINT_TYPE_CN23</key>            \n                 <value>ZPL_10x12_203dpi</value>\n             </field>            \n    \nFormats possibles :<br/>\nZPL_10x12_203dpi<br/>\nZPL_10x12_300dpi<br/>            \nDPL_10x12_203dpi<br/>\nDPL_10x12_300dpi<br/>\nPDF_10x12_300dpi<br/>            \nPDF_A4_300dpi<br/>\n<b>une étiquette unique (UL) incluant la CN23             sur la même page</b> <br/>\nles formats acceptés sont : <br/>\n            ZPL_10x15_203dpi_UL<br/>\nZPL_10x15_300dpi_UL<br/>\nDPL_10x15_203dpi_UL<br/>            \nDPL_10x15_300dpi_UL<br/>\nPDF_10x15_300dpi_UL<br/>\nPDF_A4_300dpi_UL<br/>            \n    \n             <field>\n                 <key>OUTPUT_PRINT_TYPE_CN23</key>            \n                 <value>PDF_10x15_300dpi_UL</value>\n                         </field>\n    \nLe format de la CN23 (output_print_type_CN23) et format             de l'étiquette (outputprinting type) doit être le même pour bénéficier             de la fonctionnalité d'étiquette unifiée: <br/><br/>\nSi le colis             n'est pas éligile à la CN23, le format affiché sera<br/>\n(OutputFormat             block: outputprinting type field).<br/>\nSi il y a plus de 3 articles,             la CN23 affichera que les 3 premiers mais les totaux seront pour l'ensemble             des articles<br/>\nCette option écrase les personalisations suivantes             : <br/>\n- Ajout d'une étiquette personalisée (PRINT_CUSTOMER_LABEL)<br/>            \n- Ajout d'une référence CAB personalisée (PRINT_CUSTOMER_BARCODE)<br/><br/>            \n<b>Groupage de colis</b><br/>\n<br/>\n- Les paramètres additionnels             du service sls pour tracer les colis sont les suivants : <br/>\n•\t            Etiquette de traçage du colis<br/>\n•\tNombre total de packages<br/>            \n•\tIteration (numéro du package)<br/>\n<br/>\n<br/>\n                           <field>\n                  <key>TYPE_MULTI_PARCEL</key>\n                              <value>FOLLOWER</value>\n               </field>            \n               <field>\n                  <key>PARCEL_ITERATION_NUMBER</key>            \n                  <value>2</value>\n               </field>\n                           <field>\n                  <key>TOTAL_NUMBER_PARCEL</key>            \n                  <value>5</value>\n               </field>\n<br/>            \n- Les paramètres additionnels du service sls pour les colis master sont             les suivants : <br/>\n•\tEtiquette du colis master<br/>\n•\tNombre             total de packages<br/>\n•\tIteration (numéro du package)<br/>\n•                Limitation à 5 colis<br/>\n•\tListe des packages suivis<br/>\n                 \n     \n              <field>\n                   <key>TYPE_MULTI_PARCEL</key>            \n                   <value>MASTER</value>\n             </field>\n                         <field>\n                  <key>PARCEL_ITERATION_NUMBER</key>            \n                   <value>2</value>\n             </field>\n                         <field>\n                  <key>TOTAL_NUMBER_PARCEL</key>            \n                   <value>5</value>\n             </field>\n                         <field>\n                  <key>LIST_FOLLOWER_PARCEL</key>            \n\t\t\t\t     <value>8Q53764663714/8Q53764663721/8Q53764663738/8Q53764663748/8Q53764663758</value>            \n             </field>\n<br/>\n<b>BuyNowPayLater</b><br/>\nCette             saisie permet de notifier l'identifiant de la transaction attachée à             un colis Colissimo<br/>\noffre payante en paiement différé et fractionné            .<br/>\nCe paramètre id est tronqué à 50 caractères<br/>\n    \n                         <field>\n                 <key>BNPL</key>\n                             <value>ID de transaction</value>\n             </field>\n                \n<b>CUSER_INFO_TEXT</b><br/>\nRéférence de recherche pour OSC.             La référence peut être unique ou partagée sur plusieurs colis, afin             de permettre de rechercher une liste de colis ayant la même référence             par exemple.<br/>\n    \n             <field>\n                             <key>CUSER_INFO_TEXT</key>\n                 <value>xxxxxxxxxxxxxxxxxx</value>            \n             </field>\n    \n<b>CUSER_INFO_TEXT_4</b><br/>\nRéfé            rence partenaire (si communiquée par vos interlocuteurs Colissimo). Spé            cifique à l'utilisation du service par nos partenaires.<br/>\n    \n                         <field>\n                 <key>CUSER_INFO_TEXT_4</key>            \n                 <value>xxxxxxxxxxxxxxxxxx</value>\n             </field>            \n    \n<br/>\n<b>EORI (Economics Operators Registration and Identification)</b><br/>            \n<br/>Numéros EORI de l'expéditeur et/ou du destinataire qui seront visibles             notamment sur la déclaration douanière.\n  * Utiliser le champs 'EORI_ADDRESSEE'             pour l'EORI du destinataire\n    <br/>\n  * Utiliser le champs 'EORI'             pour l'EORI de l'expéditeur (obligatoire pour les envois vers les US)             : 2 lettres + 9 chiffres.\n    \n             <field>\n                            <key>EORI</key>\n                <value>1234567</value>\n                         </field>\n             <field>\n                <key>EORI_ADRESSEE</key>\n                            <value>1234567</value>\n             </field>\n"
+          items:
+            $ref: '#/components/schemas/Field'
+        customField:
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+      description: <i>SUB</i> <br/>  Ce bloc peut être utilisé        pour renseigner l’identifiant <br/><br/> -Gestion des utilisateurs </b> <br/>        -Colissimo Pass ID <br/> - GST <br/> - EORI
+    ParcelRequestV2:
+      required:
+      - weight
+      type: object
+      properties:
+        parcelNumber:
+          type: string
+          description: <i>AN13</i> <br/>  Non utilisé (utilisation interne à La Poste uniquement)
+        insuranceAmount:
+          type: integer
+          description: <i>N</i> <br/>  Non            utilisé (utilisation interne à La Poste uniquement)
+          format: int32
+        insuranceValue:
+          type: integer
+          description: '<i>N</i> <br/>  Valeur assurée. <br/><br/> Par défaut, renseigner "            0". <br/> Si l’option d’assurance est choisie, renseigner le montant             du niveau d’assurance souhaité parmi les 6 niveaux proposés. Le montant             doit être exprimé en centimes. Exemple : 500000 pour 5000 EUR. <br/><br/>             Si la valeur renseignée ne correspond pas à l’un des 6 niveaux d’assurance,             la valeur affichée sera celle du niveau dans lequel le montant renseigné             se situe. Exemple : 16200 soit 162 EUR, deviendra 30000 EUR soit 300             EUR. <br/><br/>6 niveaux d’assurance optionnelle : <br/> <ul> <li>150             EUR ; </li> <li>300 EUR ; </li> <li>500 EUR ; </li> <li>1000 EUR ; </li>             <li>2000 EUR ; </li> <li>5000 EUR ;</li></ul><br/>Maximum= 5000€.'
+          format: int32
+        recommendationLevel:
+          type: string
+          description: Niveau
+        weight:
+          type: number
+          description: '<i>N</i> <br/>  Poids du colis en kg. <br/> Exemple : "5.50"            . '
+          format: float
+        nonMachinable:
+          type: boolean
+          description: '<i>B</i> <br/>  Format             du colis. <br/> Si la balise productCode a les codes <b>HD</b> renseigner             "false" (ou "0") par défaut. <br/> Passer à "true" (ou "1")             pour indiquer que le format du colis est non standard (non mécanisable).             '
+        returnReceipt:
+          type: boolean
+          description: '<i>B</i> <br/>  Avis             de réception. <br/><br/> Par défaut, renseigner "false " (ou "0"            ). '
+        instructions:
+          type: string
+          description: '<i>AN1...35</i> <br/>  Permet d’            afficher sur l’étiquette : <br/> <ul> <li>Des indications complémentaires             pour la livraison,</li> <li>Le motif du retour.</li> </ul>  <br/>  Exemple             pour une livraison : « à gauche au portail intérieur ». '
+        pickupLocationId:
+          type: string
+          description: '<i>N6</i> <br/>  Identifiant du point de             retrait pour une livraison Colissimo hors domicile. <br/><br/> Cette             balise : <br/> <ul> <li>Doit être renseignée si productCode vaut <b>HD</b></li>             <li>Doit être vide si productCode vaut <b>DOM</b> ou <b>DOS.</b></li>             </ul> <br/> Si le code réseau est "X00", il sera obligatoire de renseigner             le bloc fields.  '
+        ftd:
+          type: boolean
+          description: '<i>B</i> <br/>  Pour les envois vers l''outre-mer             <br/><br/> Par défaut, renseigner "false " (ou "0"). <br/><br/>Obligatoire,             à renseigner par "true " (ou "1"), pour les envois vers l’Outre-Mer             uniquement.   '
+        ddp:
+          type: boolean
+          description: '<i>B</i> <br/>  Pour les             envois vers l’international <br/><br/> Indiquer « 1 » si le colis est             ddp, <br/><br/> Par défaut, renseigner « 0 » (zéro) '
+        disabledDeliveryBlockingCode:
+          type: string
+          description: 'Prérequis : avoir activé le service "Code Bloquant" sur             la Colissimo Box<br/><br/>Indique si la livraison doit se faire sans             code bloquant. (Si aucune valeur n''est renseignée, les colis éligibles             seront livrés avec code bloquant)<br/><br/>1 = true : Désactive le code             bloquant<br/>0 = False : Ne désactive pas le code bloquant<br/>Vide             = False : Ne désactive pas le code bloquant'
+        codamount:
+          type: integer
+          description: '<i>N</i> <br/>  Montant attendu pour une livraison contre             remboursement.  <br/><br/> Par défaut, renseigner "false" (ou "0"            ). <br/><br/> Obligatoire si la valeur de la balise COD est "true" (ou             "1"). '
+          format: int32
+        codcurrency:
+          type: string
+          description: COD devise
+        cod:
+          type: boolean
+          description: '<i>B</i> <br/>  Indique si             la livraison doit se faire contre remboursement. <br/> <br/> Par dé            faut, renseigner "0" (zéro). <br/><br/>  Passer à "true" (ou "1"            ) si la livraison doit se faire contre remboursement.  '
+      description: <i>SUB</i> <br/>
+    ElementVisual:
+      type: object
+      properties:
+        name:
+          type: string
+        shortcut:
+          type: string
+        position:
+          type: string
+    MediaType:
+      type: object
+      properties:
+        type:
+          type: string
+        subtype:
+          type: string
+        parameters:
+          type: object
+          additionalProperties:
+            type: string
+        wildcardType:
+          type: boolean
+        wildcardSubtype:
+          type: boolean
+    GenerateLabelV2Response:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageRest'
+        labelXmlV2Reponse:
+          $ref: '#/components/schemas/XmlV2Response'
+        labelV2Response:
+          $ref: '#/components/schemas/LabelV2Response'
+    XmlV2Response:
+      type: object
+      properties:
+        parcelNumber:
+          type: string
+        parcelNumberPartner:
+          type: string
+        contractNumber:
+          type: string
+        sitePCH:
+          $ref: '#/components/schemas/Site'
+        pickupLocation:
+          $ref: '#/components/schemas/PickupLocation'
+        sender:
+          $ref: '#/components/schemas/Sender'
+        addressee:
+          $ref: '#/components/schemas/Addressee'
+        routing:
+          $ref: '#/components/schemas/Routing'
+        zoneRouting:
+          $ref: '#/components/schemas/ZoneRouting'
+        belgiumLabel:
+          $ref: '#/components/schemas/BelgiumLabel'
+        barCodePCH:
+          type: string
+        numberPCH:
+          type: string
+        barCodeCityssimo:
+          type: string
+        barCodeRouting:
+          type: string
+        numberRouting:
+          type: string
+        swissLabel:
+          $ref: '#/components/schemas/SwissLabel'
+        hazmat:
+          $ref: '#/components/schemas/DataHandler'
+        elementVisual:
+          type: array
+          items:
+            $ref: '#/components/schemas/ElementVisual'
+        cabAztec:
+          type: string
+        fields:
+          $ref: '#/components/schemas/Fields'
+    Addressee:
+      required:
+      - address
+      type: object
+      properties:
+        addresseeParcelRef:
+          type: string
+          description: <i>AN1...15</i> <br/>  Référence de commande            du destinataire <br/> Elle permet d'afficher la référence destinataire            seulement sur l'étiquette. Cette donnée n'est pas remontée dans le SI            Colissimo et ne sera pas visible dans OSC. Sa taille ne doit pas excéder            15.
+        codeBarForReference:
+          type: boolean
+          description: <i>B</i> <br/>  Par défaut, renseigner "false " (ou "0").
+        serviceInfo:
+          type: string
+          description: '<i>AN</i> <br/>  '
+        promotionCode:
+          type: string
+          description: <i>AN</i> <br/>  Non utilisé (usage interne à la poste uniquement)
+        address:
+          $ref: '#/components/schemas/Address'
+      description: <i>SUB</i> <br/>
+    SwissLabel:
+      type: object
+      properties:
+        injectionSite:
+          type: string
+        signatureOption:
+          type: boolean
+        codeSwissPost:
+          type: string
+        swissParcelNumber:
+          type: string
+    ZoneCABRoutage:
+      type: object
+      properties:
+        barCodeRouting:
+          type: string
+        parcelNumberRouting:
+          type: string
+    CheckGenerateLabelRequest:
+      required:
+      - letter
+      type: object
+      properties:
+        contractNumber:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        password:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        letter:
+          $ref: '#/components/schemas/Letter'
+        outputFormat:
+          $ref: '#/components/schemas/OutputFormat'
+        fields:
+          $ref: '#/components/schemas/Fields'
+        customizationFields:
+          $ref: '#/components/schemas/CustomizationFields'
+    DataHandler:
+      type: object
+      properties:
+        dataSource:
+          $ref: '#/components/schemas/DataSource'
+        name:
+          type: string
+        inputStream:
+          type: object
+        content:
+          type: object
+        commandMap:
+          $ref: '#/components/schemas/CommandMap'
+        transferDataFlavors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivationDataFlavor'
+        preferredCommands:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommandInfo'
+        allCommands:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommandInfo'
+        contentType:
+          type: string
+        outputStream:
+          type: object
+    GetProductInterRequest:
+      required:
+      - productCode
+      type: object
+      properties:
+        contractNumber:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        password:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        productCode:
+          type: string
+          description: <i>A</i> <br/>
+        insurance:
+          type: boolean
+          description: '<i>B</i> <br/>  Valeur Assur&eacute;e.<br/><br/>             Par défaut passer à "false" (ou "0"). '
+        nonMachinable:
+          type: boolean
+          description: '<i>B</i> <br/>  Format             du colis. <br/><br/> Par défaut, passer à "false" (ou "0"). <br/><br/>Passer             à "true" (ou "1") pour indiquer que le format du colis est non standard             (non mécanisable). '
+        returnReceipt:
+          type: boolean
+          description: '<i>B</i> <br/>  Avis de réception. <br/><br/>             Par défaut, passer à "false" (ou "0"). '
+        countryCode:
+          type: string
+          description: '<i>A2</i> <br/>  Code ISO du pays de destination <br/><br/>             Exemple : « DE » pour Allemagne. '
+        zipCode:
+          type: string
+          description: <i>AN</i> <br/>  Code            postal de destination.
+        city:
+          type: string
+          description: <i>AN35</i> <br/>  Non utilisé (usage interne à la poste seulement)
+    Site:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressPCH'
+        rdepot:
+          type: string
+    CodeVAS:
+      type: object
+      properties:
+        mention:
+          type: string
+        deliveryMode:
+          type: string
+        reserve:
+          type: string
+        signature:
+          type: string
+    PickupLocation:
+      type: object
+      properties:
+        pointId:
+          type: string
+        name:
+          type: string
+        address:
+          $ref: '#/components/schemas/AddressPickupLocation'
+        groupRouting:
+          type: string
+        serviceLabel:
+          type: string
+        sortDistribution:
+          type: string
+        routingZipCode:
+          type: string
+        netWork:
+          type: string
+        idPartenaire:
+          type: string
+        routingFileVersion:
+          type: string
+    ActivationDataFlavor:
+      type: object
+      properties:
+        mimeType:
+          type: string
+        humanPresentableName:
+          type: string
+    GenerateBordereauByParcelsNumbersRequest:
+      type: object
+      properties:
+        contractNumber:
+          type: string
+          description: <i>N6</i> <br/>  Numéro de            compte
+        password:
+          type: string
+          description: <i>AN</i> <br/>  mot de passe
+        generateBordereauParcelNumberList:
+          $ref: '#/components/schemas/generateBordereauParcelNumberList'
+        fields:
+          $ref: '#/components/schemas/Fields'
+    ZoneInfosRoutage:
+      type: object
+      properties:
+        trackingNumberRouting:
+          type: string
+        controlKeyTrackingNumber:
+          type: string
+        getrDepot:
+          type: string
+        identificationDestination1:
+          type: string
+        identificationDestination2:
+          type: string
+        serviceMark:
+          type: string
+        typeServiceLivraison:
+          type: string
+        sortOrigin:
+          type: string
+        sortDest:
+          type: string
+        routingVersion:
+          type: string
+        datePrinting:
+          type: string
+        hourPrinting:
+          type: string
+        numberVersionWS:
+          type: string
+        msort:
+          type: string
+    UriBuilder:
+      type: object
+    GenerateLabelRequest:
+      required:
+      - letter
+      - outputFormat
+      type: object
+      properties:
+        contractNumber:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        password:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        outputFormat:
+          $ref: '#/components/schemas/OutputFormat'
+        letter:
+          $ref: '#/components/schemas/Letter'
+        fields:
+          $ref: '#/components/schemas/Fields'
+        customizationFields:
+          $ref: '#/components/schemas/CustomizationFields'
+    StatusType:
+      type: object
+      properties:
+        family:
+          type: string
+          enum:
+          - INFORMATIONAL
+          - SUCCESSFUL
+          - REDIRECTION
+          - CLIENT_ERROR
+          - SERVER_ERROR
+          - OTHER
+        statusCode:
+          type: integer
+          format: int32
+        reasonPhrase:
+          type: string
+    AddressPickupLocation:
+      type: object
+      properties:
+        line1:
+          type: string
+        line2:
+          type: string
+        line3:
+          type: string
+        line4:
+          type: string
+        zipCode:
+          type: string
+        city:
+          type: string
+        countryCode:
+          type: string
+        countryLabel:
+          type: string
+    CustomizationFields:
+      type: object
+      properties:
+        reference:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomizationTemplate'
+        customizationField:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomizationField'
+      description: <i>SUB</i> <br/>  Ce bloc peut être utilisé        pour personnaliser la partie inféririeure de l'étiquette <br/>
+      xml:
+        name: customizationFields
+    Category:
+      type: object
+      properties:
+        value:
+          type: integer
+          description: <i>N1</i> <br/>  Nature de l'envoi. <br/>Obligatoire            pour les produits soumis à la CN23.
+          format: int32
+      description: <i>SUB</i> <br/>  Bloc contenant la balise liée à la nature de l’envoi. <br/><br/>        Obligatoire pour les produits soumis à la CN23.
+    PlanPickupRequest:
+      required:
+      - mailBoxPickingDate
+      - parcelNumber
+      - sender
+      type: object
+      properties:
+        contractNumber:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        password:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        parcelNumber:
+          type: string
+          description: <i>AN13</i> <br/>  Numéro de            colis.
+        mailBoxPickingDate:
+          type: string
+          description: '<i>D</i> <br/>  Date d’emport demandée.<br/><br/>Example: \"            2022-06-25\"'
+          format: date-time
+        sender:
+          $ref: '#/components/schemas/PlanPickupSender'
+    DataSource:
+      type: object
+      properties:
+        name:
+          type: string
+        inputStream:
+          type: object
+        contentType:
+          type: string
+        outputStream:
+          type: object
+    GenerateLabelRequestV31:
+      required:
+      - letter
+      - outputFormat
+      type: object
+      properties:
+        contractNumber:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        password:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        outputFormat:
+          $ref: '#/components/schemas/OutputFormat'
+        letter:
+          $ref: '#/components/schemas/LetterRequestV31'
+        fields:
+          $ref: '#/components/schemas/Fields'
+        customizationFields:
+          $ref: '#/components/schemas/CustomizationFields'
+    Link:
+      type: object
+      properties:
+        type:
+          type: string
+        rel:
+          type: string
+        rels:
+          type: array
+          items:
+            type: string
+        uriBuilder:
+          $ref: '#/components/schemas/UriBuilder'
+        title:
+          type: string
+        uri:
+          type: string
+          format: uri
+        params:
+          type: object
+          additionalProperties:
+            type: string
+    CommandMap:
+      type: object
+      properties:
+        mimeTypes:
+          type: array
+          items:
+            type: string
+    LabelV2Response:
+      type: object
+      properties:
+        parcelNumber:
+          type: string
+        parcelNumberPartner:
+          type: string
+        pdfUrl:
+          type: string
+        fields:
+          $ref: '#/components/schemas/Fields'
+    OutputFormat:
+      required:
+      - outputPrintingType
+      - x
+      - y
+      type: object
+      properties:
+        x:
+          type: integer
+          description: '<i>N-9999…9999</i> <br/> Par             défaut, mettre à "false" (ou "0"). <br/>Permet d’ajuster le décalage             horizontal de l’impression sur l’étiquette (exprimé en points): <br/><ul><li>si             x < 0: l''étiquette est décalée à droite.</li><li>si x > 0: l''étiquette             est décalée à gauche.</li></ul>'
+          format: int32
+        y:
+          type: integer
+          description: '<i>N-120…120</i> <br/> Par défaut, mettre             à "false" (ou "0"). <br/>Permet d’ajuster le décalage vertical de             l’impression sur l’étiquette (exprimé en points) : <br/><ul><li>si y             < 0: l''étiquette est décalée en haut.</li><li>si y > 0: l''étiquette             est décalée en bas.</li></ul>'
+          format: int32
+        outputPrintingType:
+          type: string
+          description: <i>L</i> <br/> Format            d'impression des étiquettes.
+        dematerialized:
+          type: boolean
+          description: <i>B</i> <br/> Non            utilisé (utilisation interne à La Poste uniquement)
+        returnType:
+          type: string
+          description: '<i>L</i> <br/> Définit le mode de             transmission de l’étiquette.</b></b> Utilisé pour le Colissimo Retour             uniquement.</b>Par défaut, l’étiquette est envoyée uniquement dans la             réponse du Web Service.</b></b> Valeurs possibles : <br/><ul><li>SendPDFByMail             : l’étiquette est également envoyée par e-mail en tant que pièce jointe             à l’adresse renseignée dans le bloc « sender ».</li> <li>SendPDFLinkByMail             : l’étiquette est également envoyée par e-mail sous forme de lien hypertexte             à l’adresse renseignée dans le bloc « sender ».</li></ul> '
+        printCODDocument:
+          type: boolean
+          description: '<i>B</i> <br/> Permettre d’imprimer le document CRBT             <br/>Par défaut : false'
+      description: <i>SUB</i> <br/>  Ce bloc contient        les balises liées au format des éditions renvoyées par le Web Service.
+    EntityTag:
+      type: object
+      properties:
+        value:
+          type: string
+        weak:
+          type: boolean
+    LetterRequestV31:
+      required:
+      - addressee
+      - parcel
+      - service
+      type: object
+      properties:
+        service:
+          $ref: '#/components/schemas/Service'
+        parcel:
+          $ref: '#/components/schemas/ParcelRequestV31'
+        customsDeclarations:
+          $ref: '#/components/schemas/CustomsDeclarations'
+        sender:
+          $ref: '#/components/schemas/Sender'
+        addressee:
+          $ref: '#/components/schemas/Addressee'
+        codSenderAddress:
+          $ref: '#/components/schemas/Address'
+      description: '<i>SUB</i> <br/>  Ce bloc         contient des balises et blocs liés à l’expédition (options, colis, expé        diteur, destinataire, douanes).<br/><br/>Liste des sous-blocs (décrits plus         bas) : <br/><ul><li>Service : type de produit et tarifs, </li><li>Parcel         : assurances et options, </li><li>Sender : expéditeur ou déposant en retour         </li><li>Addressee : destinataire,</li><li>CustomsDeclarations : douanes.</li></ul>'
+    CommandInfo:
+      type: object
+      properties:
+        commandName:
+          type: string
+        commandClass:
+          type: string
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        messageContent:
+          type: string
+    Letter:
+      required:
+      - addressee
+      - parcel
+      - service
+      type: object
+      properties:
+        service:
+          $ref: '#/components/schemas/Service'
+        parcel:
+          $ref: '#/components/schemas/ParcelRequestV2'
+        customsDeclarations:
+          $ref: '#/components/schemas/CustomsDeclarations'
+        sender:
+          $ref: '#/components/schemas/Sender'
+        addressee:
+          $ref: '#/components/schemas/Addressee'
+        codSenderAddress:
+          $ref: '#/components/schemas/Address'
+      description: '<i>SUB</i> <br/>  Ce bloc         contient des balises et blocs liés à l’expédition (options, colis, expé        diteur, destinataire, douanes).<br/><br/>Liste des sous-blocs (décrits plus         bas) : <br/><ul><li>Service : type de produit et tarifs, </li><li>Parcel         : assurances et options, </li><li>Sender : expéditeur ou déposant en retour         </li><li>Addressee : destinataire,</li><li>CustomsDeclarations : douanes.</li></ul>'
+    Address:
+      required:
+      - countryCode
+      - zipCode
+      type: object
+      properties:
+        companyName:
+          type: string
+          description: <i>AN35</i> <br/>  Raison sociale. <br/><br/>Pour un affranchissement             retour (code produit CORE 8R, CORI 7R ou 5R), la raison sociale est             obligatoire pour le destinataire
+        lastName:
+          type: string
+          description: <i>A1...35</i> <br/>  Nom.<br/><br/>Obligatoire            pour envoyer un colis sauf si le code postal est un code cedex
+        firstName:
+          type: string
+          description: <i>A1...29</i> <br/>  Prénom.<br/><br/>Obligatoire            pour un envoi hors domicile (code produit HD)
+        line0:
+          type: string
+          description: <i>AN1...35</i> <br/>  Etage,             couloir, escalier, appart.
+        line1:
+          type: string
+          description: <i>AN1...35</i> <br/>  Entré            e, bâtiment, immeuble, résidence.
+        line2:
+          type: string
+          description: '<i>AN1...35</i> <br/>  Numéro et libellé de voie.<br/><br/> Exemple : « 5 rue du Bellay             »<br/><br/>doit comporter impérativement au moins un caractère'
+        line3:
+          type: string
+          description: <i>AN1...35</i> <br/>  Lieu             dit ou autre mention.
+        countryCode:
+          type: string
+          description: '<i>A2</i> <br/>  Code ISO du pays sur 2 lettres.<br/><br/>Ex             : « FR » pour la France '
+        city:
+          type: string
+          description: '<i>AN1...35</i> <br/>  Ville.<br/><br/>             Peut être laissée vide (ou aussi bien renseignée par une chaîne quelconque,             éventuellement non appropriée) si la balise zipCode est renseignée par             un code Cedex. * '
+        zipCode:
+          type: string
+          description: <i>AN5</i> <br/>  Code postal.<br/><br/>             Si le code postal correspond à un code Cedex alors :<br/> <ul> <li>la             balise line2 peut être laissée vide,</li> <li>la balise city peut ê            tre laissée vide.</li></ul><br/>
+        phoneNumber:
+          type: string
+          description: <i>AN10...12</i> <br/> Numéro            de téléphone.
+        mobileNumber:
+          type: string
+          description: '<i>AN</i> <br/> Le             numéro de portable est fortement recommandé pour améliorer les chances             de livraison au destinataire (il est notamment utilisé pour l''envoi             des notifications de suivi par SMS).<br/>Contrôles effectués :<ul><li>15             caractères maximum</li><li>Pour les envois vers la Belgique, le format             doit être exactement : +324NNNNNNNN</li></ul>Il doit être renseigné             obligatoirement pour les colis suivants :<ul><li>Colis hors domicile             (productCode=HD) nationaux</li><li>Colis avec l''option DDP</li><li>Colis             vers les US</li></ul><br/><br/>Pour tout envoi à l''international, il             est nécessaire d’utiliser le préfixe téléphonique spécifique au pays             dans lequel se trouve votre destinataire.<br/><br/>les chiffres du numé            ro ne doivent pas se suivre de manière incrémentale (ex. : 123456789),             sinon le WebService retournera une erreur.'
+        doorCode1:
+          type: string
+          description: <i>AN1...8</i> <br/>  Code porte 1.<br/><br/>N’apparaît pas sur            la CN23.
+        doorCode2:
+          type: string
+          description: <i>AN1...8</i> <br/>  Code porte 2.<br/><br/>N’apparaît pas sur            la CN23.
+        intercom:
+          type: string
+          description: <i>AN1...30</i> <br/>  Interphone.<br/><br/>N’apparaît pas            sur la CN23.
+        email:
+          type: string
+          description: '<i>AN5...80</i> <br/>  Obligatoire             pour les envois hors domiciles <br/><br/> Adresse courriel.<br/><br/>Utilisé             pour les notifications de suivi à l’expéditeur.<br/><br/>Forme attendue             : Texte@Texte.Texte  '
+        language:
+          type: string
+          description: '<i>A2</i> <br/>  Langue             du mail de notification à l’expéditeur.<br/><br/> Utilisée pour les             retours de colis avec le code produit <b>CORI</b> (7R) si la balise             returnType est renseignée. <br/><br/> Utilisée pour les notifications             de suivi par email ou SMS.<br/>Par défaut : FR <br/><br/> Langues disponibles             : ES, IT, NL, EN, DE. '
+        stateOrProvinceCode:
+          type: string
+          description: <i>AN2</i> <br/>  Code de l'état ou de la province. Obligatoire            pour les Etats Unis.
+      description: <i>SUB</i> <br/>
+    GetLabelRequest:
+      type: object
+      properties:
+        parcelNumber:
+          type: string
+          description: <i>AN13</i> <br/>  Numéro de            colis.
+        outputPrintingType:
+          type: string
+          description: <i>L</i> <br/> Format            d'impression des étiquettes.
+    Original:
+      type: object
+      properties:
+        originalIdent:
+          type: string
+          description: '<i>A1</i> <br/>  Clé             permettant d’identifier la facture et colis aller liés à l’article.             <br/><br/> Obligatoire pour les produits retours inter (7R) hors UE             et 5R(OM). <br/><br/> Appairer le numéro de colis avec son ordonnancement             :<br/><ul> <li>si l’article appartient au 1er colis, indiquer A ;</li>             <li>si l’article appartient au 3ème colis, indiquer C ;</li> <li>etc             …</li> </ul> '
+        originalInvoiceNumber:
+          type: string
+          description: <i>AN1...35</i> <br/>  Numéro de la facture d’origine            du colis. <br/><br/> Obligatoire pour un colis Retour.
+        originalInvoiceDate:
+          type: string
+          description: <i>AN10</i> <br/>  Date            de la facture d’origine du colis. <br/><br/> Obligatoire pour un colis            Retour. <br/><br/> Format attendu AAAA-MM-JJ. <br/><br/> Doit être antérieure            ou égale à la date du jour.
+          format: date-time
+        originalParcelNumber:
+          type: string
+          description: <i>AN1...35</i> <br/>  Numéro de colis d’origine.<br/><br/>Obligatoire            pour un colis Retour.
+      description: Bloc        contenant le (ou les) set(s) de données Original. <br/><br/> Obligatoire pour        les produits retours inter (7R) hors UE et 5R (OM). <br/><br/> Au plus 5 sets        de données Original sont agréés.<br/><br/> Les colis sont identifiés selon        l’ensemble
+    GenerateCN23Request:
+      required:
+      - letter
+      type: object
+      properties:
+        contractNumber:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        password:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        letter:
+          $ref: '#/components/schemas/Letter'
+        fields:
+          $ref: '#/components/schemas/Fields'
+    PlanPickupSender:
+      required:
+      - zipCode
+      type: object
+      properties:
+        companyName:
+          type: string
+          description: <i>AN35</i> <br/>  Raison sociale.
+        lastName:
+          type: string
+          description: <i>AN35</i> <br/>  Nom.
+        firstName:
+          type: string
+          description: <i>AN29</i> <br/>  Prénom.
+        line0:
+          type: string
+          description: <i>AN35</i> <br/>  Etage, couloir, escalier, appartement.
+        line1:
+          type: string
+          description: <i>AN35</i> <br/>  Entrée, b&acirc;timent, immeuble, résidence.
+        line2:
+          type: string
+          description: '<i>AN35</i> <br/>  Numéro et libellé de voie. <br/><br/>Example:             \"5 rue du Bellay\"'
+        line3:
+          type: string
+          description: <i>AN35</i> <br/>  Lieu-dit            ou autre mention.
+        city:
+          type: string
+          description: <i>AN35</i> <br/>  Commune.
+        zipCode:
+          type: string
+          description: <i>AN5</i> <br/>  Code postal.
+        countryCode:
+          type: string
+          description: <i>A2</i> <br/>  Code pays.<br/><br/>Seule la valeur « <b>FR</b>            » est autorisée.
+        email:
+          type: string
+          description: <i>AN80</i> <br/>  Adresse courriel. <br/><br/>            Utilisé pour les notifications de suivi aux destinataires.
+        phoneNumber:
+          type: string
+          description: <i>AN15</i> <br/>  Téléphone.
+      description: <i>SUB</i> <br/>  Bloc        contenant les coordonnées du déposant en retour.
+    Sender:
+      type: object
+      properties:
+        senderParcelRef:
+          type: string
+          description: <i>AN1...17</i> <br/>  Référence            de commande de l’expéditeur. <br/> <b>Elle permet d’afficher la référence            client seulement sur l’étiquette.</b><br/>  <b>Cette donnée n’est pas            remontée dans le SI Colissimo et ne sera pas visible dans l'outil de Suivi            Colis.</b>
+        address:
+          $ref: '#/components/schemas/Address'
+      description: <i>SUB</i> <br/>
+    ReplacementValue:
+      type: object
+      properties:
+        field:
+          type: string
+        value:
+          type: string
+        key:
+          type: string
+        translatable:
+          type: boolean
+    MessageRest:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        messageContent:
+          type: string
+        replacementValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReplacementValue'
+    BelgiumLabel:
+      type: object
+      properties:
+        codeVAS:
+          $ref: '#/components/schemas/CodeVAS'
+        identification:
+          type: string
+        codeBarre:
+          type: string
+        returnAddress:
+          $ref: '#/components/schemas/ReturnAddressBelgium'
+    CustomsDeclarations:
+      type: object
+      properties:
+        includeCustomsDeclarations:
+          type: boolean
+          description: '<i>B</i> <br/>  Permet d’inclure, dans la réponse du web service,             la génération d’un document CN23 au format PDF portant sur les articles             déclarés dans la requête web service. <br/><br/> Par défaut vaut "            true" (ou "1") pour inclure le document CN23 dans la réponse du web             service.  <br/><br/> Indiquez "false" (ou "0") pour ne pas inclure             le document CN23 dans la réponse du web service. <br/><br/> La balise             « includeCustomsDeclarations = 1 » est obligatoire pour les envois é            ligibles à la dématérialisation des documents douaniers (option DDP ou             envoi Outre-Mer). '
+        numberOfCopies:
+          type: integer
+          description: '<i>N</i> <br/>  Nombre de CN23 à imprimer Si la balise n’est pas renseigné            e 4 exemplaires de CN23 seront imprimés. Le nombre va de 1 compris à 4             exemplaires max. <br/> Remarque : les produits retours internationaux             ne tiennent pas compte de par leur format spécifique de la valeur renseigné            e ici.'
+          format: int32
+        contents:
+          $ref: '#/components/schemas/Contents'
+        importersReference:
+          type: string
+          description: '<i>AN1…35</i> <br/>  Ré            férence de l’importateur, Numéro de TVA.<br/><br/> Apparaît sur le fichier             CN23 pour les envois.<br/>N’est pas utilisé pour les retours. '
+        importersContact:
+          type: string
+          description: <i>AN35</i> <br/>  Contact (tél./e-mail) de l’importateur.            <br/> N’apparaît pas sur le fichier CN23.
+        officeOrigin:
+          type: string
+          description: <i>AN35</i> <br/>  Bureau d’origine. <br/> N’apparaît pas sur le            fichier CN23.
+        comments:
+          type: string
+          description: <i>AN35</i> <br/>  Observations<br/>Apparaît sur le fichier CN23
+        description:
+          type: string
+          description: '<i>AN1.. ??</i> <br/>  Description             générique des articles en anglais. <br/> Obligatire dans le cas d’un             envoi DDP <br/> Exemple : Textile items, Shoes, Music instrument, Hair             dryer, etc  '
+        invoiceNumber:
+          type: string
+          description: <i>AN1...35</i> <br/>  Identifiant            du document facture lié.<br/> Apparaît dans le champ « N° de la facture            » sur la CN23.
+        licenceNumber:
+          type: string
+          description: <i>AN1…35</i> <br/>  Identifiant du document de licence d’importation            lié. <br/> Apparaît dans le champ « N° de la/les licences » sur la CN23.
+        certificatNumber:
+          type: string
+          description: <i>AN1…35</i> <br/>  Identifiant du document de certificat lié.            <br/> Apparaît dans le champ « N° du/des certificats » sur la CN23.
+        importerAddress:
+          $ref: '#/components/schemas/Address'
+      description: <i>SUB</i> <br/>  Ces paramètres        ne sont obligatoires que pour les destinations nécessitant une déclaration        douanière de type CN23.
+    Routing:
+      type: object
+      properties:
+        destinationCountry:
+          type: string
+        serviceText:
+          type: string
+        depotDest:
+          type: string
+        serviceMark:
+          type: string
+        sortOrigin:
+          type: string
+        groupingPriorityLabel:
+          type: string
+        sortDest:
+          type: string
+        barcodeId:
+          type: string
+        routingVersion:
+          type: string
+        destinationCountryText:
+          type: string
+        partnerType:
+          type: string
+        barcodePostcode:
+          type: string
+        buAlphaStr:
+          type: string
+        buCode:
+          type: string
+        getcSort:
+          type: string
+        destinationDepot:
+          type: string
+        destinationDepotCountry:
+          type: string
+        destinationDepotStr:
+          type: string
+        getdSort:
+          type: string
+        groupingPriority:
+          type: string
+        networkCode:
+          type: string
+        getoSort:
+          type: string
+        partnerCode:
+          type: string
+        getsSort:
+          type: string
+        version:
+          type: string
+        getdCountry:
+          type: string
+        getdDepotCountry:
+          type: string
+        getdDepot:
+          type: string
+        getdDepotStr:
+          type: string
+    ZoneRouting:
+      type: object
+      properties:
+        zoneCABRoutage:
+          $ref: '#/components/schemas/ZoneCABRoutage'
+        zoneInfosRoutage:
+          $ref: '#/components/schemas/ZoneInfosRoutage'
+    Contents:
+      type: object
+      properties:
+        article:
+          type: array
+          description: <i>SUB</i> <br/>  Le bloc article peut être répété jusqu’à 100 fois.
+          items:
+            $ref: '#/components/schemas/Article'
+        category:
+          $ref: '#/components/schemas/Category'
+        original:
+          type: array
+          description: <i>SUB</i> <br/>  Bloc contenant le (ou            les) set(s) de données Original. <br/> Obligatoire pour les produits retours            inter (7R) hors UE et 5R (OM). <br/> Au plus 5 sets de données Original            sont agréés.<br/> Les colis sont identifiés selon l’ensemble
+          items:
+            $ref: '#/components/schemas/Original'
+        explanations:
+          type: string
+          description: <i>AN1…35</i> <br/>  A renseigner si la            catégorie « retour de marchandise » ou « Autre » est choisie (cf. 0)
+      description: Ce        bloc représente la nature de l’envoi et liste des articles à déclarer. <br/>        Obligatoire si les envois sont éligibles à la CN23.
+    GetListMailBoxPickingDatesResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        mailBoxPickingDateMaxHour:
+          type: string
+        mailBoxPickingDates:
+          type: array
+          items:
+            type: string
+            format: date-time
+        validityTime:
+          type: string
+    GetProductInterResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        product:
+          type: array
+          items:
+            type: string
+        partnerType:
+          type: string
+        returnTypeChoice:
+          type: array
+          items:
+            type: string
+    ReturnAddressBelgium:
+      type: object
+      properties:
+        mention:
+          type: string
+        line1:
+          type: string
+        line2:
+          type: string
+    generateBordereauParcelNumberList:
+      required:
+      - parcelsNumbers
+      type: object
+      properties:
+        parcelsNumbers:
+          type: array
+          description: Liste de numéros de            colis
+          items:
+            type: string
+            description: Liste de numéros              de colis
+      description: Liste de numéros de colis
+    CustomizationTemplate:
+      type: object
+      properties:
+        customizableReferenceKey:
+          type: integer
+          format: int32
+        customizableReferenceValue:
+          type: string

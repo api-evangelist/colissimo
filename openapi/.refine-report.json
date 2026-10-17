@@ -1,0 +1,32 @@
+{
+  "provider": "colissimo",
+  "sources": [
+    "_original/colissimo-sls-documentation-swagger.yml",
+    "colissimo-sls-openapi.yml"
+  ],
+  "outputs": [
+    "colissimo-description-et-exemples-des-m-thodes-du-ws-sls-api-openapi.yml",
+    "colissimo-g-n-ration-de-bordereau-de-d-pot-api-openapi.yml",
+    "colissimo-slsinternalservice-services-destin-s-aux-applications-internes-api-openapi.yml",
+    "colissimo-slsservicews-documentation-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi/colissimo-sls-openapi.yml"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "colissimo-sls-documentation-swagger.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "colissimo-sls-documentation-swagger.yml: declared missing tag: Description et exemples des m\u00e9thodes du WS SLS",
+    "colissimo-sls-documentation-swagger.yml: declared missing tag: G\u00e9n\u00e9ration de bordereau de d\u00e9pot",
+    "colissimo-sls-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "colissimo-sls-openapi.yml: declared missing tag: SlsInternalService : Services destin\u00e9s aux applications internes",
+    "colissimo-sls-openapi.yml: declared missing tag: SlsServiceWS : documentation",
+    "apis.yml register: written (+4 apis, 5 total)"
+  ],
+  "skipped": [
+    "_original/colissimo-sls-openapi.json: archived document superseded by a larger archived document"
+  ]
+}

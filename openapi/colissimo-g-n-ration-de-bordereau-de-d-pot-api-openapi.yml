@@ -1,0 +1,265 @@
+openapi: 3.2.0
+info:
+  version: '2.0'
+  x-logo:
+    altText: Colissimo logo
+    backgroundColor: '#FFFFFF'
+    url: ../images/Colissimo.svg
+  title: Documentation technique Génération de bordereau de dépot API
+  description: '# Dernières évolutions
+
+
+    Août 2026
+
+
+    * Ajout dans la documentation de la règle de format du champ EORI (2 lettres correspondant au code pays suivies de 9 chiffres) et du code erreur 30562 associé en cas de format invalide.'
+tags:
+- name: Génération de bordereau de dépot
+paths:
+  /SlsInternalService/checkInfoPlanPickup:
+    post:
+      tags:
+      - Génération de bordereau de dépot
+      operationId: checkInfoPlanPickup_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckInfoPlanPickupInternalRequest'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CheckInfoPlanPickupResponse'
+      summary: Check info plan pickup 1
+      x-summary-source: derived
+  /SlsInternalService/getListMailBoxPickingDates:
+    post:
+      tags:
+      - Génération de bordereau de dépot
+      operationId: getListMailBoxPickingDates
+      parameters:
+      - name: apiKey
+        in: header
+        description: L'apiKey
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetListMailBoxPickingDatesRetourRequest'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ListMailBoxPickingDatesRetourOnlineResponse'
+      x-codeSamples:
+      - lang: REST requête
+        source: "{\n  \"sender\": {\n    \"line2\":\"main address\",\n    \"countryCode\":\"FR\",\n    \"zipCode\":\"75007\",\n    \"city\":\"Paris\"\n  }\n}-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: REST réponse
+        source: "{\n  \"messages\": [   {\n    \"id\": \"0\",\n    \"type\": \"INFOS\",\n    \"messageContent\": \"The request has been processed successfully\"\n  }],\n  \"mailBoxPickingDateMaxHour\": \"08h00\",\n  \"mailBoxPickingDates\": [1491602400000],\n  \"validityTime\": \"23h00\"\n}\n"
+      - lang: SOAP requête
+        source: "<sls:getListMailBoxPickingDates>\n   <getListMailBoxPickingDatesRetourRequest>\n      <sender>\n         <line2>mon adresse</line2>\n         <countryCode>FR</countryCode>\n         <zipCode>75007</zipCode>\n         <city>Paris</city>\n      </sender>\n   </getListMailBoxPickingDatesRetourRequest>\n</sls:getListMailBoxPickingDates>\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: SOAP réponse
+        source: "<ns2:getListMailBoxPickingDatesResponse xmlns:ns2=\"http://sls.ws.coliposte.fr\">\n   <return>\n      <messages>\n         <id>0</id>\n         <messageContent>La requête a été traitée avec succès</messageContent>\n         <type>INFOS</type>\n      </messages>\n      <mailBoxPickingDateMaxHour>08h00</mailBoxPickingDateMaxHour>\n      <mailBoxPickingDates>2018-09-29T00:00:00+02:00</mailBoxPickingDates>\n      <validityTime>23h00</validityTime>\n   </return>\n</ns2:getListMailBoxPickingDatesResponse>\n"
+      summary: Get list mail box picking dates
+      x-summary-source: derived
+  /SlsInternalService/planPickup:
+    post:
+      tags:
+      - Génération de bordereau de dépot
+      operationId: planPickup_1
+      parameters:
+      - name: apiKey
+        in: header
+        description: L'apiKey
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanPickupRequest'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/PlanPickupResponse'
+      x-codeSamples:
+      - lang: REST requête
+        source: "{\n  \"parcelNumber\":\"8R99999999999\",\n  \"mailBoxPickingDate\":\"2017-04-30\",\n  \"sender\": {\n    \"lastName\":\"lastName\",\n    \"firstName\":\"firstName\",\n    \"line2\":\"main address\",\n    \"zipCode\":\"75020\",\n    \"city\":\"Paris\",\n    \"countryCode\":\"FR\",\n    \"email\":\"sender@test.com\"\n  }\n}-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: REST réponse
+        source: "{\n  \"messages\": \n  [\n    {\n      \"id\": \"0\",\n      \"type\": \"INFOS\",\n      \"messageContent\": \"The request has been processed successfully\"\n    }\n  ]\n}\n"
+      - lang: SOAP requête
+        source: "<sls:planPickup>\n  <planPickupRequest>\n    <parcelNumber>8R28870672110</parcelNumber>\n    <mailBoxPickingDate>2017-04-30</mailBoxPickingDate>\n    <sender>\n      <lastName>lastName</lastName>\n      <firstName>firstName</firstName>\n      <line2>main address</line2>\n      <zipCode>75007</zipCode>\n      <city>Paris</city>\n      <countryCode>FR</countryCode>\n      <email>sender@test.com</email>\n    </sender>\n  </planPickupRequest>\n</sls:planPickup>\n-HEADER \"apiKey : AE991A721E9111925E0347A4592BDAE0\"\n"
+      - lang: SOAP réponse
+        source: "<ns2:planPickupResponse xmlns:ns2=\"http://sls.ws.coliposte.fr\">\n  <return>\n    <messages>\n      <id>0</id>\n      <messageContent>La requête a été traitée avec succès</messageContent>\n      <type>INFOS</type>\n    </messages>\n  </return>\n</ns2:planPickupResponse>\n"
+      summary: Plan pickup 1
+      x-summary-source: derived
+components:
+  schemas:
+    GetListMailBoxPickingDatesRetourRequest:
+      required:
+      - sender
+      type: object
+      properties:
+        contractNumber:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        password:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        sender:
+          $ref: '#/components/schemas/GetListMailBoxPickingDatesSender'
+    ListMailBoxPickingDatesRetourOnlineResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        mailBoxPickingDateMaxHour:
+          type: string
+        mailBoxPickingDates:
+          type: array
+          items:
+            type: string
+            format: date-time
+        validityTime:
+          type: string
+    CheckInfoPlanPickupResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        isValid:
+          type: boolean
+    CheckInfoPlanPickupInternalRequest:
+      required:
+      - parcelNumber
+      - sender
+      type: object
+      properties:
+        parcelNumber:
+          type: string
+        mailBoxPickingDate:
+          type: string
+          format: date-time
+        sender:
+          $ref: '#/components/schemas/PlanPickupSender'
+    PlanPickupSender:
+      required:
+      - zipCode
+      type: object
+      properties:
+        companyName:
+          type: string
+          description: <i>AN35</i> <br/>  Raison sociale.
+        lastName:
+          type: string
+          description: <i>AN35</i> <br/>  Nom.
+        firstName:
+          type: string
+          description: <i>AN29</i> <br/>  Prénom.
+        line0:
+          type: string
+          description: <i>AN35</i> <br/>  Etage, couloir, escalier, appartement.
+        line1:
+          type: string
+          description: <i>AN35</i> <br/>  Entrée, b&acirc;timent, immeuble, résidence.
+        line2:
+          type: string
+          description: '<i>AN35</i> <br/>  Numéro et libellé de voie. <br/><br/>Example:             \"5 rue du Bellay\"'
+        line3:
+          type: string
+          description: <i>AN35</i> <br/>  Lieu-dit            ou autre mention.
+        city:
+          type: string
+          description: <i>AN35</i> <br/>  Commune.
+        zipCode:
+          type: string
+          description: <i>AN5</i> <br/>  Code postal.
+        countryCode:
+          type: string
+          description: <i>A2</i> <br/>  Code pays.<br/><br/>Seule la valeur « <b>FR</b>            » est autorisée.
+        email:
+          type: string
+          description: <i>AN80</i> <br/>  Adresse courriel. <br/><br/>            Utilisé pour les notifications de suivi aux destinataires.
+        phoneNumber:
+          type: string
+          description: <i>AN15</i> <br/>  Téléphone.
+      description: <i>SUB</i> <br/>  Bloc        contenant les coordonnées du déposant en retour.
+    PlanPickupRequest:
+      required:
+      - mailBoxPickingDate
+      - parcelNumber
+      - sender
+      type: object
+      properties:
+        contractNumber:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        password:
+          type: string
+          description: <i>AN</i> <br/>  Obsolète.            Utiliser l'apikey à la place comme expliqué dans "Accès au Web Service            SLS/Authentification API".
+        parcelNumber:
+          type: string
+          description: <i>AN13</i> <br/>  Numéro de            colis.
+        mailBoxPickingDate:
+          type: string
+          description: '<i>D</i> <br/>  Date d’emport demandée.<br/><br/>Example: \"            2022-06-25\"'
+          format: date-time
+        sender:
+          $ref: '#/components/schemas/PlanPickupSender'
+    PlanPickupResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+    GetListMailBoxPickingDatesSender:
+      required:
+      - zipCode
+      type: object
+      properties:
+        line0:
+          type: string
+          description: <i>AN35</i> <br/>  Etage, couloir, escalier, appartement.
+        line1:
+          type: string
+          description: <i>AN35</i> <br/>  Entrée, b&acirc;timent, immeuble, résidence.
+        line2:
+          type: string
+          description: '<i>AN35</i> <br/>  Numéro et libellé de voie.<br/><br/>Example:             \"5 rue du Bellay\"'
+        line3:
+          type: string
+          description: <i>AN35</i> <br/>  Lieu-dit            ou autre mention.
+        city:
+          type: string
+          description: <i>AN35</i> <br/>  Commune.
+        zipCode:
+          type: string
+          description: <i>AN5</i> <br/>  Code postal.
+        countryCode:
+          type: string
+          description: <i>A2</i> <br/>  Code pays.<br/>Seule la valeur « FR » est autorisée.
+      description: <i>SUB</i> <br/>  Bloc        contenant les coordonnées du déposant en retour.
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        messageContent:
+          type: string
