@@ -29,6 +29,14 @@ tags:
 - Company
 - Shipping
 - Logistics
+- Parcel
+- Labels
+- Pickup Points
+- France
+tags_raw:
+- Company
+- Shipping
+- Logistics
 - Parcels
 - Labels
 - Pickup Points
@@ -110,7 +118,8 @@ apis:
     et exemples des méthodes du ws sls.
   humanURL: https://www.applications.colissimo.entreprise.laposte.fr/doc-colissimo/redoc-sls/fr
   baseURL: https://ws.colissimo.fr/sls-ws/SlsServiceWSRest/2.0
-  tags:
+  tags: []
+  tags_raw:
   - Description et exemples des méthodes du WS SLS
   properties:
   - type: OpenAPI
@@ -170,7 +179,8 @@ apis:
     for slsinternalservice : services destinés aux applications internes.
   humanURL: https://www.applications.colissimo.entreprise.laposte.fr/doc-colissimo/redoc-sls/fr
   baseURL: https://ws.colissimo.fr/sls-ws/SlsServiceWSRest/2.0
-  tags:
+  tags: []
+  tags_raw:
   - 'SlsInternalService : Services destinés aux applications internes'
   properties:
   - type: OpenAPI
