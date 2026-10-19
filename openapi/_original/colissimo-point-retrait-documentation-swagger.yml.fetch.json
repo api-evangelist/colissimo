@@ -1,0 +1,12 @@
+{
+ "url": "https://www.applications.colissimo.entreprise.laposte.fr/doc-colissimo/pdr/yaml/fr",
+ "requested_url": "https://www.applications.colissimo.entreprise.laposte.fr/doc-colissimo/pdr/yaml/fr",
+ "status": 200,
+ "content_type": "text/yaml",
+ "bytes": 126624,
+ "sha256": "faab870b8f60c66d4c211d5be29fb9264cf4118e43ce60a107c676bfe6d0d5d6",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}

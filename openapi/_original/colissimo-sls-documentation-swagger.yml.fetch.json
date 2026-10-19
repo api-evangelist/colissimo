@@ -1,0 +1,12 @@
+{
+ "url": "https://www.applications.colissimo.entreprise.laposte.fr/doc-colissimo/yaml/fr",
+ "requested_url": "https://www.applications.colissimo.entreprise.laposte.fr/doc-colissimo/yaml/fr",
+ "status": 200,
+ "content_type": "text/yaml",
+ "bytes": 372917,
+ "sha256": "33e3030c57d0d16a189f62beb9c00cee1113c10992220bee48c7c70cbc71387e",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
