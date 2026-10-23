@@ -263,3 +263,9 @@ components:
           type: string
         messageContent:
           type: string
+x-provenance:
+  method: harvested
+  publisher: Colissimo
+  source: https://www.applications.colissimo.entreprise.laposte.fr/doc-colissimo/yaml/fr
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
