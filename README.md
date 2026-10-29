@@ -64,5 +64,128 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Colissimo is a company surfaced via the API Evangelist harvest backlog (source: market-gap:shipping-logistics) and added to the network as a stub for full-pipeline profiling.
-- https://www.colissimo.fr
+Colissimo is La Poste's parcel delivery brand for France and international shipping. For business shippers it publishes developer web services on ws.colissimo.fr - the Shipping Label Service (SLS, web service d'affranchissement) for labels, CN23 customs forms, bordereaux and pickup planning, available as SOAP (WSDL) and REST (OpenAPI), and the Point Retrait web service (SOAP) for finding pickup and drop-off points - documented in Redoc on the Colissimo Entreprise site.
+
+**Areas:** Company · Shipping · Logistics · Parcel · Labels · Pickup Points · France
+
+## Colissimo on APIs.io
+
+Everything profiled for Colissimo is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/colissimo/](https://apis.io/providers/colissimo/)** — or go straight to one of the APIs or properties below.
+
+### APIs (5)
+
+- [Colissimo Point Retrait API](https://apis.io/apis/colissimo/colissimo-point-retrait-api/) — Colissimo's delivery-choice / pickup point web service (SOAP) - find pickup and drop-off points by address, coordinates, identifier or token for display in…
+- [Colissimo Description et exemples des méthodes du WS SLS API](https://apis.io/apis/colissimo/colissimo-description-et-exemples-des-m-thodes-du-ws-sls-api/) — The Description et exemples des méthodes du WS SLS API from Colissimo — 9 operation(s) for description et exemples des méthodes du ws sls.
+- [Colissimo Génération de bordereau de dépot API](https://apis.io/apis/colissimo/colissimo-g-n-ration-de-bordereau-de-d-pot-api/) — The Génération de bordereau de dépot API from Colissimo — 3 operation(s) for génération de bordereau de dépot.
+- [Colissimo SlsInternalService : Services destinés aux applications internes API](https://apis.io/apis/colissimo/colissimo-slsinternalservice-services-destin-s-aux-applications-internes-api/) — The SlsInternalService : Services destinés aux applications internes API from Colissimo — 3 operation(s) for slsinternalservice : services destinés aux…
+- [Colissimo SlsServiceWS : documentation API](https://apis.io/apis/colissimo/colissimo-slsservicews-documentation-api/) — The SlsServiceWS : documentation API from Colissimo — 9 operation(s) for slsservicews : documentation.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [colissimo-mcp.yml](https://apis.io/servers/colissimo/colissimo-mcp-yml/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Colissimo Agentic Access](https://apis.io/agentic-access/colissimo/colissimo-agentic-access/)
+
+#### JSON Schema (6)
+
+The data models the API reads and writes.
+
+- [CheckGenerateLabelRequest](https://apis.io/schemas/colissimo/colissimo-check-generate-label-request/)
+- [GenerateLabelRequest](https://apis.io/schemas/colissimo/colissimo-generate-label-request/)
+- [GenerateLabelRequestV31](https://apis.io/schemas/colissimo/colissimo-generate-label-request-v31/)
+- [GetProductInterRequest](https://apis.io/schemas/colissimo/colissimo-get-product-inter-request/)
+- [PlanPickupRequest](https://apis.io/schemas/colissimo/colissimo-plan-pickup-request/)
+- [Response](https://apis.io/schemas/colissimo/colissimo-response/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Colissimo Context](https://apis.io/jsonld/colissimo/colissimo-context/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Colissimo API Rules](https://apis.io/rules/colissimo/colissimo-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Colissimo Domain Security](https://apis.io/security/colissimo/colissimo-domain-security/)
+- [Colissimo Vulnerability Disclosure](https://apis.io/security/colissimo/colissimo-vulnerability-disclosure/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.colissimo.fr)
+- [Documentation](https://www.applications.colissimo.entreprise.laposte.fr/doc-colissimo/redoc-sls/fr)
+- [Support](https://www.colissimo.entreprise.laposte.fr/contact)
+- [Security](https://vdp.laposte.fr/p/Security-Information)
+- [Terms of service](https://www.colissimo.entreprise.laposte.fr/mentions-legales)
+- [Status](https://status.colissimo.fr/)
+
+## API Evangelist rating
+
+**Kin Score 34.4** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 49.7 |
+| Contract governance | 22.0 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 32.7 |
+| Access clarity | 10.5 |
+
+**Agent readiness 16.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 20.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/colissimo/](https://apis.io/providers/colissimo/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Colissimo: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/colissimo/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
